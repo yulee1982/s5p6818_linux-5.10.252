@@ -1,0 +1,1099 @@
+EMA is 1.1V
+
+
+
+
+Working to aarch64
+
+waiting for pll change..
+
+
+
+--------------------------------------------------------------------------------
+
+ Second Boot by Nexell Co. : Ver0.1.1 - Built on Nov 29 2025 11:47:02
+
+--------------------------------------------------------------------------------
+
+ NSIH : Ver0.3.xx
+
+
+
+DDR3 POR Init Start 0
+
+
+
+DDR3 POR Init Start
+
+PHY Version: 0x06000271
+
+phy init
+
+
+
+########## Gate Leveling - Start ##########
+
+
+
+########## Gate Leveling - End ##########
+
+Lock value  = 187
+
+g_GT_cycle  = 0x00000492
+
+g_GT_code   = 0x0B0E1412
+
+g_RD_vwmc   = 0x00000000
+
+g_WR_vwmc   = 0x00000000
+
+GATE CYC    = 0x00000492
+
+GATE CODE   = 0x00000000
+
+Read  DQ    = 0x08080808
+
+Write DQ    = 0x08080808
+
+
+
+
+
+DDR3 Init Done!
+
+CCI Init!
+
+Wakeup CPU Wakeup Sub CPU 1234567
+
+CPU Wakeup done! WFI is expected.
+
+CPU0 is Master!
+
+
+Loading from sdmmc...
+
+Launch to 0x43C00000
+
+
+
+
+
+U-Boot 2016.01-00712-g23ef2ccb7a-dirty (Dec 05 2025 - 08:51:06 +0800)
+
+
+
+Model: FriendlyElec boards based on Nexell s5p6818
+
+Board: NanoPC-T3
+
+DRAM:  2 GiB
+
+Panel: S430
+
+MMC:   NEXELL DWMMC: 0, NEXELL DWMMC: 1
+
+*** Warning - bad CRC, using default environment
+
+
+
+RGB:   dp.0
+
+LCD:   [LCD] dp.0.1 480x800 32bpp FB:0x46000000
+
+In:    serial
+
+Out:   serial
+
+Err:   serial
+
+MAC:  [80:1f:12:ce:50:99]
+
+
+
+Hit any key to stop autoboot:  0
+
+21121536 bytes read in 1023 ms (19.7 MiB/s)
+
+43276 bytes read in 23 ms (1.8 MiB/s)
+
+## Flattened Device Tree blob at 4a000000
+
+   Booting using the fdt blob at 0x4a000000
+
+   Using Device Tree in place at 000000004a000000, end 000000004a00d90b
+
+
+
+Starting kernel ...
+
+
+
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd033]
+
+[    0.000000] Linux version 5.10.252 (yulee@yulee-linux) (aarch64-linux-gnu-gcc (GCC) 12.1.1 20220806 [releases/gcc-12 revision 4178af1a5f65a9baad5ecbb3f44824861259fba5], GNU ld (Linaro_Binutils-2022.08) 2.38.20220708) #1 SMP PREEMPT Wed Apr 8 10:54:09 CST 2026
+
+[    0.000000] Machine model: FriendlyElec NanoPC-T3
+
+[    0.000000] efi: UEFI not found.
+
+[    0.000000] NUMA: No NUMA configuration found
+
+[    0.000000] NUMA: Faking a node at [mem 0x0000000040000000-0x00000000bdafffff]
+
+[    0.000000] NUMA: NODE_DATA [mem 0xbd6d3b00-0xbd6d5fff]
+
+[    0.000000] Zone ranges:
+
+[    0.000000]   DMA      [mem 0x0000000040000000-0x00000000bdafffff]
+
+[    0.000000]   DMA32    empty
+
+[    0.000000]   Normal   empty
+
+[    0.000000] Movable zone start for each node
+
+[    0.000000] Early memory node ranges
+
+[    0.000000]   node   0: [mem 0x0000000040000000-0x00000000bdafffff]
+
+[    0.000000] Initmem setup node 0 [mem 0x0000000040000000-0x00000000bdafffff]
+
+[    0.000000] On node 0, zone DMA: 256 pages in unavailable ranges
+
+[    0.000000] cma: Reserved 32 MiB at 0x00000000b9000000
+
+[    0.000000] psci: probing for conduit method from DT.
+
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+
+[    0.000000] psci: Trusted OS migration not required
+
+[    0.000000] psci: SMC Calling Convention v1.0
+
+[    0.000000] percpu: Embedded 22 pages/cpu s51672 r8192 d30248 u90112
+
+[    0.000000] Detected VIPT I-cache on CPU0
+
+[    0.000000] CPU features: detected: ARM erratum 845719
+
+[    0.000000] CPU features: GIC system register CPU interface present but disabled by higher exception level
+
+[    0.000000] CPU features: detected: ARM erratum 843419
+
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 506772
+
+[    0.000000] Policy zone: DMA
+
+[    0.000000] Kernel command line: console=tty0 console=ttySAC0,115200n8 rdinit=/init
+
+[    0.000000] Dentry cache hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+
+[    0.000000] Inode-cache hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+
+[    0.000000] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+
+[    0.000000] Memory: 1956380K/2059264K available (12032K kernel code, 1106K rwdata, 4240K rodata, 3136K init, 394K bss, 70116K reserved, 32768K cma-reserved)
+
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=8, Nodes=1
+
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+
+[    0.000000] rcu:     RCU event tracing is enabled.
+
+[    0.000000]  Trampoline variant of Tasks RCU enabled.
+
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+
+[    0.000000] GIC: Using split EOI/Deactivate mode
+
+[    0.000000] PLL : [0] =  800000000, [1] =  800000000, [2] =  614394000, [3] =  800000000
+
+[    0.000000] (0) PLL1: CPU  FCLK =  800000000, HCLK = 200000000 (G0)
+
+[    0.000000] (7) PLL1: CPU  FCLK =  800000000, HCLK = 200000000 (G1)
+
+[    0.000000] (2) PLL3: MEM  FCLK =  800000000, DCLK = 800000000, BCLK = 400000000,
+
+[    0.000000] PCLK = 200000000
+
+[    0.000000] (1) PLL0: BUS  BCLK =  400000000, PCLK = 200000000
+
+[    0.000000] (8) PLL0: CCI4 BCLK =  400000000, PCLK = 200000000
+
+[    0.000000] (3) PLL0: G3D  BCLK =  400000000
+
+[    0.000000] (4) PLL0: VPU  BCLK =  400000000, PCLK = 200000000
+
+[    0.000000] (5) PLL0: DISP BCLK =  400000000, PCLK = 200000000
+
+[    0.000000] CPU REF HZ: 24000000 hz (0xc0010000:0x(____ptrval____))
+
+[    0.000000] irq_of_parse_and_map:  /soc@0/interrupt-controller@c0009000:00000000,00000018,00000000
+
+[    0.000000] clocksource: source timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 191126044627 ns
+
+[    0.000005] sched_clock: 32 bits at 10MHz, resolution 100ns, wraps every 214748364750ns
+
+[    0.000247] Console: colour dummy device 80x25
+
+[    0.000847] printk: console [tty0] enabled
+
+[    0.000950] Calibrating delay loop... 19.84 BogoMIPS (lpj=39680)
+
+[    0.044034] pid_max: default: 32768 minimum: 301
+
+[    0.044157] LSM: Security Framework initializing
+
+[    0.044248] Mount-cache hash table entries: 4096 (order: 3, 32768 bytes, linear)
+
+[    0.044284] Mountpoint-cache hash table entries: 4096 (order: 3, 32768 bytes, linear)
+
+[    0.046448] rcu: Hierarchical SRCU implementation.
+
+[    0.047287] EFI services will not be available.
+
+[    0.047842] smp: Bringing up secondary CPUs ...
+
+[    0.048401] Detected VIPT I-cache on CPU1
+
+[    0.048455] CPU1: Booted secondary processor 0x0000000001 [0x410fd033]
+
+[    0.049075] Detected VIPT I-cache on CPU2
+
+[    0.049110] CPU2: Booted secondary processor 0x0000000002 [0x410fd033]
+
+[    0.049684] Detected VIPT I-cache on CPU3
+
+[    0.049717] CPU3: Booted secondary processor 0x0000000003 [0x410fd033]
+
+[    0.050316] Detected VIPT I-cache on CPU4
+
+[    0.050379] CPU4: Booted secondary processor 0x0000040400 [0x410fd033]
+
+[    0.051034] Detected VIPT I-cache on CPU5
+
+[    0.051069] CPU5: Booted secondary processor 0x0000040401 [0x410fd033]
+
+[    0.051734] Detected VIPT I-cache on CPU6
+
+[    0.051769] CPU6: Booted secondary processor 0x0000040402 [0x410fd033]
+
+[    0.052358] Detected VIPT I-cache on CPU7
+
+[    0.052393] CPU7: Booted secondary processor 0x0000040403 [0x410fd033]
+
+[    0.052513] smp: Brought up 1 node, 8 CPUs
+
+[    0.052679] SMP: Total of 8 processors activated.
+
+[    0.052697] CPU features: detected: 32-bit EL0 Support
+
+[    0.052715] CPU features: detected: CRC32 instructions
+
+[    0.068067] CPU: All CPU(s) started at EL2
+
+[    0.068145] alternatives: patching kernel code
+
+[    0.070082] devtmpfs: initialized
+
+[    0.079698] KASLR disabled due to lack of seed
+
+[    0.079972] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+
+[    0.080018] futex hash table entries: 2048 (order: 5, 131072 bytes, linear)
+
+[    0.081596] pinctrl core: initialized pinctrl subsystem
+
+[    0.081789] ECID: ceaec33a:362800d5:00000000:04e81234
+
+[    0.081807] LOT ID : NGACU
+
+[    0.082318] DMI not present or invalid.
+
+[    0.083119] NET: Registered protocol family 16
+
+[    0.085538] DMA: preallocated 256 KiB GFP_KERNEL pool for atomic allocations
+
+[    0.086087] DMA: preallocated 256 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+
+[    0.086398] DMA: preallocated 256 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
+
+[    0.086517] audit: initializing netlink subsys (disabled)
+
+[    0.086776] audit: type=2000 audit(0.080:1): state=initialized audit_enabled=0 res=1
+
+[    0.087463] thermal_sys: Registered thermal governor 'step_wise'
+
+[    0.087469] thermal_sys: Registered thermal governor 'power_allocator'
+
+[    0.087739] cpuidle: using governor menu
+
+[    0.087914] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+
+[    0.088139] ASID allocator initialised with 65536 entries
+
+[    0.088409] Serial: AMBA PL011 UART driver
+
+[    0.090330] irq_of_parse_and_map:  /soc@0/interrupt-controller@c0009000:00000000,00000001,00000000
+
+[    0.090572] irq_of_parse_and_map:  /soc@0/interrupt-controller@c0009000:00000000,00000002,00000000
+
+[    0.107223] irq_of_parse_and_map:  /soc@0/interrupt-controller@c0009000:00000000,00000035,00000000
+
+[    0.107287] irq_of_parse_and_map:  /soc@0/interrupt-controller@c0009000:00000000,00000036,00000000
+
+[    0.107334] irq_of_parse_and_map:  /soc@0/interrupt-controller@c0009000:00000000,00000037,00000000
+
+[    0.107396] irq_of_parse_and_map:  /soc@0/interrupt-controller@c0009000:00000000,00000038,00000000
+
+[    0.107443] irq_of_parse_and_map:  /soc@0/interrupt-controller@c0009000:00000000,00000039,00000000
+
+[    0.107489] irq_of_parse_and_map:  /soc@0/interrupt-controller@c0009000:00000000,00000004,00000000
+
+[    0.109567] nexell-reset c0012000.reset: nexell reset: nr_resets [96], base [(____ptrval____)]
+
+[    0.120762] HugeTLB registered 1.00 GiB page size, pre-allocated 0 pages
+
+[    0.120787] HugeTLB registered 32.0 MiB page size, pre-allocated 0 pages
+
+[    0.120806] HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+
+[    0.120825] HugeTLB registered 64.0 KiB page size, pre-allocated 0 pages
+
+[    0.122554] cryptd: max_cpu_qlen set to 1000
+
+[    0.125556] ACPI: Interpreter disabled.
+
+[    0.125843] pl08xdmac c0000000.pl08xdma: initialized 8 virtual memcpy channels
+
+[    0.125888] pl08xdmac c0000000.pl08xdma: initialized 16 virtual slave channels
+
+[    0.127243] debugfs: Directory 'c0000000.pl08xdma' with parent 'dmaengine' already present!
+
+[    0.127286] pl08xdmac c0000000.pl08xdma: DMA: PL080 rev0 at 0xc0000000 irq 24
+
+[    0.127552] pl08xdmac c0001000.pl08xdma: initialized 8 virtual memcpy channels
+
+[    0.127591] pl08xdmac c0001000.pl08xdma: initialized 16 virtual slave channels
+
+[    0.128948] debugfs: Directory 'c0001000.pl08xdma' with parent 'dmaengine' already present!
+
+[    0.128986] pl08xdmac c0001000.pl08xdma: DMA: PL080 rev0 at 0xc0001000 irq 25
+
+[    0.129630] iommu: Default domain type: Translated
+
+[    0.129796] vgaarb: loaded
+
+[    0.130205] SCSI subsystem initialized
+
+[    0.130656] usbcore: registered new interface driver usbfs
+
+[    0.130713] usbcore: registered new interface driver hub
+
+[    0.130769] usbcore: registered new device driver usb
+
+[    0.132277] s3c-i2c c00a4000.i2c: slave address 0x66
+
+[    0.132298] s3c-i2c c00a4000.i2c: bus frequency set to 97 KHz
+
+[    0.132715] s3c-i2c c00a4000.i2c: i2c-0: S3C I2C adapter
+
+[    0.134121] s3c-i2c c00a5000.i2c: slave address 0x66
+
+[    0.134143] s3c-i2c c00a5000.i2c: bus frequency set to 97 KHz
+
+[    0.134335] s3c-i2c c00a5000.i2c: i2c-1: S3C I2C adapter
+
+[    0.135590] s3c-i2c c00a6000.i2c: slave address 0x66
+
+[    0.135610] s3c-i2c c00a6000.i2c: bus frequency set to 97 KHz
+
+[    0.135794] s3c-i2c c00a6000.i2c: i2c-2: S3C I2C adapter
+
+[    0.135988] pps_core: LinuxPPS API ver. 1 registered
+
+[    0.136006] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+
+[    0.136041] PTP clock support registered
+
+[    0.136096] EDAC MC: Ver: 3.0.0
+
+[    0.136900] FPGA manager framework
+
+[    0.137022] Advanced Linux Sound Architecture Driver Initialized.
+
+[    0.138009] clocksource: Switched to clocksource source timer
+
+[    0.138250] VFS: Disk quotas dquot_6.6.0
+
+[    0.138343] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+
+[    0.138609] pnp: PnP ACPI: disabled
+
+[    0.139345] Clockevents: could not switch to one-shot mode:
+
+[    0.139349] Clockevents: could not switch to one-shot mode:
+
+[    0.139352] Clockevents: could not switch to one-shot mode:
+
+[    0.139357] Clockevents: could not switch to one-shot mode:
+
+[    0.139361] Clockevents: could not switch to one-shot mode:
+
+[    0.139364] Clockevents: could not switch to one-shot mode:
+
+[    0.139369] Clockevents: could not switch to one-shot mode:
+
+[    0.139374] Clockevents: could not switch to one-shot mode:
+
+[    0.139388]  dummy_timer is not functional.
+
+[    0.139391]  dummy_timer is not functional.
+
+[    0.139397]  dummy_timer is not functional.
+
+[    0.139400]  dummy_timer is not functional.
+
+[    0.139403]  dummy_timer is not functional.
+
+[    0.139408]  dummy_timer is not functional.
+
+[    0.139413]  dummy_timer is not functional.
+
+[    0.139419] Could not switch to high resolution mode on CPU 7
+
+[    0.139423] Could not switch to high resolution mode on CPU 3
+
+[    0.139427] Could not switch to high resolution mode on CPU 2
+
+[    0.139436]  dummy_timer is not functional.
+
+[    0.139441] Could not switch to high resolution mode on CPU 1
+
+[    0.139446] Could not switch to high resolution mode on CPU 6
+
+[    0.139450] Could not switch to high resolution mode on CPU 0
+
+[    0.139459] Could not switch to high resolution mode on CPU 4
+
+[    0.139470] Could not switch to high resolution mode on CPU 5
+
+[    0.145813] NET: Registered protocol family 2
+
+[    0.146069] IP idents hash table entries: 32768 (order: 6, 262144 bytes, linear)
+
+[    0.147475] tcp_listen_portaddr_hash hash table entries: 1024 (order: 2, 16384 bytes, linear)
+
+[    0.147539] TCP established hash table entries: 16384 (order: 5, 131072 bytes, linear)
+
+[    0.147721] TCP bind hash table entries: 16384 (order: 6, 262144 bytes, linear)
+
+[    0.148019] TCP: Hash tables configured (established 16384 bind 16384)
+
+[    0.148170] UDP hash table entries: 1024 (order: 3, 32768 bytes, linear)
+
+[    0.148246] UDP-Lite hash table entries: 1024 (order: 3, 32768 bytes, linear)
+
+[    0.148456] NET: Registered protocol family 1
+
+[    0.149010] RPC: Registered named UNIX socket transport module.
+
+[    0.149029] RPC: Registered udp transport module.
+
+[    0.149044] RPC: Registered tcp transport module.
+
+[    0.149058] RPC: Registered tcp NFSv4.1 backchannel transport module.
+
+[    0.149083] PCI: CLS 0 bytes, default 64
+
+[    0.226035] hw perfevents: enabled with armv8_pmuv3 PMU driver, 7 counters available
+
+[    0.231515] Initialise system trusted keyrings
+
+[    0.231787] workingset: timestamp_bits=42 max_order=19 bucket_order=0
+
+[    0.239176] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+
+[    0.240014] NFS: Registering the id_resolver key type
+
+[    0.240081] Key type id_resolver registered
+
+[    0.240097] Key type id_legacy registered
+
+[    0.240212] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+
+[    0.240233] nfs4flexfilelayout_init: NFSv4 Flexfile Layout Driver Registering...
+
+[    0.240440] 9p: Installing v9fs 9p2000 file system support
+
+[    0.294301] Key type asymmetric registered
+
+[    0.294322] Asymmetric key parser 'x509' registered
+
+[    0.294377] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 246)
+
+[    0.294400] io scheduler mq-deadline registered
+
+[    0.294419] io scheduler kyber registered
+
+[    0.297222] EINJ: ACPI disabled.
+
+[    0.301152] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+
+[    0.303079] c00a1000.serial: ttySAC0 at MMIO 0xc00a1000 (irq = 26, base_baud = 0) is a S3C6400/10
+
+[    1.513814] printk: console [ttySAC0] enabled
+
+[    1.519922] c00a0000.serial: ttySAC1 at MMIO 0xc00a0000 (irq = 27, base_baud = 0) is a S3C6400/10
+
+[    1.528330] cacheinfo: Unable to detect cache hierarchy for CPU 0
+
+[    1.541043] loop: module loaded
+
+[    1.541594] megasas: 07.714.04.00-rc1
+
+[    1.545587] tun: Universal TUN/TAP device driver, 1.6
+
+[    1.547769] thunder_xcv, ver 1.0
+
+[    1.550479] thunder_bgx, ver 1.0
+
+[    1.553707] nicpf, ver 1.0
+
+[    1.556711] hclge is initializing
+
+[    1.559668] hns3: Hisilicon Ethernet Network Driver for Hip08 Family - version
+
+[    1.566853] hns3: Copyright (c) 2017 Huawei Corporation.
+
+[    1.572193] e1000: Intel(R) PRO/1000 Network Driver
+
+[    1.577004] e1000: Copyright (c) 1999-2006 Intel Corporation.
+
+[    1.582774] e1000e: Intel(R) PRO/1000 Network Driver
+
+[    1.587677] e1000e: Copyright(c) 1999 - 2015 Intel Corporation.
+
+[    1.593630] igb: Intel(R) Gigabit Ethernet Network Driver
+
+[    1.598962] igb: Copyright (c) 2007-2014 Intel Corporation.
+
+[    1.604548] igbvf: Intel(R) Gigabit Virtual Function Network Driver
+
+[    1.610766] igbvf: Copyright (c) 2009 - 2012 Intel Corporation.
+
+[    1.616699] sky2: driver version 1.30
+
+[    1.620626] VFIO - User Level meta-driver version: 0.3
+
+[    1.626544] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+
+[    1.631963] ehci-pci: EHCI PCI platform driver
+
+[    1.636411] ehci-platform: EHCI generic platform driver
+
+[    1.641674] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+
+[    1.647754] ohci-pci: OHCI PCI platform driver
+
+[    1.652199] ohci-platform: OHCI generic platform driver
+
+[    1.657744] usbcore: registered new interface driver usb-storage
+
+[    1.664853] nx-rtc c0010c00.rtc: [RTC] day=2009.09.01 time=00:00:00
+
+[    1.670177] nx-rtc c0010c00.rtc: registered as rtc0
+
+[    1.674514] nx-rtc c0010c00.rtc: setting system clock to 2009-09-01T00:00:00 UTC (1251763200)
+
+[    1.683079] i2c /dev entries driver
+
+[    1.687497] exynos-tmu c0096000.tmuctrl: Regulator node (vtmu) not found
+
+[    1.693154] irq_of_parse_and_map:  /soc@0/interrupt-controller@c0009000:00000000,0000003c,00000000
+
+[    1.702346] exynos-tmu c0096000.tmuctrl: Failed to register sensor: -19
+
+[    1.709049] DVFS: ASV[2] IDS 20mA, Ro 108 -> Table [IDS 15mA, Ro 130]
+
+[    1.715095] ASV  0 =  1400000khz,  1275000 uV
+
+[    1.719426] ASV  1 =  1300000khz,  1225000 uV
+
+[    1.723765] ASV  2 =  1200000khz,  1175000 uV
+
+[    1.728104] ASV  3 =  1100000khz,  1125000 uV
+
+[    1.732444] ASV  4 =  1000000khz,  1100000 uV
+
+[    1.736783] ASV  5 =   900000khz,  1075000 uV
+
+[    1.741122] ASV  6 =   800000khz,  1050000 uV
+
+[    1.745462] ASV  7 =   700000khz,  1025000 uV
+
+[    1.749810] ASV  8 =   600000khz,  1000000 uV
+
+[    1.754142] ASV  9 =   500000khz,  1000000 uV
+
+[    1.758480] ASV 10 =   400000khz,  1000000 uV
+
+[    1.762829] DVFS: cpu DFS with PLL.1 [tables=11]
+
+[    1.769172] sdhci: Secure Digital Host Controller Interface driver
+
+[    1.773584] sdhci: Copyright(c) Pierre Ossman
+
+[    1.778005] Synopsys Designware Multimedia Card Interface Driver
+
+[    1.784485] dwmmc_nexell c0069000.dw_mmc: fifo-depth property not found, using value of FIFOTH register as default
+
+[    1.795366] dwmmc_nexell c0069000.dw_mmc: IDMAC supports 32-bit address mode.
+
+[    1.801365] dwmmc_nexell c0069000.dw_mmc: Using internal DMA controller.
+
+[    1.808039] dwmmc_nexell c0069000.dw_mmc: Version ID is 250a
+
+[    1.813709] dwmmc_nexell c0069000.dw_mmc: DW MMC controller at irq 31,32 bit host data width,32 deep fifo
+
+[    1.823366] mmc_host mmc0: card is non-removable.
+
+[    1.839362] mmc_host mmc0: Bus speed (slot 0) = 100000000Hz (slot req 400000Hz, actual 400000HZ div = 125)
+
+[    1.855760] dwmmc_nexell c0068000.dw_mmc: fifo-depth property not found, using value of FIFOTH register as default
+
+[    1.864369] dwmmc_nexell c0068000.dw_mmc: IDMAC supports 32-bit address mode.
+
+[    1.867616] dwmmc_nexell c0068000.dw_mmc: Using internal DMA controller.
+
+[    1.874269] dwmmc_nexell c0068000.dw_mmc: Version ID is 250a
+
+[    1.879935] dwmmc_nexell c0068000.dw_mmc: DW MMC controller at irq 32,32 bit host data width,32 deep fifo
+
+[    1.889564] dwmmc_nexell c0068000.dw_mmc: allocated mmc-pwrseq
+
+[    1.895270] mmc_host mmc1: card is non-removable.
+
+[    1.971403] mmc_host mmc1: Bus speed (slot 0) = 50000000Hz (slot req 400000Hz, actual 396825HZ div = 63)
+
+[    1.987922] dwmmc_nexell c0062000.dw_mmc: fifo-depth property not found, using value of FIFOTH register as default
+
+[    1.995357] dwmmc_nexell c0062000.dw_mmc: IDMAC supports 32-bit address mode.
+
+[    2.000106] dwmmc_nexell c0062000.dw_mmc: Using internal DMA controller.
+
+[    2.006438] dwmmc_nexell c0062000.dw_mmc: Version ID is 250a
+
+[    2.012111] dwmmc_nexell c0062000.dw_mmc: DW MMC controller at irq 33,32 bit host data width,16 deep fifo
+
+[    2.013490] mmc1: queuing unknown CIS tuple 0x80 (2 bytes)
+
+[    2.021744] dwmmc_nexell c0062000.dw_mmc: Got CD GPIO
+
+[    2.028601] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+
+[    2.037867] mmc_host mmc0: Bus speed (slot 0) = 100000000Hz (slot req 52000000Hz, actual 50000000HZ div = 1)
+
+[    2.039126] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+
+[    2.043366] mmc_host mmc2: Bus speed (slot 0) = 50000000Hz (slot req 400000Hz, actual 396825HZ div = 63)
+
+[    2.051581] mmc0: new high speed MMC card at address 0001
+
+[    2.055597] mmc1: queuing unknown CIS tuple 0x80 (7 bytes)
+
+[    2.055879] sdhci-pltfm: SDHCI platform and OF driver helper
+
+[    2.078884] ledtrig-cpu: registered to indicate activity on CPUs
+
+[    2.078919] mmcblk0: mmc0:0001 AJTD4R 14.6 GiB
+
+[    2.082089] mmc1: queuing unknown CIS tuple 0x81 (9 bytes)
+
+[    2.085432] usbcore: registered new interface driver usbhid
+
+[    2.089587] mmcblk0boot0: mmc0:0001 AJTD4R partition 1 4.00 MiB
+
+[    2.094788] usbhid: USB HID core driver
+
+[    2.096573] NET: Registered protocol family 17
+
+[    2.100645] mmcblk0boot1: mmc0:0001 AJTD4R partition 2 4.00 MiB
+
+[    2.104602] mmc_host mmc2: Bus speed (slot 0) = 50000000Hz (slot req 50000000Hz, actual 50000000HZ div = 0)
+
+[    2.104670] mmc2: new high speed SDHC card at address 0001
+
+[    2.105250] mmcblk2: mmc2:0001 SD8GB 7.44 GiB
+
+[    2.106393] 9pnet: Installing 9P2000 support
+
+[    2.107816]  mmcblk2: p1
+
+[    2.110151] mmcblk0rpmb: mmc0:0001 AJTD4R partition 3 4.00 MiB, chardev (241:0)
+
+[    2.114543] Key type dns_resolver registered
+
+[    2.122744]  mmcblk0: p1 p2 p3 p4 < p5 p6 p7 >
+
+[    2.130328] Loading compiled-in X.509 certificates
+
+[    2.163030] mmc_host mmc1: Bus speed (slot 0) = 50000000Hz (slot req 50000000Hz, actual 50000000HZ div = 0)
+
+[    2.170904] clk: Disabling unused clocks
+
+[    2.179810] mmc1: new high speed SDIO card at address 0001
+
+[    2.181182] ALSA device list:
+
+[    2.189560]   No soundcards found.
+
+[    2.194438] Freeing unused kernel memory: 3136K
+
+[    2.211377] Run /init as init process
+
+hello, world!
+
+hello, Linux!
+
+here is initramfs!
+
+[    2.286564] EXT4-fs (mmcblk2p1): mounted filesystem with ordered data mode. Opts: (null)
+
+[    2.619440] systemd[1]: System time before build time, advancing clock.
+
+[    2.705972] random: systemd: uninitialized urandom read (16 bytes read)
+
+[    2.712867] random: systemd: uninitialized urandom read (16 bytes read)
+
+[    2.718490] systemd[1]: systemd 229 running in system mode. (+PAM +AUDIT +SELINUX +IMA +APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +GCRYPT +GNUTLS +ACL +XZ -LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD -IDN)
+
+[    2.732862] systemd[1]: Detected architecture arm64.
+
+
+
+Welcome to Ubuntu 16.04.6 LTS!
+
+
+
+[    2.758280] systemd[1]: Set hostname to <NanoPC-T3>.
+
+[    2.796552] random: systemd: uninitialized urandom read (16 bytes read)
+
+[    3.229894] systemd[1]: Listening on Journal Audit Socket.
+
+[    3.230409] systemd[1]: Listening on udev Kernel Socket.
+
+[    3.235532] systemd[1]: Listening on Journal Socket.
+
+[    3.240213] systemd[1]: Reached target Remote File Systems (Pre).
+
+[    3.246253] systemd[1]: Listening on Syslog Socket.
+
+[    3.251310] systemd[1]: Started Trigger resolvconf update for networkd DNS.
+
+[    3.257987] systemd[1]: Reached target Remote File Systems.
+
+[  OK  ] Listening on Journal Audit Socket.
+
+[  OK  ] Listening on udev Kernel Socket.
+
+[  OK  ] Listening on Journal Socket.
+
+[  OK  ] Reached target Remote File Systems (Pre).
+
+[  OK  ] Listening on Syslog Socket.
+
+[  OK  ] Started Trigger resolvconf update for networkd DNS.
+
+[  OK  ] Reached target Remote File Systems.
+
+[  OK  ] Listening on Journal Socket (/dev/log).
+
+[  OK  ] Created slice System Slice.
+
+         Starting Nameserver information manager...
+
+[  OK  ] Started Read required files in advance.
+
+         Starting Load Kernel Modules...
+
+[  OK  ] Created slice system-serial\x2dgetty.slice.
+
+         Mounting POSIX Message Queue File System...
+
+[  OK  ] Started Forward Password Requests to Wall Directory Watch.
+
+[  OK  ] Created slice User and Session Slice.
+
+[  OK  ] Reached target Slices.
+
+[  OK  ] Started Dispatch Password Requests to Console Directory Watch.
+
+[  OK  ] Reached target Paths.
+
+         Starting Set console keymap...
+
+[  OK  ] Reached target Encrypted Volumes.
+
+         Starting Remount Root and Kernel File Systems...
+
+[  OK  ] Listening on udev Control Socket.
+
+[  OK  ] Listening on /dev/initctl Compatibility Named Pipe.
+
+         Starting Journal Service...
+
+         Starting Create Static Device Nodes in /dev...
+
+         Mounting Huge Pages File System...
+
+         Mounting Debug File System...
+
+[  OK  ] Mounted POSIX Message Queue File System.
+
+[  OK  ] Mounted Huge Pages File System.
+
+[  OK  ] Mounted Debug File System.
+
+[  OK  ] Started Load Kernel Modules.
+
+[  OK  ] Started Remount Root and Kernel File Systems.
+
+         Starting Load/Save Random Seed...
+
+         Activating swap /swapfile...
+
+         Starting udev Coldplug all Devices...
+
+         Starting Apply Kernel Variables...
+
+         Mounting Configuration File System...
+
+[  OK  ] Started Nameserver information manager.
+
+[  OK  ] Mounted Configuration File System.
+
+[  OK  ] Reached target Network (Pre).
+
+[  OK  ] Started Load/Save Random Seed.
+
+[    3.563380] Adding 2097148k swap on /swapfile.  Priority:-2 extents:6 across:3235836k SS
+
+[  OK  ] Activated swap /swapfile.
+
+[  OK  ] Reached target Swap.
+
+[  OK  ] Started Apply Kernel Variables.
+
+[  OK  ] Started Set console keymap.
+
+[  OK  ] Started Journal Service.
+
+         Starting Flush Journal to Persistent Storage...
+
+[  OK  ] Started udev Coldplug all Devices.
+
+[  OK  ] Started Create Static Device Nodes in /dev.
+
+[  OK  ] Reached target Local File Systems (Pre).
+
+[  OK  ] Reached target Local File Systems.
+
+         Starting LSB: AppArmor initialization...
+
+         Starting Set console font and keymap...
+
+         Starting udev Kernel Device Manager...
+
+[  OK  ] Started Flush Journal to Persistent Storage.
+
+         Starting Create Volatile Files and Directories...
+
+[FAILED] Failed to start Create Volatile Files and Directories.
+
+See 'systemctl status systemd-tmpfiles-setup.service' for details.
+
+[  OK  ] Reached target System Time Synchronized.
+
+         Starting Update UTMP about System Boot/Shutdown...
+
+[  OK  ] Started LSB: AppArmor initialization.
+
+         Starting Raise network interfaces...
+
+[  OK  ] Started Update UTMP about System Boot/Shutdown.
+
+[  OK  ] Started Raise network interfaces.
+
+[  OK  ] Started udev Kernel Device Manager.
+
+[  OK  ] Reached target System Initialization.
+
+[  OK  ] Listening on D-Bus System Message Bus Socket.
+
+[  OK  ] Started Daily Cleanup of Temporary Directories.
+
+[  OK  ] Started Daily apt download activities.
+
+[  OK  ] Started Daily apt upgrade and clean activities.
+
+         Starting Socket activation for snappy daemon.
+
+[  OK  ] Started Message of the Day.
+
+[  OK  ] Reached target Timers.
+
+[  OK  ] Listening on Socket activation for snappy daemon.
+
+[  OK  ] Reached target Sockets.
+
+[  OK  ] Reached target Basic System.
+
+[  OK  ] Started Regular background program processing daemon.
+
+         Starting System Logging Service...
+
+         Starting Restore /etc/resolv.conf i...re the ppp link was shut down...
+
+         Starting LSB: Set the CPU Frequency Scaling governor to "ondemand"...
+
+         Starting Login Service...
+
+[  OK  ] Started D-Bus System Message Bus.
+
+[    4.566162] Unable to handle kernel paging request at virtual address ffffffc0111d3dc0
+
+[    4.568459] Mem abort info:
+
+[    4.571224]   ESR = 0x96000007
+
+[    4.574264]   EC = 0x25: DABT (current EL), IL = 32 bits
+
+[    4.579554]   SET = 0, FnV = 0
+
+[    4.582590]   EA = 0, S1PTW = 0
+
+[    4.585714] Data abort info:
+
+[    4.588580]   ISV = 0, ISS = 0x00000007
+
+[    4.592398]   CM = 0, WnR = 0
+
+[    4.595352] swapper pgtable: 4k pages, 39-bit VAs, pgdp=0000000040ff9000
+
+[    4.602035] [ffffffc0111d3dc0] pgd=00000000bdaff003, p4d=00000000bdaff003, pud=00000000bdaff003, pmd=00000000bdafd003, pte=0000000000000000
+
+[    4.614540] Internal error: Oops: 0000000096000007 [#1] PREEMPT SMP
+
+[    4.620776] Modules linked in:
+
+[    4.623816] CPU: 0 PID: 149 Comm: kworker/0:1H Not tainted 5.10.252 #1
+
+[    4.630323] Hardware name: FriendlyElec NanoPC-T3 (DT)
+
+[    4.635454] Workqueue: kblockd blk_mq_run_work_fn
+
+[    4.640132] pstate: 20000085 (nzCv daIf -PAN -UAO -TCO BTYPE=--)
+
+[    4.646123] pc : _raw_spin_lock_irqsave+0x74/0xc4
+
+[    4.650808] lr : lock_timer_base+0x64/0xa4
+
+[    4.654883] sp : ffffffc011af38c0
+
+[    4.658180] x29: ffffffc011af38c0 x28: 0000000000000000
+
+[    4.663476] x27: 0000000000000001 x26: 0000000000000000
+
+[    4.668770] x25: ffffffc0111d3dc0 x24: ffffffc011af3990
+
+[    4.674064] x23: ffffffc011319828 x22: ffffffc0111d5040
+
+[    4.679358] x21: ffffff8002713298 x20: ffffffc0111d3dc0
+
+[    4.684653] x19: 0000000000000080 x18: ffffff8003b27700
+
+[    4.689947] x17: 0000000000000000 x16: ffffff807d6d5500
+
+[    4.695241] x15: ffffff807d62c710 x14: 0000000000000196
+
+[    4.700535] x13: 0000000000000001 x12: 0000000000000000
+
+[    4.705829] x11: 0000000000000001 x10: 0000000000000970
+
+[    4.711124] x9 : 0000000000000000 x8 : ffffff8002d85d40
+
+[    4.716418] x7 : 0000000000000000 x6 : 00000000ffffffff
+
+[    4.721712] x5 : 0000000043f40fff x4 : 0000000000000000
+
+[    4.727006] x3 : ffffffc0111d3dc0 x2 : 0000000000000001
+
+[    4.732300] x1 : 0000000000000000 x0 : 0000000000000203
+
+[    4.737595] Call trace:
+
+[    4.740026]  _raw_spin_lock_irqsave+0x74/0xc4
+
+[    4.744366]  lock_timer_base+0x64/0xa4
+
+[    4.748098]  __mod_timer+0xfc/0x380
+
+[    4.751569]  mod_timer+0x14/0x20
+
+[    4.754781]  dw_mci_set_cto+0xa0/0xc4
+
+[    4.758426]  __dw_mci_start_request+0x40c/0x5d0
+
+[    4.762939]  dw_mci_request+0xc0/0x100
+
+[    4.766673]  __mmc_start_request+0x68/0x134
+
+[    4.770837]  mmc_start_request+0x84/0xac
+
+[    4.774744]  mmc_blk_mq_issue_rq+0x30c/0x970
+
+[    4.778995]  mmc_mq_queue_rq+0x120/0x2a0
+
+[    4.782902]  blk_mq_dispatch_rq_list+0x10c/0x7c0
+
+[    4.787502]  blk_mq_do_dispatch_sched+0x27c/0x2d0
+
+[    4.792187]  __blk_mq_sched_dispatch_requests+0x164/0x16c
+
+[    4.797570]  blk_mq_sched_dispatch_requests+0x3c/0x84
+
+[    4.802603]  __blk_mq_run_hw_queue+0x9c/0x100
+
+[    4.806942]  blk_mq_run_work_fn+0x20/0x40
+
+[    4.810935]  process_one_work+0x1d0/0x380
+
+[    4.814926]  worker_thread+0x70/0x480
+
+[    4.818572]  kthread+0x150/0x154
+
+[    4.821784]  ret_from_fork+0x10/0x18
+
+[    4.825343] Code: d65f03c0 d2800001 52800022 f9800071 (885ffc60)
+
+[    4.831427] ---[ end trace b376e713dd6ebe4c ]---
+
+[    4.836018] Kernel panic - not syncing: Oops: Fatal exception in interrupt
+
+[    4.842875] SMP: stopping secondary CPUs
+
+[    4.846786] Kernel Offset: disabled
+
+[    4.850249] CPU features: 0x00040002,24002004
+
+[    4.854588] Memory Limit: none
+
+[    4.857631] ---[ end Kernel panic - not syncing: Oops: Fatal exception in interrupt ]---
+
+
