@@ -7,12 +7,11 @@ Compiler: gcc-linaro-12.1.1-2022.08-x86_64_aarch64-linux-gnu
 build: ./s5p6818.sh
 
 There are still many problems: 
-1.The power module is not working, and I haven't found its driver. 
+1.The power module is not working, and I haven't found its driver. It use a stm32 IC.
 2.The GPU driver has not been ported.
 
-Could not switch to high resolution mode on CPU 0~7
 
-Currently starting initramfs
+startup use initramfs
 
 [    2.211377] Run /init as init process
 
