@@ -73,7 +73,7 @@
 		post-power-on-delay-ms = <50>;
 	};
 
-	i2c3_gpio:i2c@0 {
+	i2c3_gpio:i2c@3 {
 		compatible = "i2c-gpio";
 		gpios = <&gpio_e 31 0	/* sda */
 			&gpio_e 30 0	/* scl */
@@ -83,6 +83,19 @@
 
 		#address-cells = <1>;
 		#size-cells = <0>;
+
+		spu1705@2d {
+			compatible = "spu1705,fe-pmu";
+			reg = <0x2d>;
+			regulators {
+				VCC1P1_ARM_SPU: DCDC1 {
+					regulator-name = "vdd_arm_1.3V";
+					regulator-min-microvolt = <905000>;
+					regulator-max-microvolt = <1265000>;
+					regulator-always-on;
+				};
+			};
+		};
 
 		axp228@34 {
 			compatible = "x-powers,axp228";
@@ -200,6 +213,21 @@
 		io-channel-names = "nanopi-thermistor";
 	};
 
+	/*gpio_key: gpio_keys {
+		compatible = "gpio-keys";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&key_power>;
+
+		power {
+			label = "Power";
+			gpios = <&alive_0 0 GPIO_ACTIVE_LOW>;
+			linux,code = <KEY_POWER>;
+			gpio-key,wakeup;
+		};
+	};*/
+
 	leds: gpio-leds {
 		compatible = "gpio-leds";
 		pinctrl-names = "default";
@@ -210,6 +238,93 @@
 			label = "status_led";
 			linux,default-trigger = "heartbeat";
 			linux,default-trigger-delay-ms = <0>;
+		};
+	};
+
+	panel: panel-friendlyelec {
+		compatible = "lcds";
+		status = "okay";
+		lcd = "S430";
+		
+		pinctrl-names = "default";
+		pinctrl-0 = <&dp_rgb_vclk &dp_rgb_vsync &dp_rgb_hsync
+				&dp_rgb_de &dp_rgb_R &dp_rgb_G &dp_rgb_B>;
+		
+		port {
+			lcd_panel: endpoint {
+			};
+		};
+	};
+
+	spdif_out: spdif-out {
+		#sound-dai-cells = <0>;
+		compatible = "linux,spdif-dit";
+	};
+
+	simple_card: sound {
+		compatible = "nexell,simple-audio-card";
+		simple-audio-card,name = "nanopi3-audio";
+		simple-audio-card,mclk-fs = <256>;
+		simple-audio-card,widgets =
+			"Headphone", "Out Jack";
+		simple-audio-card,routing =
+			"Out Jack", "HPOL",
+			"Out Jack", "HPOR";
+		status = "okay";
+
+		simple-audio-card,dai-link@0 {
+			format = "i2s";
+			cpu {
+				sound-dai = <&i2s_0 0>;
+			};
+
+			codec {
+				sound-dai = <&es8316_codec>;
+			};
+		};
+
+		simple-audio-card,dai-link@1 {
+			cpu {
+				sound-dai = <&spdif_tx 0>;
+			};
+
+			codec {
+				sound-dai = <&spdif_out>;
+			};
+		};
+	};
+
+	wlan {
+		compatible = "samsung,brcm-wlan";
+		gpios = <&gpio_b 24 0  /* WLAN_EN */
+			 &gpio_c 17 0>; /* WLAN_HOST_WAKE */
+		status = "okay";
+	};
+
+	bt_bcm {
+		compatible = "broadcom,bcm4343";
+		reset-gpios = <&gpio_b 8 0>;
+		rts-gpios = <&gpio_c 6 0>;
+		cts-gpios = <&gpio_c 5 0>;
+		pinctrl-names = "default", "gpios";
+		pinctrl-0 = <&bt_cfg_en>, <&serial1_flow>;
+		pinctrl-1 = <&bt_cfg_en>, <&bt_flow_gpio>;
+		status = "okay";
+	};
+
+	nexell-ion@0 {
+		compatible = "nexell,ion";
+
+		heap_sys_user@0 {
+			heap-type = "ion_system";
+		};
+
+		heap_sys_contig@0 {
+			heap-type = "ion_system_contig";
+		};
+
+		heap_dma@0 {
+			heap-type = "ion_dma";
 		};
 	};
 };
@@ -232,9 +347,6 @@
 &uart5 {
 	clock-frequency = <147500000>;
 };
-&pwm0 {
-	clock-frequency = <100000000>;
-};
 &i2c0 {
 	clock-frequency = <200000000>;
 };
@@ -243,6 +355,28 @@
 };
 &i2c2  {
 	clock-frequency = <200000000>;
+};
+&spi0 {
+	clock-frequency = <100000000>;
+};
+&spi2 {
+	clock-frequency = <100000000>;
+};
+&pwm0 {
+	clk-input = <I_PLL2>;
+	clock-frequency = <10000000>;
+};
+&pwm1 {
+	clk-input = <I_PLL2>;
+	clock-frequency = <10000000>;
+};
+&pwm2 {
+	clk-input = <I_PLL2>;
+	clock-frequency = <10000000>;
+};
+&pwm3 {
+	clk-input = <I_PLL2>;
+	clock-frequency = <10000000>;
 };
 &vip1 {
 	src-force = <4>;
@@ -281,6 +415,57 @@
 	};
 };
 &pinctrl_0 {
+	key_power: key_power {
+		nexell,pins = "alive-0";
+		nexell,pin-function = <0>;
+		nexell,pin-pull = <1>;
+		nexell,pin-strength = <0>;
+	};
+
+	onewire_pin: onewire-pin {
+		nexell,pins = "gpioc-15";
+		nexell,pin-function = <1>;
+		nexell,pin-pull = <2>;
+		nexell,pin-strength = <0>;
+	};
+
+	touchpanel_irq: touchpanel-irq {
+		nexell,pins = "gpioc-16";
+		nexell,pin-function = <1>;
+		nexell,pin-pull = <2>;
+		nexell,pin-strength = <0>;
+	};
+
+	bt_flow_gpio: bt_flow_gpio {
+		nexell,pins = "gpioc-5", "gpioc-6";
+		nexell,pin-function = <1>;
+		nexell,pin-pull = <2>;
+		nexell,pin-strength = <0>;
+	};
+
+	bt_cfg_en: bt_cfg_en {
+		nexell,pins = "gpiob-8";
+		nexell,pin-function = <0>;
+		nexell,pin-pull = <2>;
+		nexell,pin-strength = <0>;
+	};
+
+	cfg_wlanen: cfg-wlanen {
+		nexell,pins ="gpiob-24";
+		nexell,pin-function = <1>;
+		nexell,pin-pull = <2>;
+		nexell,pin-strength = <0>;
+		nexell,pin-dir = <1>;
+		nexell,pin-val = <1>;
+	};
+
+	cfg_wlanhostwake: cfg-wlanhostwake {
+		nexell,pins = "gpioc-17";
+		nexell,pin-function = <2>;
+		nexell,pin-pull = <0>;
+		nexell,pin-strength = <0>;
+	};
+
 	led1_gpio: leds-gpio {
 		nexell,pins ="gpiob-12";
 		nexell,pin-function = <2>;
@@ -376,31 +561,63 @@
 	status = "okay";
 };
 &i2c_2 {
+	samsung,i2c-max-bus-freq = <200000>;
 	#address-cells = <1>;
 	#size-cells = <0>;
 	status = "okay";
 
-	/* Note: touch sensors are registered by onewire */
-	/*touchscreen@38 {
-		compatible = "edt,edt-ft5506";
-		reg = <0x38>;
+	onewire_ts@2f {
+		compatible = "onewire";
+		reg = <0x2f>;
 		interrupt-parent = <&gpio_c>;
 		interrupts = <16 IRQ_TYPE_EDGE_FALLING>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&touchpanel_irq>;
-		touchscreen-size-x = <1280>;
-		touchscreen-size-y = <800>;
-		touchscreen-max-pressure = <255>;
-	};*/
+	};
 
-	/*touchscreen@46 {
+	ft5x06_ts@38 {
+		compatible = "edt,edt-ft5x06", "ft5x06";
+		reg = <0x38>;
+		interrupt-parent = <&gpio_c>;
+		interrupts = <16 IRQ_TYPE_EDGE_FALLING>;
+	};
+
+	goodix_ts@5d {
+		compatible = "goodix,gt9xx";
+		reg = <0x5d>;
+		interrupt-parent = <&gpio_c>;
+		interrupts = <16 IRQ_TYPE_EDGE_FALLING>;
+		goodix,irq-gpio = <&gpio_c 16 0>;
+	};
+
+	goodix_ts@14 {
+		compatible = "goodix,gt9xx";
+		reg = <0x14>;
+		interrupt-parent = <&gpio_c>;
+		interrupts = <16 IRQ_TYPE_EDGE_FALLING>;
+		goodix,irq-gpio = <&gpio_c 16 0>;
+	};
+
+	hx8528a_ts@48 {
+		compatible = "himax,hx8528-a";
+		reg = <0x48>;
+		interrupt-parent = <&gpio_c>;
+		interrupts = <16 IRQ_TYPE_EDGE_FALLING>;
+	};
+
+	it7260_ts@46 {
 		compatible = "ite,it7260";
 		reg = <0x46>;
 		interrupt-parent = <&gpio_c>;
-		interrupts = <16 IRQ_TYPE_LEVEL_LOW>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&touchpanel_irq>;
-	};*/
+		interrupts = <16 IRQ_TYPE_EDGE_FALLING>;
+	};
+
+	st1572_ts@55 {
+		compatible = "sitronix,st1572";
+		reg = <0x55>;
+		interrupt-parent = <&gpio_c>;
+		interrupts = <16 IRQ_TYPE_EDGE_FALLING>;
+	};
 };
 &pwm {
 	// block pwm3_pin - conflicts with spi0_miso (on spi0_bus) drawn on 2.54mm header
@@ -469,4 +686,101 @@
 };
 &scaler {
 	status = "okay";
+};
+&dvfs {
+	supply_name = "vdd_arm_spu";
+	supply_optional = "vdd_arm_axp";
+	vdd_arm_spu-supply = <&VCC1P1_ARM_SPU>;
+	vdd_arm_axp-supply = <&VCC1P1_ARM_PMIC>;
+	status = "okay";
+	dvfs-tables = <1400000 1200000
+			1300000 1140000
+			1200000 1100000
+			1100000 1040000
+			1000000 1040000
+			900000 1000000
+			800000 1000000
+			700000 980000
+			600000 980000
+			500000 940000
+			400000 940000>;
+};
+&dp_drm {
+	status = "okay";
+	ports {
+		port@0 {
+			reg = <0>;
+			back_color = < 0x0 >;
+			color_key = < 0x0 >;
+			plane-names = "video", "rgb", "primary";
+		};
+		port@1 {
+			reg = <1>;
+			back_color = < 0x0 >;
+			color_key = < 0x0 >;
+			plane-names = "video", "primary";
+		};
+	};
+};
+&dp_drm_rgb {
+	/*remote-endpoint = <&lcd_panel>;*/
+	status = "ok";
+
+	dp_control {
+		dp_rgb_vclk = "gpioa-0";
+		dp_rgb_vsync = "gpioa-25";
+		dp_rgb_hsync = "gpioa-26";
+		dp_rgb_de = "gpioa-27";
+		dp_rgb_R = "gpioa-17", "gpioa-18", "gpioa-19", "gpioa-20", 
+				"gpioa-21", "gpioa-22", "gpioa-23", "gpioa-24";
+		dp_rgb_G = "gpioa-9", "gpioa-10", "gpioa-11", "gpioa-12", 
+				"gpioa-13", "gpioa-14", "gpioa-15", "gpioa-16";
+		dp_rgb_B = "gpioa-1", "gpioa-2", "gpioa-3", "gpioa-4", 
+				"gpioa-5", "gpioa-6", "gpioa-7", "gpioa-8";
+	};
+
+};
+&dp_drm_hdmi {
+	skip-boot-connect;
+	ddc-i2c-bus = <&i2c_1>;
+	status = "ok";
+
+	mode {
+		width = <1280>;
+		height = <720>;
+		refresh = <60>;
+	};
+};
+&i2c0_pin {
+	nexell,pin-strength = <NX_PIN_STR1>;
+};
+&spi_0 {
+	status = "okay";
+	cs-gpios = <&gpio_c 30 0>;
+
+	spidev0: spidev@0 {
+		status = "okay";
+		compatible = "linux,spidev";
+		reg = <0>;
+		spi-max-frequency = <10000000>;
+		controller-data {
+			samsung,spi-feedback-delay = <0>;
+		};
+	};
+
+	t28tft0: fbtft@0 {
+		status = "disabled";
+		compatible = "sitronix,st7789v";
+		reg = <0>;
+		spi-max-frequency = <50000000>;
+		rotate = <90>;
+		fps = <33>;
+		buswidth = <8>;
+		dc-gpios = <&gpio_b 28 0>;
+		reset-gpios = <&gpio_d 8 0>;
+		debug = <0x0>;
+		controller-data {
+			samsung,spi-feedback-delay = <0>;
+		};
+	};
 };
