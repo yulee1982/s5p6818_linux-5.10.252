@@ -20,8 +20,10 @@
 #include <linux/delay.h>
 #include <linux/reset.h>
 #include <linux/hdmi.h>
+#include <linux/slab.h>
 #include "s5pxx18_dp_hdmi.h"
 #include "s5pxx18_reg_hdmi.h"
+#include <drm/drm_modes.h>
 
 #define DEFAULT_SAMPLE_RATE		48000
 #define DEFAULT_BITS_PER_SAMPLE		16
@@ -701,7 +703,7 @@ static inline void hdmi_enable(const struct hdmi_conf *conf, bool on)
 
 static int mode_get_fixup_refresh(const struct drm_display_mode *mode)
 {
-	int vrefresh = mode->vrefresh;
+	int vrefresh = drm_mode_vrefresh(mode);//mode->vrefresh;
 	unsigned tot;
 
 	if( vrefresh == 0 ) {
@@ -720,7 +722,7 @@ static int hdmi_find_mode(const struct drm_display_mode *dmode)
 	int i, cand = -EINVAL;
 
 	pr_debug("[%s] Search hac=%4d, vac=%4d, %2d fps, [array:%d]\n",
-		 __func__, dmode->hdisplay, dmode->vdisplay, dmode->vrefresh, size);
+		 __func__, dmode->hdisplay, dmode->vdisplay, drm_mode_vrefresh(dmode), size);
 
 	conf = hdmi_conf;
 

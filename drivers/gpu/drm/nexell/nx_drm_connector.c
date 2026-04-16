@@ -15,7 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <drm/drmP.h>
+//#include <drm/drmP.h>
+#include <drm/drm_print.h>
+#include <drm/drm_probe_helper.h>
+
 #include <drm/drm_crtc_helper.h>
 
 #include "nx_drm_drv.h"
@@ -220,7 +223,7 @@ struct drm_connector *nx_drm_connector_create_and_attach(
 		goto err_encoder;
 
 	//connector->encoder = encoder;
-	err = drm_mode_connector_attach_encoder(connector, encoder);
+	err = drm_connector_attach_encoder(connector, encoder);
 	if (err) {
 		DRM_ERROR("fail : attach a connector to a encoder\n");
 		goto err_connector;

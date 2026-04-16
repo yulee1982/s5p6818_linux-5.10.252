@@ -15,7 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <drm/drmP.h>
+#include <linux/platform_device.h>
+#include <drm/drm.h>
+#include <drm/drm_fourcc.h>
+#include <drm/drm_print.h>
+#include <drm/drm_device.h>
+
 #include <drm/drm_fb_helper.h>
 #include <uapi/drm/drm_fourcc.h>
 #include <linux/of.h>
@@ -34,6 +39,7 @@
 
 #include "s5pxx18_drm_dp.h"
 #include "s5pxx18_dp_hdmi.h"
+
 
 #define	display_to_dpc(d)	(&d->ctrl.dpc)
 
@@ -852,12 +858,13 @@ int nx_drm_dp_plane_update(struct drm_plane *plane,
 	int num_planes = 0;
 	unsigned int format;
 	int ret, i = 0;
-    struct drm_format_name_buf fmt_name_buf;
+	struct drm_format_name_buf fmt_name_buf;
 
 	nx_plane = to_nx_plane(plane);
 	layer = &nx_plane->layer;
 	type = layer->type;
-	num_planes = drm_format_num_planes(fb->format->format);
+	//num_planes = drm_format_num_planes(fb->format->format);
+	num_planes = fb->format->num_planes;
 
 	DRM_DEBUG_KMS("crtc.%d plane.%d (%s) : planes %d\n",
 		layer->module, layer->num, layer->name, num_planes);

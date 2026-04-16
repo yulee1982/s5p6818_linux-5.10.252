@@ -15,7 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <drm/drmP.h>
+//#include <drm/drmP.h>
+#include <drm/drm_print.h>
+#include <drm/drm_probe_helper.h>
+
 #include <uapi/drm/drm_fourcc.h>
 
 #include "nx_drm_drv.h"

@@ -18,10 +18,11 @@
 #ifndef _S5PXX18_DP_HDMI_H_
 #define _S5PXX18_DP_HDMI_H_
 
-#include <drm/drmP.h>
 #include <video/videomode.h>
-
+#include <drm/drm_fourcc.h>
+#include <drm/drm_print.h>
 #include "s5pxx18_drm_dp.h"
+#include <drm/drm_modes.h>
 
 enum {
 	RES_FIELD_INTERLACED	= 0x1,
@@ -122,10 +123,10 @@ int nx_dp_device_hdmi_register(struct device *dev,
 
 u32  nx_dp_hdmi_hpd_event(int irq);
 bool nx_dp_hdmi_is_connected(void);
-bool nx_dp_hdmi_mode_valid(const struct drm_display_mode*);
+bool nx_dp_hdmi_mode_valid(const struct drm_display_mode *mode);
 int nx_dp_hdmi_mode_set(struct nx_drm_device *display,
 			struct drm_display_mode *mode,
-			bool dvi_mode, int q_range);
+			bool dvi_mode, int q_range);	
 int  nx_dp_hdmi_mode_commit(struct nx_drm_device *display, int crtc);
 void nx_dp_hdmi_power(struct nx_drm_device *display, bool on);
 int nx_dp_hdmi_resume(struct nx_drm_device *display);

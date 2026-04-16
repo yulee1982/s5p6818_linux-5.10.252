@@ -15,7 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <drm/drmP.h>
+//#include <drm/drmP.h>
+#include <linux/platform_device.h>
+#include <linux/delay.h>
+#include <drm/drm.h>
+#include <drm/drm_fourcc.h>
+#include <drm/drm_print.h>
+#include <drm/drm_device.h>
+
 #include <drm/drm_crtc_helper.h>
 #include <drm/drm_panel.h>
 #include <drm/drm_mipi_dsi.h>
@@ -81,7 +88,8 @@ static bool panel_lcd_is_connected(struct device *dev,
 			int ret;
 
 			panel->panel = drm_panel;
-			drm_panel_attach(drm_panel, connector);
+			//drm_panel_attach(drm_panel, connector);
+			ctx->connector = connector;
 
 			if (panel->check_panel)
 				return panel->is_connected;
@@ -94,7 +102,7 @@ static bool panel_lcd_is_connected(struct device *dev,
 						drm_panel);
 				panel->is_connected = true;
 			} else {
-				drm_panel_detach(drm_panel);
+				//drm_panel_detach(drm_panel);
 				panel->is_connected = false;
 			}
 			panel->check_panel = true;
@@ -141,7 +149,7 @@ static int panel_lcd_get_modes(struct device *dev,
 		panel->panel ? "attached" : "detached");
 
 	if (panel->panel)
-		return drm_panel_get_modes(panel->panel);
+		return drm_panel_get_modes(panel->panel, connector);
 
 	mode = drm_mode_create(connector->dev);
 	if (!mode) {

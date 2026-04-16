@@ -18,6 +18,8 @@
 #ifndef _NX_DRM_CRTC_H_
 #define _NX_DRM_CRTC_H_
 
+#include <drm/drm_crtc.h>
+#include <drm/drm_modes.h>
 #include "soc/s5pxx18_drm_dp.h"
 
 struct nx_drm_crtc {

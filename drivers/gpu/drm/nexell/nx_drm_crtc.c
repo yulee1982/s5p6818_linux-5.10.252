@@ -15,7 +15,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <drm/drmP.h>
+//#include <drm/drmP.h>
+#include <drm/drm_print.h>
+#include <drm/drm_probe_helper.h>
+#include <drm/drm_device.h>
+#include <drm/drm_drv.h>
+#include <drm/drm_vblank.h>
+#include <drm/drm_ioctl.h>
+#include <drm/drm_fourcc.h>
+#include <drm/drm.h>
+#include <drm/drm_plane.h>
+#include <drm/drm_irq.h>
+#include <linux/platform_device.h>
+
 #include <drm/drm_crtc_helper.h>
 #include <linux/of.h>
 #include <linux/of_graph.h>

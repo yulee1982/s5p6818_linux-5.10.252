@@ -15,7 +15,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <drm/drmP.h>
+//#include <drm/drmP.h>
+#include <linux/platform_device.h>
+#include <drm/drm.h>
+#include <drm/drm_ioctl.h>
+#include <drm/drm_file.h>
+#include <drm/drm_vblank.h>
+#include <drm/drm_drv.h>
+#include <drm/drm_fourcc.h>
+#include <drm/drm_print.h>
+#include <drm/drm_device.h>
+#include <drm/drm_modes.h>
+#include <drm/drm_probe_helper.h>
+#include <linux/dma-mapping.h>
+
 #include <drm/drm_crtc_helper.h>
 #include <drm/drm_fb_helper.h>
 #include <linux/of_platform.h>
@@ -143,8 +156,7 @@ static void nx_drm_postclose(struct drm_device *drm, struct drm_file *file)
 }
 
 static struct drm_driver nx_drm_driver = {
-	.driver_features = DRIVER_HAVE_IRQ | DRIVER_MODESET |
-		DRIVER_GEM | DRIVER_PRIME | DRIVER_IRQ_SHARED,
+	.driver_features = DRIVER_HAVE_IRQ | DRIVER_MODESET | DRIVER_GEM,
 	.fops = &nx_drm_fops,	/* replace fops */
 	.lastclose = nx_drm_lastclose,
 	.postclose = nx_drm_postclose,
@@ -155,7 +167,7 @@ static struct drm_driver nx_drm_driver = {
 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
 
-	.gem_free_object = nx_drm_gem_free_object,
+	.gem_free_object_unlocked = nx_drm_gem_free_object,
 
 	.gem_prime_export = nx_drm_gem_prime_export,
 	.gem_prime_import = drm_gem_prime_import,
@@ -238,7 +250,7 @@ err_mode_config_cleanup:
 	drm_mode_config_cleanup(drm);
 	kfree(priv);
 err_free_drm:
-	drm_dev_unref(drm);
+	drm_dev_put(drm);
 
 	return ret;
 }
@@ -277,7 +289,7 @@ static int match_drv(struct device_driver *drv, void *data)
 }
 #endif
 
-static int match_component(struct device *dev, void *data)
+static int match_component(struct device *dev, const void *data)
 {
 	const char *name = data;
 	const char *t = name, *f = dev_name(dev);

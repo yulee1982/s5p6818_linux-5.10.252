@@ -532,7 +532,7 @@ int mali_mem_cow_cpu_map(mali_mem_backend *mem_bkend, struct vm_area_struct *vma
 		 * flush which makes it way slower than remap_pfn_range or vm_insert_pfn.
 		ret = vm_insert_page(vma, addr, page);
 		*/
-		ret = vm_insert_pfn(vma, addr, _mali_page_node_get_pfn(m_page));
+		ret = vmf_insert_pfn(vma, addr, _mali_page_node_get_pfn(m_page));
 
 		if (unlikely(0 != ret)) {
 			return ret;

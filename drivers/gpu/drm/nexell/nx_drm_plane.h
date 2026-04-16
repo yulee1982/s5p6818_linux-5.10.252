@@ -18,6 +18,7 @@
 #ifndef _NX_DRM_PLANE_H_
 #define _NX_DRM_PLANE_H_
 
+#include <drm/drm_plane.h>
 #include "soc/s5pxx18_drm_dp.h"
 
 /* properties */

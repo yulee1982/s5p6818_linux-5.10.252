@@ -15,7 +15,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <drm/drmP.h>
+//#include <drm/drmP.h>
+#include <linux/platform_device.h>
+#include <drm/drm.h>
+#include <drm/drm_ioctl.h>
+#include <drm/drm_fourcc.h>
+#include <drm/drm_print.h>
+#include <drm/drm_device.h>
+#include <drm/drm_modes.h>
+#include <drm/drm_probe_helper.h>
+
 #include <drm/drm_crtc_helper.h>
 #include <drm/drm_edid.h>
 
@@ -89,7 +98,7 @@ static void panel_hdmi_dump_edid_modes(struct drm_connector *connector,
 
 	list_for_each_entry_safe(mode, t, &connector->probed_modes, head) {
 		DRM_DEBUG_KMS("EDID [%4d x %4d %3d fps, 0x%08x(%s), %d] %s\n",
-			mode->hdisplay, mode->vdisplay, mode->vrefresh,
+			mode->hdisplay, mode->vdisplay, drm_mode_vrefresh(mode),
 			mode->flags, mode->flags & DRM_MODE_FLAG_3D_MASK ?
 			"3D" : "2D",
 			mode->clock*1000, mode->name);
@@ -122,7 +131,7 @@ static int panel_hdmi_preferred_modes(struct device *dev,
 		}
 		drm_display_mode_from_videomode(vm, mode);
 
-		mode->vrefresh = panel->vrefresh;
+		//mode->vrefresh = panel->vrefresh;
 		mode->width_mm = panel->width_mm;
 		mode->height_mm = panel->height_mm;
 		connector->display_info.width_mm = mode->width_mm;
@@ -141,16 +150,16 @@ static int panel_hdmi_preferred_modes(struct device *dev,
 		if( mode->type & DRM_MODE_TYPE_PREFERRED ) {
 			if(mode->hdisplay != lpref_width ||
 					mode->vdisplay != lpref_height ||
-					mode->vrefresh != lpref_refresh ||
+					drm_mode_vrefresh(mode) != lpref_refresh ||
 					mode->flags != lpref_flags)
 			{
 				DRM_INFO("preferred mode from EDID: %dx%d%c@%d\n",
 					mode->hdisplay, mode->vdisplay,
 					mode->flags & DRM_MODE_FLAG_INTERLACE ? 'i' : 'p',
-					mode->vrefresh);
+					drm_mode_vrefresh(mode));
 				lpref_width = mode->hdisplay;
 				lpref_height = mode->vdisplay;
-				lpref_refresh = mode->vrefresh;
+				lpref_refresh = drm_mode_vrefresh(mode);
 				lpref_flags = mode->flags;
 				prefShown = true;
 			}
@@ -158,7 +167,7 @@ static int panel_hdmi_preferred_modes(struct device *dev,
 		}
 		if (mode->hdisplay == vm->hactive &&
 			mode->vdisplay == vm->vactive &&
-			mode->vrefresh == panel->vrefresh
+			drm_mode_vrefresh(mode) == panel->vrefresh
 			&& !(mode->flags & DRM_MODE_FLAG_INTERLACE) ==
 				!(vm->flags & DISPLAY_FLAGS_INTERLACED))
 		{
@@ -197,7 +206,8 @@ static int panel_hdmi_get_modes(struct device *dev,
 			(hdmi->dvi_mode ? "dvi monitor" : "hdmi monitor"),
 			edid->width_cm, edid->height_cm);
 
-		drm_mode_connector_update_edid_property(connector, edid);
+		//drm_mode_connector_update_edid_property(connector, edid);
+		drm_connector_update_edid_property(connector, edid);
 		num_modes = drm_add_edid_modes(connector, edid);
 		panel_hdmi_dump_edid_modes(connector, num_modes, false);
 	}
@@ -218,7 +228,7 @@ static int panel_hdmi_check_mode(struct device *dev,
 		mode->width_mm, mode->height_mm,
 		mode->flags & DRM_MODE_FLAG_INTERLACE ?
 		"interlace" : "progressive", mode->clock,
-		mode->vrefresh);
+		drm_mode_vrefresh(mode));
 	DRM_DEBUG_KMS("ha:%d, hf:%d, hb:%d, hs:%d\n",
 		mode->hdisplay, mode->hsync_start - mode->hdisplay,
 		mode->htotal - mode->hsync_end,
