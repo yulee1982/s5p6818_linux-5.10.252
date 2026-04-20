@@ -79,14 +79,12 @@ static bool panel_lcd_is_connected(struct device *dev,
 
 	DRM_DEBUG_KMS("%s panel node %s\n",
 		dp_panel_type_name(panel_type), panel_node ?
-		"exist" : "not exist");
+		"exist" : "not exist");//DRM_DEBUG_KMS
 
-	if (panel_node) {
+	if (panel_node) { //panel_node.name = panel_rgb
 		struct drm_panel *drm_panel = of_drm_find_panel(panel_node);
-
 		if (drm_panel) {
 			int ret;
-
 			panel->panel = drm_panel;
 			//drm_panel_attach(drm_panel, connector);
 			ctx->connector = connector;
@@ -380,7 +378,6 @@ static int panel_lcd_bind(struct device *dev,
 	if (IS_ENABLED(CONFIG_DRM_NX_MIPI_DSI)) {
 		if (dp_panel_type_mipi == panel_type) {
 			struct mipi_resource *mipi = ctx_to_mipi(ctx);
-
 			err = mipi_dsi_host_register(&mipi->mipi_host);
 		}
 	}
@@ -438,10 +435,11 @@ static int panel_lcd_parse_dt(struct platform_device *pdev,
 	struct device *dev = &pdev->dev;
 	struct nx_drm_panel *panel = &ctx->display->panel;
 	struct nx_drm_device *display = ctx->display;
-	struct device_node *node = dev->of_node;
-	struct device_node *np;
+	struct device_node *node = dev->of_node;  
+	struct device_node *np; //remote
 	struct display_timing timing;
 	int err;
+	struct device_node *endpoint;
 
 	DRM_DEBUG_KMS("enter\n");
 
@@ -462,8 +460,31 @@ static int panel_lcd_parse_dt(struct platform_device *pdev,
 	/*
 	 * get panel timing from local.
 	 */
-	np = of_graph_get_remote_port_parent(node);
+	//endpoint = of_graph_get_endpoint_by_regs(node, -1, -1);
+	endpoint = of_graph_get_next_endpoint(node, NULL);
+	if (!endpoint) {
+		DRM_INFO("Missing endpoint in port of node (%s) !\n", node->full_name);
+		return -ENODEV;
+	}
+
+	np = of_graph_get_remote_port_parent(endpoint);
+	//np = of_graph_get_remote_node(endpoint,x,x);
+	of_node_put(endpoint);
+	
+	if (!np) {
+		DRM_INFO("Endpoint in port unconnected!\n");
+		return -ENODEV;
+	}
+	
+	if (!of_device_is_available(np)) {
+		DRM_INFO("Remote endpoint is disabled!\n");
+		of_node_put(np);
+		return -ENODEV;
+	}
+
 	panel->panel_node = np;
+	//np = of_find_node_by_name(NULL, np->name);
+	//panel->panel_node = np;
 	if (!np) {
 		struct gpio_descs *gpios;
 		struct gpio_desc **desc = NULL;
@@ -532,8 +553,7 @@ static int panel_lcd_parse_dt(struct platform_device *pdev,
 	 */
 	np = of_find_node_by_name(node, "dp_control");
 	if (!np) {
-		DRM_ERROR("fail : not find panel's control node (%s) !\n",
-			node->full_name);
+		DRM_ERROR("fail : not find panel's control node (%s) !\n", node->full_name);
 		return -EINVAL;
 	}
 
@@ -577,7 +597,7 @@ static int panel_lcd_probe(struct platform_device *pdev)
 	size_t size;
 	int err;
 
-	DRM_DEBUG_KMS("enter (%s)\n", dev_name(dev));
+	DRM_DEBUG_KMS("enter (%s)\n", dev_name(dev));  //c0101000.display_drm_rgb
 
 	size = sizeof(*ctx) + sizeof(struct nx_drm_device);
 	ctx = devm_kzalloc(dev, size, GFP_KERNEL);

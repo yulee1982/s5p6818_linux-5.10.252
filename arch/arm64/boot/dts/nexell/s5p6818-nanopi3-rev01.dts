@@ -241,8 +241,9 @@
 		};
 	};
 
-	panel: panel-friendlyelec {
-		compatible = "lcds";
+	panel_rgb: panel_rgb {
+		/*compatible = "lcds";*/
+		compatible = "nanopi,nano-panel";
 		status = "okay";
 		lcd = "S430";
 		
@@ -251,7 +252,8 @@
 				&dp_rgb_de &dp_rgb_R &dp_rgb_G &dp_rgb_B>;
 		
 		port {
-			lcd_panel: endpoint {
+			rgb_panel: endpoint {
+				remote-endpoint = <&lcd_rgb>;
 			};
 		};
 	};
@@ -326,6 +328,31 @@
 		heap_dma@0 {
 			heap-type = "ion_dma";
 		};
+	};
+
+	wifi_bcm4329 {
+		compatible = "nanopi,bcm4329";
+		interrupt-parent = <&gpio_c>;
+		interrupts = <17 IRQ_TYPE_LEVEL_HIGH>;
+	};
+
+	nanopi-onewire {
+		interrupt-parent = <&gic>;
+		compatible = "friendlyarm,onewire";
+
+		channel-gpio = <&gpio_c 15 0>;
+		reg = <PHYS_BASE_TIMER 0x1000>;
+		interrupts = <0 IRQ_TIMER3 0>;
+		irq-timer = <3>;
+	};
+
+	onewire-touch {
+		compatible = "friendlyarm,onewire-touch";
+		interrupt-parent = <&gpio_c>;
+		interrupts = <16 IRQ_TYPE_NONE>;
+		i2c-bus = <&i2c_2>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&touchpanel_irq>;
 	};
 };
 
@@ -725,6 +752,11 @@
 &dp_drm_rgb {
 	/*remote-endpoint = <&lcd_panel>;*/
 	status = "ok";
+	port {
+		lcd_rgb: endpoint {
+			remote-endpoint = <&rgb_panel>;
+		};
+	};
 
 	dp_control {
 		dp_rgb_vclk = "gpioa-0";

@@ -1,7 +1,14 @@
+//#include <drm/drmP.h>
+#include <drm/drm_modes.h>
+#include <drm/drm_device.h>
+#include <drm/drm_drv.h>
+#include <drm/drm_print.h>
+#include <linux/delay.h>
+#include <linux/time.h>
+
 #include <linux/module.h>
 #include <linux/of_platform.h>
 #include <linux/platform_device.h>
-#include <drm/drmP.h>
 #include <drm/drm_panel.h>
 #include <video/videomode.h>
 #include <soc/nexell/panel-nanopi.h>
@@ -22,11 +29,11 @@ static inline struct panel_nanopi *to_panel_nanopi(struct drm_panel *panel)
 	return container_of(panel, struct panel_nanopi, base);
 }
 
-static int panel_nanopi_get_modes(struct drm_panel *panel)
+static int panel_nanopi_get_modes(struct drm_panel *panel, struct drm_connector *connector)
 {
 	struct panel_nanopi *p = to_panel_nanopi(panel);
-	struct drm_connector *connector = panel->connector;
-	struct drm_device *drm = panel->drm;
+	//struct drm_connector *connector = panel->connector;
+	struct drm_device *drm = connector->dev; //panel->drm
 	struct drm_display_mode *mode;
 	const struct drm_display_mode *m = p->desc->mode;
 
@@ -35,7 +42,7 @@ static int panel_nanopi_get_modes(struct drm_panel *panel)
 	mode = drm_mode_duplicate(drm, m);
 	if( !mode ) {
 		dev_err(drm->dev, "failed to add mode %ux%u@%u\n",
-			m->hdisplay, m->vdisplay, m->vrefresh);
+			m->hdisplay, m->vdisplay, drm_mode_vrefresh(m));
 		return 0;
 	}
 	mode->type |= DRM_MODE_TYPE_DRIVER;
@@ -86,7 +93,7 @@ static const struct drm_display_mode mode_hd101 = {
 	.vsync_start = 800 + 8,
 	.vsync_end = 800 + 8 + 12,
 	.vtotal = 800 + 8 + 12 + 8,
-	.vrefresh = 60,
+	//.vrefresh = 60,
 	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC |
 			DRM_MODE_FLAG_NCSYNC
 };
@@ -101,7 +108,7 @@ static const struct drm_display_mode mode_hd700 = {
 	.vsync_start = 1280 + 4,
 	.vsync_end = 1280 + 4 + 8,
 	.vtotal = 1280 + 4 + 8 + 4,
-	.vrefresh = 60,
+	//.vrefresh = 60,
 	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC |
 			DRM_MODE_FLAG_NCSYNC
 };
@@ -116,7 +123,7 @@ static const struct drm_display_mode mode_s70 = {
 	.vsync_start = 480 + 22,
 	.vsync_end = 480 + 22 + 8,
 	.vtotal = 480 + 22 + 8 + 15,
-	.vrefresh = 61,
+	//.vrefresh = 61,
 };
 
 static const struct drm_display_mode mode_s702 = {
@@ -129,7 +136,7 @@ static const struct drm_display_mode mode_s702 = {
 	.vsync_start = 480 + 22,
 	.vsync_end = 480 + 22 + 8,
 	.vtotal = 480 + 22 + 8 + 15,
-	.vrefresh = 61,
+	//.vrefresh = 61,
 	.flags = DRM_MODE_FLAG_NCSYNC
 };
 
@@ -143,7 +150,7 @@ static const struct drm_display_mode mode_s70d = {
 	.vsync_start = 480 + 22,
 	.vsync_end = 480 + 22 + 8,
 	.vtotal = 480 + 22 + 8 + 24,
-	.vrefresh = 61,
+	//.vrefresh = 61,
 };
 
 static const struct drm_display_mode mode_x710 = {
@@ -156,7 +163,7 @@ static const struct drm_display_mode mode_x710 = {
 	.vsync_start = 600 + 10,
 	.vsync_end = 600 + 10 + 20,
 	.vtotal = 600 + 10 + 20 + 10,
-	.vrefresh = 61,
+	//.vrefresh = 61,
 };
 
 static const struct drm_display_mode mode_s430 = {
@@ -169,7 +176,7 @@ static const struct drm_display_mode mode_s430 = {
 	.vsync_start = 800 + 32,
 	.vsync_end = 800 + 32 + 16,
 	.vtotal = 800 + 32 + 16 + 0,
-	.vrefresh = 60,
+	//.vrefresh = 60,
 	.flags = DRM_MODE_FLAG_NCSYNC
 };
 
@@ -183,7 +190,7 @@ static const struct drm_display_mode mode_h43 = {
 	.vsync_start = 272 + 8,
 	.vsync_end = 272 + 8 + 2,
 	.vtotal = 272 + 8 + 2 + 8,
-	.vrefresh = 65,
+	//.vrefresh = 65,
 };
 
 static const struct drm_display_mode mode_p43 = {
@@ -196,7 +203,7 @@ static const struct drm_display_mode mode_p43 = {
 	.vsync_start = 272 + 8,
 	.vsync_end = 272 + 8 + 2,
 	.vtotal = 272 + 8 + 2 + 9,
-	.vrefresh = 65,
+	//.vrefresh = 65,
 	.flags = DRM_MODE_FLAG_NCSYNC
 };
 
@@ -210,7 +217,7 @@ static const struct drm_display_mode mode_w35 = {
 	.vsync_start = 240 + 4,
 	.vsync_end = 240 + 4 + 4,
 	.vtotal = 240 + 4 + 4 + 12,
-	.vrefresh = 65,
+	//.vrefresh = 65,
 	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC |
 			DRM_MODE_FLAG_NCSYNC
 };
@@ -225,7 +232,7 @@ static const struct drm_display_mode mode_w50 = {
 	.vsync_start = 480 + 20,
 	.vsync_end = 480 + 20 + 12,
 	.vtotal = 480 + 20 + 12 + 20,
-	.vrefresh = 70,
+	//.vrefresh = 70,
 };
 
 static const struct drm_display_mode mode_w101 = {
@@ -238,7 +245,7 @@ static const struct drm_display_mode mode_w101 = {
 	.vsync_start = 600 + 8,
 	.vsync_end = 600 + 8 + 16,
 	.vtotal = 600 + 8 + 16 + 8,
-	.vrefresh = 60,
+	//.vrefresh = 60,
 	.flags = DRM_MODE_FLAG_NCSYNC
 };
 
@@ -252,7 +259,7 @@ static const struct drm_display_mode mode_a97 = {
 	.vsync_start = 768 + 8,
 	.vsync_end = 768 + 8 + 4,
 	.vtotal = 768 + 8 + 4 + 8,
-	.vrefresh = 61,
+	//.vrefresh = 61,
 };
 
 static const struct drm_display_mode mode_lq150 = {
@@ -265,7 +272,7 @@ static const struct drm_display_mode mode_lq150 = {
 	.vsync_start = 768 + 8,
 	.vsync_end = 768 + 8 + 40,
 	.vtotal = 768 + 8 + 40 + 8,
-	.vrefresh = 60,
+	//.vrefresh = 60,
 };
 
 static const struct drm_display_mode mode_l80 = {
@@ -278,7 +285,7 @@ static const struct drm_display_mode mode_l80 = {
 	.vsync_start = 480 + 3,
 	.vsync_end = 480 + 3 + 6,
 	.vtotal = 480 + 3 + 6 + 29,
-	.vrefresh = 60,
+	//.vrefresh = 60,
 };
 
 static const struct drm_display_mode mode_bp101 = {
@@ -291,7 +298,7 @@ static const struct drm_display_mode mode_bp101 = {
 	.vsync_start = 800 + 4,
 	.vsync_end = 800 + 4 + 8,
 	.vtotal = 800 + 4 + 8 + 4,
-	.vrefresh = 60,
+	//.vrefresh = 60,
 	.flags = DRM_MODE_FLAG_NCSYNC
 };
 
@@ -305,7 +312,7 @@ static const struct drm_display_mode mode_atops = {
 	.vsync_start = 480 + 22,
 	.vsync_end = 480 + 22 + 10,
 	.vtotal = 480 + 22 + 10 + 23,
-	.vrefresh = 60,
+	//.vrefresh = 60,
 };
 
 static const struct nanopi_panel_desc nanopi_panels[] = {
@@ -486,7 +493,8 @@ const struct nanopi_panel_desc *nanopi_panelrgb_get_connected(void)
 
 	if( connected_rgb[0] )
 		return getPanelDescByName(connected_rgb);
-	onewireType = onewire_get_lcd_type();
+
+	onewireType = onewire_get_lcd_type();  //lcd s430 onewireType = 31
 	if( onewireType > 0 ) {
 		for(i = 0; i < ARRAY_SIZE(nanopi_panels) && desc == NULL; ++i) {
 			if( nanopi_panels[i].onewireType == onewireType )
@@ -523,29 +531,31 @@ bool nanopi_panelrgb_issensor_1wire(int onewireType)
 
 static int panel_nanopi_platform_probe(struct platform_device *pdev)
 {
-	int err;
+	//int err;
 	struct panel_nanopi *panel;
 	const struct nanopi_panel_desc *desc;
 	bool isLvds;
 
-	isLvds = of_property_read_bool(pdev->dev.of_node, "lvds");
+	isLvds = of_property_read_bool(pdev->dev.of_node, "lvds");  //check node: panel_rgb
 	if( isLvds )
 		desc = connected_lvds[0] ? getPanelDescByName(connected_lvds) : NULL;
 	else
 		desc = nanopi_panelrgb_get_connected();
+	
 	if( desc == NULL )
 		return -ENODEV;
+
 	panel = devm_kzalloc(&pdev->dev, sizeof(*panel), GFP_KERNEL);
 	if (!panel)
 		return -ENOMEM;
 	panel->desc = desc;
-	drm_panel_init(&panel->base);
-	panel->base.dev = &pdev->dev;
-	panel->base.funcs = &panel_nanopi_funcs;
+	//drm_panel_init(&panel->base);
+	//panel->base.dev = &pdev->dev;
+	//panel->base.funcs = &panel_nanopi_funcs;
+	drm_panel_init(&panel->base, &pdev->dev, &panel_nanopi_funcs, DRM_MODE_CONNECTOR_LVDS);
 
-	err = drm_panel_add(&panel->base);
-	if( err < 0 )
-		return err;
+	drm_panel_add(&panel->base);
+
 	dev_set_drvdata(&pdev->dev, panel);
 	dev_info(&pdev->dev, "added %s panel for %s\n", isLvds ? "lvds" : "rgb",
 			desc->name);
@@ -556,7 +566,7 @@ static int panel_nanopi_platform_remove(struct platform_device *pdev)
 {
 	struct panel_nanopi *panel = dev_get_drvdata(&pdev->dev);
 
-	drm_panel_detach(&panel->base);
+	//drm_panel_detach(&panel->base);
 	drm_panel_remove(&panel->base);
 	return 0;
 }

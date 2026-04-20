@@ -212,6 +212,7 @@ static uint32_t nx_drm_mode_fb_format(uint32_t bpp, uint32_t depth, bool bgr)
 static int nx_drm_fb_helper_probe(struct drm_fb_helper *fb_helper,
 			struct drm_fb_helper_surface_size *sizes)
 {
+printk("fun:nx_drm_fb_helper_probe. we come here.\n");
 	struct nx_drm_fbdev *fbdev = to_nx_drm_fbdev(fb_helper);
 	struct drm_mode_fb_cmd2 mode_cmd = { 0 };
 	struct drm_device *drm = fb_helper->dev;
@@ -224,8 +225,8 @@ static int nx_drm_fb_helper_probe(struct drm_fb_helper *fb_helper,
 	unsigned int flags = 0;
 	int buffers = fbdev->fb_buffers;
 	int ret;
-	struct drm_client_dev *client = &fb_helper->client;
-	struct drm_mode_set *mode_set;
+	//struct drm_client_dev *client = &fb_helper->client;
+	//struct drm_mode_set *mode_set;
 
 	DRM_DEBUG_KMS("surface width(%d), height(%d) and bpp(%d) buffers(%d)\n",
 			sizes->surface_width, sizes->surface_height,
@@ -286,20 +287,23 @@ static int nx_drm_fb_helper_probe(struct drm_fb_helper *fb_helper,
 	info->fix.smem_start = (unsigned long)(nx_obj->dma_addr + offset);
 	info->screen_size = size;
 	info->fix.smem_len = size;
-
-	if(client && client->modesets) {
+	
+	/*
+	if(fb_helper->crtc_info && fb_helper->crtc_info->desired_mode) {
+	//if(client && client->modesets) {
 		struct videomode vm;
-		struct drm_display_mode *mode;
-		mode = mode_set->mode;
+		struct drm_display_mode *mode = fb_helper->crtc_info->desired_mode;
+		//mode = mode_set->mode;
 
 		drm_display_mode_to_videomode(mode, &vm);
 		info->var.left_margin = vm.hsync_len + vm.hback_porch;
 		info->var.right_margin = vm.hfront_porch;
 		info->var.upper_margin = vm.vsync_len + vm.vback_porch;
 		info->var.lower_margin = vm.vfront_porch;
-		/* pico second */
+		// pico second 
 		info->var.pixclock = KHZ2PICOS(vm.pixelclock/1000);
 	}
+	*/
 
 	return 0;
 

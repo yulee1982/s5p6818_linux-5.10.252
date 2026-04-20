@@ -778,9 +778,7 @@ struct device_node *of_graph_get_remote_port_parent(
 
 	/* Get remote endpoint node. */
 	np = of_graph_get_remote_endpoint(node);
-
 	pp = of_graph_get_port_parent(np);
-
 	of_node_put(np);
 
 	return pp;
