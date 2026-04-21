@@ -1871,10 +1871,8 @@ drivers/gpu/drm/nexell/soc/s5pxx18_soc_mlc.c
 drivers/gpu/drm/nexell/soc/s5pxx18_dp_rgb.c
 drivers/gpu/drm/nexell/soc/s5pxx18_soc_disptop.c
 drivers/gpu/drm/nexell/soc/s5pxx18_dp_dev.c
-drivers/gpu/drm/nexell/soc/s5pxx18_soc_mipi.c
 drivers/gpu/drm/nexell/soc/s5pxx18_drm_dp.c
 drivers/gpu/drm/nexell/soc/s5pxx18_soc_disptop_clk.c
-drivers/gpu/drm/nexell/soc/s5pxx18_dp_mipi.c
 drivers/gpu/drm/nexell/soc/s5pxx18_dp_lvds.c
 drivers/gpu/drm/nexell/soc/s5pxx18_soc_dpc.c
 drivers/gpu/drm/nexell/soc/s5pxx18_soc_lvds.c
@@ -1929,6 +1927,7 @@ drivers/gpu/drm/drm_property.c
 drivers/gpu/drm/drm_plane.c
 drivers/gpu/drm/drm_atomic.c
 drivers/gpu/drm/drm_vblank.c
+drivers/gpu/drm/panel/panel-nanopi.c
 drivers/gpu/drm/drm_modeset_lock.c
 drivers/gpu/drm/drm_bridge.c
 drivers/gpu/drm/drm_panel.c
@@ -2112,6 +2111,7 @@ drivers/input/keyboard/atkbd.c
 drivers/input/evdev.c
 drivers/input/input-mt.c
 drivers/input/touchscreen/of_touchscreen.c
+drivers/input/touchscreen/onewire.c
 drivers/input/serio/ambakmi.c
 drivers/input/serio/libps2.c
 drivers/input/serio/serio.c
@@ -5841,7 +5841,6 @@ include/soc/nexell/tieoff.h
 drivers/gpu/drm/nexell/soc/s5pxx18_dp_dev.h
 include/config/drm/nx/rgb.h
 include/config/drm/nx/lvds.h
-include/config/drm/nx/mipi/dsi.h
 drivers/gpu/drm/nexell/soc/s5pxx18_soc_mlc.h
 drivers/gpu/drm/nexell/soc/s5pxx18_soc_disp.h
 drivers/gpu/drm/nexell/soc/s5pxx18_soc_dpc.h
@@ -5877,6 +5876,7 @@ include/linux/dma-fence-chain.h
 include/drm/drm_self_refresh_helper.h
 include/drm/drm_gem_shmem_helper.h
 drivers/gpu/drm/drm_trace.h
+include/soc/nexell/panel-nanopi.h
 include/drm/drm_bridge_connector.h
 include/drm/drm_format_helper.h
 drivers/gpu/drm/drm_dp_mst_topology_internal.h

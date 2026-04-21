@@ -372,6 +372,7 @@ static int panel_lcd_bind(struct device *dev,
 	ctx->connector = nx_drm_connector_create_and_attach(drm,
 					ctx->display, pipe, possible_crtcs,
 					panel_type, ctx);
+	printk("panel_type = %d, connector_type = %d\n", panel_type, ctx->connector->connector_type);
 	if (IS_ERR(ctx->connector))
 		goto err_bind;
 

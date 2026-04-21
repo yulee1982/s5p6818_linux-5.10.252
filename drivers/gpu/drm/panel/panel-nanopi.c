@@ -552,7 +552,12 @@ static int panel_nanopi_platform_probe(struct platform_device *pdev)
 	//drm_panel_init(&panel->base);
 	//panel->base.dev = &pdev->dev;
 	//panel->base.funcs = &panel_nanopi_funcs;
-	drm_panel_init(&panel->base, &pdev->dev, &panel_nanopi_funcs, DRM_MODE_CONNECTOR_LVDS);
+	if( isLvds )
+		drm_panel_init(&panel->base, &pdev->dev, &panel_nanopi_funcs, 
+			DRM_MODE_CONNECTOR_LVDS);
+	else
+		drm_panel_init(&panel->base, &pdev->dev, &panel_nanopi_funcs, 
+			DRM_MODE_CONNECTOR_VGA);
 
 	drm_panel_add(&panel->base);
 

@@ -260,7 +260,6 @@ EXPORT_SYMBOL_GPL(platform_get_irq_optional);
 int platform_get_irq(struct platform_device *dev, unsigned int num)
 {
 	int ret;
-
 	ret = platform_get_irq_optional(dev, num);
 	if (ret < 0 && ret != -EPROBE_DEFER)
 		dev_err(&dev->dev, "IRQ index %u not found\n", num);

@@ -1,0 +1,1238 @@
+EMA is 1.1V
+
+
+
+
+Working to aarch64
+
+waiting for pll change..
+
+
+
+--------------------------------------------------------------------------------
+
+ Second Boot by Nexell Co. : Ver0.1.1 - Built on Nov 29 2025 11:47:02
+
+--------------------------------------------------------------------------------
+
+ NSIH : Ver0.3.xx
+
+
+
+DDR3 POR Init Start 0
+
+
+
+DDR3 POR Init Start
+
+PHY Version: 0x06000271
+
+phy init
+
+
+
+########## Gate Leveling - Start ##########
+
+
+
+########## Gate Leveling - End ##########
+
+Lock value  = 187
+
+g_GT_cycle  = 0x00000492
+
+g_GT_code   = 0x0C0F1313
+
+g_RD_vwmc   = 0x00000000
+
+g_WR_vwmc   = 0x00000000
+
+GATE CYC    = 0x00000492
+
+GATE CODE   = 0x00000000
+
+Read  DQ    = 0x08080808
+
+Write DQ    = 0x08080808
+
+
+
+
+
+DDR3 Init Done!
+
+CCI Init!
+
+Wakeup CPU Wakeup Sub CPU 1234567
+
+CPU Wakeup done! WFI is expected.
+
+CPU0 is Master!
+
+
+Loading from sdmmc...
+
+Launch to 0x43C00000
+
+
+
+
+
+U-Boot 2016.01-00712-g23ef2ccb7a-dirty (Dec 05 2025 - 08:51:06 +0800)
+
+
+
+Model: FriendlyElec boards based on Nexell s5p6818
+
+Board: NanoPC-T3
+
+DRAM:  2 GiB
+
+Panel: S430
+
+MMC:   NEXELL DWMMC: 0, NEXELL DWMMC: 1
+
+*** Warning - bad CRC, using default environment
+
+
+
+RGB:   dp.0
+
+LCD:   [LCD] dp.0.1 480x800 32bpp FB:0x46000000
+
+In:    serial
+
+Out:   serial
+
+Err:   serial
+
+MAC:  [80:1f:12:ce:50:99]
+
+
+
+Hit any key to stop autoboot:  0
+
+17440344 bytes read in 848 ms (19.6 MiB/s)
+
+61527 bytes read in 24 ms (2.4 MiB/s)
+
+## Flattened Device Tree blob at 4a000000
+
+   Booting using the fdt blob at 0x4a000000
+
+   reserving fdt memory region: addr=bde00000 size=100000
+
+   Using Device Tree in place at 000000004a000000, end 000000004a012056
+
+
+
+Starting kernel ...
+
+
+
+[    0.000000] Booting Linux on physical CPU 0x0
+
+[    0.000000] Initializing cgroup subsys cpuset
+
+[    0.000000] Initializing cgroup subsys cpu
+
+[    0.000000] Initializing cgroup subsys cpuacct
+
+[    0.000000] Linux version 4.4.172-s5p6818 (yulee@yulee-linux) (gcc version 12.1.1 20220806 [releases/gcc-12 revision 4178af1a5f65a9baad5ecbb3f44824861259fba5] (GCC) ) #1 SMP PREEMPT Fri Apr 17 17:07:54 CST 2026
+
+[    0.000000] Boot CPU: AArch64 Processor [410fd033]
+
+[    0.000000] Machine model: FriendlyElec NanoPC-T3
+
+[    0.000000] cma: Reserved 192 MiB at 0x00000000b1000000
+
+[    0.000000] psci: probing for conduit method from DT.
+
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+
+[    0.000000] psci: Trusted OS migration not required
+
+[    0.000000] PERCPU: Embedded 21 pages/cpu @ffffffc07d9e3000 s46248 r8192 d31576 u86016
+
+[    0.000000] Detected VIPT I-cache on CPU0
+
+[    0.000000] CPU features: enabling workaround for ARM erratum 845719
+
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 506772
+
+[    0.000000] Kernel command line: console=tty0 console=ttySAC0,115200n8
+
+[    0.000000] PID hash table entries: 4096 (order: 3, 32768 bytes)
+
+[    0.000000] Dentry cache hash table entries: 262144 (order: 9, 2097152 bytes)
+
+[    0.000000] Inode-cache hash table entries: 131072 (order: 8, 1048576 bytes)
+
+[    0.000000] Memory: 1799612K/2059264K available (9304K kernel code, 1047K rwdata, 4960K rodata, 1696K init, 718K bss, 63044K reserved, 196608K cma-reserved)
+
+[    0.000000] Virtual kernel memory layout:
+
+[    0.000000]     modules : 0xffffff8000000000 - 0xffffff8008000000   (   128 MB)
+
+[    0.000000]     vmalloc : 0xffffff8008000000 - 0xffffffbdbfff0000   (   246 GB)
+
+[    0.000000]       .init : 0xffffff8008e74000 - 0xffffff800901c000   (  1696 KB)
+
+[    0.000000]       .text : 0xffffff8008080000 - 0xffffff8008997000   (  9308 KB)
+
+[    0.000000]     .rodata : 0xffffff8008997000 - 0xffffff8008e74000   (  4980 KB)
+
+[    0.000000]       .data : 0xffffff800901c000 - 0xffffff8009121e40   (  1048 KB)
+
+[    0.000000]     vmemmap : 0xffffffbdc0000000 - 0xffffffbfc0000000   (     8 GB maximum)
+
+[    0.000000]               0xffffffbdc0000000 - 0xffffffbdc1f6c000   (    31 MB actual)
+
+[    0.000000]     fixed   : 0xffffffbffe7fb000 - 0xffffffbffec00000   (  4116 KB)
+
+[    0.000000]     PCI I/O : 0xffffffbffee00000 - 0xffffffbfffe00000   (    16 MB)
+
+[    0.000000]     memory  : 0xffffffc000000000 - 0xffffffc07db00000   (  2011 MB)
+
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=8, Nodes=1
+
+[    0.000000] Preemptible hierarchical RCU implementation.
+
+[    0.000000]  Build-time adjustment of leaf fanout to 64.
+
+[    0.000000] NR_IRQS:64 nr_irqs:64 0
+
+[    0.000000] PLL : [0] =  800000000, [1] =  800000000, [2] =  614394000, [3] =  800000000
+
+[    0.000000] (0) PLL1: CPU  FCLK =  800000000, HCLK = 200000000 (G0)
+
+[    0.000000] (7) PLL1: CPU  FCLK =  800000000, HCLK = 200000000 (G1)
+
+[    0.000000] (2) PLL3: MEM  FCLK =  800000000, DCLK = 800000000, BCLK = 400000000,
+
+[    0.000000] PCLK = 200000000
+
+[    0.000000] (1) PLL0: BUS  BCLK =  400000000, PCLK = 200000000
+
+[    0.000000] (8) PLL0: CCI4 BCLK =  400000000, PCLK = 200000000
+
+[    0.000000] (3) PLL0: G3D  BCLK =  400000000
+
+[    0.000000] (4) PLL0: VPU  BCLK =  400000000, PCLK = 200000000
+
+[    0.000000] (5) PLL0: DISP BCLK =  400000000, PCLK = 200000000
+
+[    0.000000] CPU REF HZ: 24000000 hz (0xc0010000:0xffffff8008004000)
+
+[    0.000000] clocksource: source timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 191126044627 ns
+
+[    0.000000] sched_clock: 64 bits at 250 Hz, resolution 4000000ns, wraps every 9007199254000000ns
+
+[    0.000000] Console: colour dummy device 80x25
+
+[    0.000000] console [tty0] enabled
+
+[    0.040000] Calibrating delay loop... 19.84 BogoMIPS (lpj=39680)
+
+[    0.044000] pid_max: default: 32768 minimum: 301
+
+[    0.044000] Security Framework initialized
+
+[    0.044000] AppArmor: AppArmor disabled by boot time parameter
+
+[    0.044000] Mount-cache hash table entries: 4096 (order: 3, 32768 bytes)
+
+[    0.044000] Mountpoint-cache hash table entries: 4096 (order: 3, 32768 bytes)
+
+[    0.044000] Initializing cgroup subsys io
+
+[    0.044000] Initializing cgroup subsys memory
+
+[    0.044000] Initializing cgroup subsys devices
+
+[    0.044000] Initializing cgroup subsys freezer
+
+[    0.044000] Initializing cgroup subsys net_cls
+
+[    0.044000] Initializing cgroup subsys perf_event
+
+[    0.044000] Initializing cgroup subsys net_prio
+
+[    0.044000] Initializing cgroup subsys hugetlb
+
+[    0.044000] Initializing cgroup subsys pids
+
+[    0.044000] sched-energy: CPU device node has no sched-energy-costs
+
+[    0.044000] Invalid sched_group_energy for CPU0
+
+[    0.044000] CPU0: update cpu_capacity 1024
+
+[    0.044000] ASID allocator initialised with 32768 entries
+
+[    0.080000] Detected VIPT I-cache on CPU1
+
+[    0.080000] Invalid sched_group_energy for CPU1
+
+[    0.080000] CPU1: update cpu_capacity 1024
+
+[    0.080000] CPU1: Booted secondary processor [410fd033]
+
+[    0.092000] Detected VIPT I-cache on CPU2
+
+[    0.092000] Invalid sched_group_energy for CPU2
+
+[    0.092000] CPU2: update cpu_capacity 1024
+
+[    0.092000] CPU2: Booted secondary processor [410fd033]
+
+[    0.104000] Detected VIPT I-cache on CPU3
+
+[    0.104000] Invalid sched_group_energy for CPU3
+
+[    0.104000] CPU3: update cpu_capacity 1024
+
+[    0.104000] CPU3: Booted secondary processor [410fd033]
+
+[    0.116000] Detected VIPT I-cache on CPU4
+
+[    0.116000] Invalid sched_group_energy for CPU4
+
+[    0.116000] CPU4: update cpu_capacity 1024
+
+[    0.116000] CPU4: Booted secondary processor [410fd033]
+
+[    0.128000] Detected VIPT I-cache on CPU5
+
+[    0.128000] Invalid sched_group_energy for CPU5
+
+[    0.128000] CPU5: update cpu_capacity 1024
+
+[    0.128000] CPU5: Booted secondary processor [410fd033]
+
+[    0.140000] Detected VIPT I-cache on CPU6
+
+[    0.140000] Invalid sched_group_energy for CPU6
+
+[    0.140000] CPU6: update cpu_capacity 1024
+
+[    0.140000] CPU6: Booted secondary processor [410fd033]
+
+[    0.152000] Detected VIPT I-cache on CPU7
+
+[    0.152000] Invalid sched_group_energy for CPU7
+
+[    0.152000] CPU7: update cpu_capacity 1024
+
+[    0.152000] CPU7: Booted secondary processor [410fd033]
+
+[    0.152000] Brought up 8 CPUs
+
+[    0.152000] SMP: Total of 8 processors activated.
+
+[    0.152000] CPU features: GIC system register CPU interface present but disabled by higher exception level
+
+[    0.152000] CPU features: detected feature: 32-bit EL0 Support
+
+[    0.152000] CPU: All CPU(s) started at EL2
+
+[    0.152000] alternatives: patching kernel code
+
+[    0.152000] Invalid sched_group_energy for CPU7
+
+[    0.152000] CPU7: update max cpu_capacity 1024
+
+[    0.152000] Invalid sched_group_energy for Cluster7
+
+[    0.152000] Invalid sched_group_energy for CPU6
+
+[    0.152000] Invalid sched_group_energy for Cluster6
+
+[    0.152000] Invalid sched_group_energy for CPU5
+
+[    0.152000] Invalid sched_group_energy for Cluster5
+
+[    0.152000] Invalid sched_group_energy for CPU4
+
+[    0.152000] Invalid sched_group_energy for Cluster4
+
+[    0.152000] Invalid sched_group_energy for CPU3
+
+[    0.152000] Invalid sched_group_energy for Cluster3
+
+[    0.152000] Invalid sched_group_energy for CPU2
+
+[    0.152000] Invalid sched_group_energy for Cluster2
+
+[    0.152000] Invalid sched_group_energy for CPU1
+
+[    0.152000] Invalid sched_group_energy for Cluster1
+
+[    0.152000] Invalid sched_group_energy for CPU0
+
+[    0.152000] Invalid sched_group_energy for Cluster0
+
+[    0.152000] devtmpfs: initialized
+
+[    0.156000] CPU1: update max cpu_capacity 1024
+
+[    0.188000] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+
+[    0.188000] futex hash table entries: 2048 (order: 5, 131072 bytes)
+
+[    0.192000] pinctrl core: initialized pinctrl subsystem
+
+[    0.192000] ECID: ceaec33a:362800d5:00000000:04e81234
+
+[    0.192000] LOT ID : NGACU
+
+[    0.196000] NET: Registered protocol family 16
+
+[    0.208000] cpuidle: using governor ladder
+
+[    0.220000] cpuidle: using governor menu
+
+[    0.220000] vdso: 2 pages (1 code @ ffffff800899d000, 1 data @ ffffff8009020000)
+
+[    0.220000] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+
+[    0.224000] DMA: preallocated 256 KiB pool for atomic allocations
+
+[    0.232000] nexell-reset c0012000.reset: nexell reset: nr_resets [96], base [ffffff800806e000]
+
+[    0.276000] pl08xdmac c0000000.pl08xdma: initialized 8 virtual memcpy channels
+
+[    0.276000] pl08xdmac c0000000.pl08xdma: initialized 16 virtual slave channels
+
+[    0.280000] pl08xdmac c0000000.pl08xdma: DMA: PL080 rev0 at 0xc0000000 irq 16
+
+[    0.280000] pl08xdmac c0001000.pl08xdma: initialized 8 virtual memcpy channels
+
+[    0.280000] pl08xdmac c0001000.pl08xdma: initialized 15 virtual slave channels
+
+[    0.284000] pl08xdmac c0001000.pl08xdma: DMA: PL080 rev0 at 0xc0001000 irq 17
+
+[    0.284000] c00a1000.serial: ttySAC0 at MMIO 0xc00a1000 (irq = 18, base_baud = 0) is a S3C6400/10
+
+[    1.072000] console [ttySAC0] enabled
+
+[    1.080000] c00a0000.serial: ttySAC1 at MMIO 0xc00a0000 (irq = 19, base_baud = 0) is a S3C6400/10
+
+[    1.088000] c00a2000.serial: ttySAC2 at MMIO 0xc00a2000 (irq = 20, base_baud = 0) is a S3C6400/10
+
+[    1.096000] c00a3000.serial: ttySAC3 at MMIO 0xc00a3000 (irq = 21, base_baud = 0) is a S3C6400/10
+
+[    1.104000] c006d000.serial: ttySAC4 at MMIO 0xc006d000 (irq = 22, base_baud = 0) is a S3C6400/10
+
+[    1.112000] SCSI subsystem initialized
+
+[    1.116000] usbcore: registered new interface driver usbfs
+
+[    1.120000] usbcore: registered new interface driver hub
+
+[    1.128000] usbcore: registered new device driver usb
+
+[    1.164000] axp_mfd 3-0034: failed reading at 0x03
+
+[    1.168000] [AXP22-MFD] try to read chip id failed!
+
+[    1.168000] axp_mfd 3-0034: axp_mfd_probe() Error: init_chip()
+
+[    1.176000] i2c-gpio c0000000.soc:i2c@3: using pins 159 (SDA) and 158 (SCL)
+
+[    1.184000] s3c-i2c c00a4000.i2c: slave address 0x66
+
+[    1.188000] s3c-i2c c00a4000.i2c: bus frequency set to 390 KHz
+
+[    1.196000] s3c-i2c c00a4000.i2c: i2c-0: S3C I2C adapter
+
+[    1.200000] s3c-i2c c00a5000.i2c: slave address 0x66
+
+[    1.204000] s3c-i2c c00a5000.i2c: bus frequency set to 97 KHz
+
+[    1.208000] s3c-i2c c00a5000.i2c: i2c-1: S3C I2C adapter
+
+[    1.216000] s3c-i2c c00a6000.i2c: slave address 0x66
+
+[    1.220000] s3c-i2c c00a6000.i2c: bus frequency set to 195 KHz
+
+[    1.228000] s3c-i2c c00a6000.i2c: i2c-2: S3C I2C adapter
+
+[    1.232000] media: Linux media interface: v0.10
+
+[    1.236000] Linux video capture interface: v2.00
+
+[    1.240000] pps_core: LinuxPPS API ver. 1 registered
+
+[    1.244000] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+
+[    1.256000] PTP clock support registered
+
+[    1.260000] dwmmc_nexell c0069000.dw_mmc: fifo-depth property not found, using value of FIFOTH register as default
+
+[    1.268000] dwmmc_nexell c0069000.dw_mmc: IDMAC supports 32-bit address mode.
+
+[    1.276000] dwmmc_nexell c0069000.dw_mmc: Using internal DMA controller.
+
+[    1.284000] dwmmc_nexell c0069000.dw_mmc: Version ID is 250a
+
+[    1.288000] dwmmc_nexell c0069000.dw_mmc: DW MMC controller at irq 26,32 bit host data width,32 deep fifo
+
+[    1.296000] dwmmc_nexell c0069000.dw_mmc: No vmmc regulator found
+
+[    1.304000] dwmmc_nexell c0069000.dw_mmc: No vqmmc regulator found
+
+[    1.340000] mmc0: run _mmc_detect_change()
+
+[    1.340000] dwmmc_nexell c0069000.dw_mmc: 1 slots initialized
+
+[    1.344000] dwmmc_nexell c0068000.dw_mmc: fifo-depth property not found, using value of FIFOTH register as default
+
+[    1.352000] dwmmc_nexell c0068000.dw_mmc: IDMAC supports 32-bit address mode.
+
+[    1.360000] dwmmc_nexell c0068000.dw_mmc: Using internal DMA controller.
+
+[    1.368000] dwmmc_nexell c0068000.dw_mmc: Version ID is 250a
+
+[    1.372000] dwmmc_nexell c0068000.dw_mmc: DW MMC controller at irq 27,32 bit host data width,32 deep fifo
+
+[    1.380000] dwmmc_nexell c0068000.dw_mmc: No vmmc regulator found
+
+[    1.388000] dwmmc_nexell c0068000.dw_mmc: No vqmmc regulator found
+
+[    1.428000] mmc1: run _mmc_detect_change()
+
+[    1.428000] dwmmc_nexell c0068000.dw_mmc: 1 slots initialized
+
+[    1.432000] dwmmc_nexell c0062000.dw_mmc: fifo-depth property not found, using value of FIFOTH register as default
+
+[    1.440000] dwmmc_nexell c0062000.dw_mmc: IDMAC supports 32-bit address mode.
+
+[    1.448000] dwmmc_nexell c0062000.dw_mmc: Using internal DMA controller.
+
+[    1.456000] dwmmc_nexell c0062000.dw_mmc: Version ID is 250a
+
+[    1.460000] dwmmc_nexell c0062000.dw_mmc: DW MMC controller at irq 28,32 bit host data width,16 deep fifo
+
+[    1.468000] dwmmc_nexell c0062000.dw_mmc: No vmmc regulator found
+
+[    1.476000] dwmmc_nexell c0062000.dw_mmc: No vqmmc regulator found
+
+[    1.480000] dwmmc_nexell c0062000.dw_mmc: Got CD GPIO
+
+[    1.496000] mmc0: MAN_BKOPS_EN bit is not set
+
+[    1.496000] mmc_host mmc0: Bus speed (slot 0) = 100000000Hz (slot req 52000000Hz, actual 50000000HZ div = 1)
+
+[    1.500000] mmc0: new high speed MMC card at address 0001
+
+[    1.520000] mmc2: run _mmc_detect_change()
+
+[    1.520000] dwmmc_nexell c0062000.dw_mmc: 1 slots initialized
+
+[    1.520000] mmc1: queuing unknown CIS tuple 0x80 (2 bytes)
+
+[    1.520000] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+
+[    1.524000] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+
+[    1.528000] mmc1: queuing unknown CIS tuple 0x80 (7 bytes)
+
+[    1.528000] mmc1: queuing unknown CIS tuple 0x81 (9 bytes)
+
+[    1.552000] Advanced Linux Sound Architecture Driver Initialized.
+
+[    1.556000] Bluetooth: Core ver 2.21
+
+[    1.560000] NET: Registered protocol family 31
+
+[    1.564000] Bluetooth: HCI device and connection manager initialized
+
+[    1.572000] Bluetooth: HCI socket layer initialized
+
+[    1.576000] Bluetooth: L2CAP socket layer initialized
+
+[    1.580000] Bluetooth: SCO socket layer initialized
+
+[    1.584000] NetLabel: Initializing
+
+[    1.588000] NetLabel:  domain hash size = 128
+
+[    1.592000] NetLabel:  protocols = UNLABELED CIPSOv4
+
+[    1.596000] NetLabel:  unlabeled traffic allowed by default
+
+[    1.604000] clocksource: Switched to clocksource source timer
+
+[    1.608000] Clockevents: could not switch to one-shot mode:
+
+[    1.608000] Clockevents: could not switch to one-shot mode:
+
+[    1.608000]  dummy_timer is not functional.
+
+[    1.608000]  dummy_timer is not functional.
+
+[    1.608000] Clockevents: could not switch to one-shot mode:
+
+[    1.608000] Clockevents: could not switch to one-shot mode:
+
+[    1.608000] Clockevents: could not switch to one-shot mode:
+
+[    1.608000] Clockevents: could not switch to one-shot mode:
+
+[    1.608000]  dummy_timer is not functional.
+
+[    1.608000]  dummy_timer is not functional.
+
+[    1.608000] Could not switch to high resolution mode on CPU 3
+
+[    1.608000] Could not switch to high resolution mode on CPU 4
+
+[    1.608000] Could not switch to high resolution mode on CPU 7
+
+[    1.608000]  dummy_timer is not functional.
+
+[    1.608000] Could not switch to high resolution mode on CPU 2
+
+[    1.608000] Clockevents: could not switch to one-shot mode:
+
+[    1.608000] Could not switch to high resolution mode on CPU 0
+
+[    1.608000]  dummy_timer is not functional.
+
+[    1.608000]  dummy_timer is not functional.
+
+[    1.608000] Could not switch to high resolution mode on CPU 5
+
+[    1.608000] Could not switch to high resolution mode on CPU 1
+
+[    1.608000] Clockevents: could not switch to one-shot mode: dummy_timer is not functional.
+
+[    1.608000] Could not switch to high resolution mode on CPU 6
+
+[    1.612000] mmc_host mmc1: Bus speed (slot 0) = 50000000Hz (slot req 50000000Hz, actual 50000000HZ div = 0)
+
+[    1.616000] mmc1: new high speed SDIO card at address 0001
+
+[    1.652000] mmc_host mmc2: Bus speed (slot 0) = 50000000Hz (slot req 50000000Hz, actual 50000000HZ div = 0)
+
+[    1.652000] mmc2: new high speed SDHC card at address 0001
+
+[    1.856000] io scheduler noop registered
+
+[    1.856000] io scheduler deadline registered
+
+[    1.856000] io scheduler cfq registered (default)
+
+[    1.880000] mmcblk1: mmc0:0001 AJTD4R 14.6 GiB
+
+[    1.880000] mmcblk1boot0: mmc0:0001 AJTD4R partition 1 4.00 MiB
+
+[    1.884000] mmcblk1boot1: mmc0:0001 AJTD4R partition 2 4.00 MiB
+
+[    1.892000] mmcblk1rpmb: mmc0:0001 AJTD4R partition 3 4.00 MiB
+
+[    1.896000]  mmcblk1: p1 p2 p3 p4 < p5 p6 p7 >
+
+[    1.904000] mmcblk0: mmc2:0001 SD8GB 7.44 GiB
+
+[    1.908000]  mmcblk0: p1
+
+[    1.908000] NET: Registered protocol family 2
+
+[    1.912000] TCP established hash table entries: 16384 (order: 5, 131072 bytes)
+
+[    1.920000] TCP bind hash table entries: 16384 (order: 7, 524288 bytes)
+
+[    1.924000] TCP: Hash tables configured (established 16384 bind 16384)
+
+[    1.932000] UDP hash table entries: 1024 (order: 4, 98304 bytes)
+
+[    1.936000] UDP-Lite hash table entries: 1024 (order: 4, 98304 bytes)
+
+[    1.944000] NET: Registered protocol family 1
+
+[    1.948000] RPC: Registered named UNIX socket transport module.
+
+[    1.956000] RPC: Registered udp transport module.
+
+[    1.960000] RPC: Registered tcp transport module.
+
+[    1.964000] RPC: Registered tcp NFSv4.1 backchannel transport module.
+
+[    2.072000] Initcalls thread level:6
+
+[    2.072000] hw perfevents: enabled with armv8_pmuv3 PMU driver, 7 counters available
+
+[    2.084000] audit: initializing netlink subsys (disabled)
+
+[    2.084000] audit: type=2000 audit(2.080:1): initialized
+
+[    2.092000] Initialise system trusted keyring
+
+[    2.096000] HugeTLB registered 2 MB page size, pre-allocated 0 pages
+
+[    2.124000] VFS: Disk quotas dquot_6.6.0
+
+[    2.124000] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+
+[    2.132000] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+
+[    2.140000] NFS: Registering the id_resolver key type
+
+[    2.140000] Key type id_resolver registered
+
+[    2.144000] Key type id_legacy registered
+
+[    2.152000] fuse init (API version 7.23)
+
+[    2.160000] Key type asymmetric registered
+
+[    2.160000] Asymmetric key parser 'x509' registered
+
+[    2.164000] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+
+[    2.176000] spu1705 3-002d: found chip 0x4d, rev 1711
+
+[    2.180000] [drm] Initialized drm 1.1.0 20060810
+
+[    2.184000] Display: S430 selected
+
+[    2.184000] panel-friendlyelec supply power not found, using dummy regulator
+
+[    2.192000] [drm] Load RGB panel
+
+[    2.196000] [drm] Load HDMI panel
+
+[    2.200000] [drm] irq 39 install for hdp
+
+[    2.204000] [drm] num of crtcs 2, FB align 1
+
+[    2.208000] [drm] crtc[0]: pipe.0
+
+[    2.212000] [drm] crtc[1]: pipe.1
+
+[    2.212000] [drm] Bind RGB panel
+
+[    2.216000] RGB panel node exist
+
+[    2.220000] device_node name (panel-friendlyelec)
+
+[    2.224000] panel->dev->of_node == np return panel
+
+[    2.228000] [drm] RGB: check panel connected
+
+[    2.232000] nexell,display_drm c0102800.display_drm: bound c0101000.display_drm_rgb (ops 0xffffff8008a16870)
+
+[    2.244000] [drm] Bind HDMI panel
+
+[    2.248000] nexell,display_drm c0102800.display_drm: bound c0101000.display_drm_hdmi (ops 0xffffff8008a16d88)
+
+[    2.256000] [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
+
+[    2.264000] [drm] No driver support for vblank timestamp query.
+
+[    2.268000] RGB panel node exist
+
+[    2.272000] device_node name (panel-friendlyelec)
+
+[    2.276000] panel->dev->of_node == np return panel
+
+[    2.280000] [drm] HDMI: disconnect
+
+[    2.284000] [drm] FB counts = 3, FB vblank Pass fb crtcs 2 [0xff]
+
+[    2.292000] RGB panel node exist
+
+[    2.296000] device_node name (panel-friendlyelec)
+
+[    2.300000] panel->dev->of_node == np return panel
+
+[    2.304000] [drm] HDMI: disconnect
+
+[    2.308000] [drm] framebuffer width(480), height(800) and bpp(32) buffers(3)
+
+hello, world!
+
+hello, Linux!
+
+here is initramfs!
+
+mount:[    2.320000] [drm] Copy splash image from 0x46000000(0xffffff800926e000) to 0xffffff8009701000 size 1536000
+
+ mounting /dev/mmcblk2p1 on /mnt failed: No such file or directory
+
+BusyBox v1.36.1 (2024-07-31 11:57:19 CST) multi-call binary.
+
+
+
+Usage: switch_root [-c CONSOLE_DEV] NEW_ROOT NEW_INIT [ARGS]
+
+
+
+Free initramfs and switch to another root fs:
+
+chroot to NEW_ROOT, delete all in /, move NEW_ROOT to /,
+
+execute NEW_INIT. PID must be 1. NEW_ROOT must be a mountpoint.
+
+
+
+        -c DEV  Reopen stdio to DEV after switch
+
+[    2.360000] [drm] request CRTC.37 IRQ 0
+
+[    2.376000] Kernel panic - not syncing: Attempted to kill init! exitcode=0x00000100
+
+[    2.376000]
+
+[    2.376000] CPU: 2 PID: 1 Comm: switch_root Not tainted 4.4.172-s5p6818 #1
+
+[    2.376000] Hardware name: FriendlyElec NanoPC-T3 (DT)
+
+[    2.376000] Call trace:
+
+[    2.376000] [<ffffff8008089390>] dump_backtrace+0x0/0x1e4
+
+[    2.376000] [<ffffff8008089588>] show_stack+0x14/0x1c
+
+[    2.376000] [<ffffff80084009c0>] dump_stack+0x8c/0xac
+
+[    2.376000] [<ffffff800817f7f4>] panic+0xdc/0x210
+
+[    2.376000] [<ffffff80080a5f14>] do_exit+0x944/0x950
+
+[    2.376000] [<ffffff80080a5f84>] do_group_exit+0x34/0xa0
+
+[    2.376000] [<ffffff80080a6000>] __wake_up_parent+0x0/0x30
+
+[    2.376000] [<ffffff8008084f70>] el0_svc_naked+0x24/0x28
+
+[    2.376000] CPU0: stopping
+
+[    2.376000] CPU: 0 PID: 73 Comm: initcalls:threa Not tainted 4.4.172-s5p6818 #1
+
+[    2.376000] Hardware name: FriendlyElec NanoPC-T3 (DT)
+
+[    2.376000] Call trace:
+
+[    2.376000] [<ffffff8008089390>] dump_backtrace+0x0/0x1e4
+
+[    2.376000] [<ffffff8008089588>] show_stack+0x14/0x1c
+
+[    2.376000] [<ffffff80084009c0>] dump_stack+0x8c/0xac
+
+[    2.376000] [<ffffff800808e614>] handle_IPI+0x2e4/0x324
+
+[    2.376000] [<ffffff800808162c>] gic_handle_irq+0x9c/0xa0
+
+[    2.376000] Exception stack(0xffffffc06e83b1a0 to 0xffffffc06e83b2d0)
+
+[    2.376000] b1a0: ffffffc06e961523 ffffff80089ffd13 0000000000000000 ffffff80089ffd18
+
+[    2.376000] b1c0: 0000000000000010 0000000000000001 0000000000002000 000000000000003c
+
+[    2.376000] b1e0: ffffffc06e930000 0000000000000001 0000000000000000 00000000ffffffff
+
+[    2.376000] b200: 0000000000000780 ffffff8008a04730 0000000000000008 0000000000000010
+
+[    2.376000] b220: 000000000000003c 00000000aace4451 00000000b327698a ffffffc06e962e10
+
+[    2.376000] b240: 0000000000000001 ffffffc06e9612cb 000000000000003c ffffffc06e962db0
+
+[    2.376000] b260: ffffffc06e030400 0000000000000000 0000000000000001 0000000000000010
+
+[    2.376000] b280: 00000000000000ff ffffffc06e83b2d0 ffffff800844cb88 ffffffc06e83b2d0
+
+[    2.376000] b2a0: ffffff800844cc44 0000000020000145 0000000000000000 0000000000000010
+
+[    2.376000] b2c0: ffffffffffffffff ffffff800916be00
+
+[    2.376000] [<ffffff80080847f4>] el1_irq+0xb4/0x128
+
+[    2.376000] [<ffffff800844cc44>] bit_putcs+0x204/0x470
+
+[    2.376000] [<ffffff8008446ed4>] fbcon_putcs+0x114/0x130
+
+[    2.376000] [<ffffff80084814f0>] do_update_region+0x100/0x180
+
+[    2.376000] [<ffffff8008483074>] redraw_screen+0x1f4/0x244
+
+[    2.376000] [<ffffff800844777c>] fbcon_prepare_logo+0x3ac/0x434
+
+[    2.376000] [<ffffff80084499e0>] fbcon_init+0x330/0x4d0
+
+[    2.376000] [<ffffff8008482040>] visual_init+0xb0/0x100
+
+[    2.376000] [<ffffff8008483e7c>] do_bind_con_driver.isra.0+0x1cc/0x3a0
+
+[    2.376000] [<ffffff80084841a4>] do_take_over_console+0x154/0x220
+
+[    2.376000] [<ffffff800844786c>] do_fbcon_takeover+0x68/0xd0
+
+[    2.376000] [<ffffff800844c678>] fbcon_event_notify+0x738/0x840
+
+[    2.376000] [<ffffff80080c369c>] blocking_notifier_call_chain+0x7c/0xb0
+
+[    2.376000] [<ffffff800844e94c>] fb_notifier_call_chain+0x1c/0x30
+
+[    2.376000] [<ffffff80084502b4>] register_framebuffer+0x1a4/0x290
+
+[    2.376000] [<ffffff80084a3e60>] drm_fb_helper_initial_config+0x2a0/0x3f0
+
+[    2.376000] [<ffffff80084d52f8>] nx_drm_framebuffer_init+0x1d4/0x25c
+
+[    2.376000] [<ffffff80084d2458>] nx_drm_output_poll_changed+0x58/0x90
+
+[    2.376000] [<ffffff800849830c>] drm_helper_hpd_irq_event+0x158/0x19c
+
+[    2.376000] [<ffffff80084d22a8>] nx_drm_load+0x128/0x1b0
+
+[    2.376000] [<ffffff80084acd4c>] drm_dev_register+0xbc/0xd0
+
+[    2.376000] [<ffffff80084aec54>] drm_platform_init+0x44/0xe0
+
+[    2.376000] [<ffffff80084d20ec>] nx_drm_bind+0x1c/0x24
+
+[    2.376000] [<ffffff80084ff318>] try_to_bring_up_master.part.0+0xc8/0x120
+
+[    2.376000] [<ffffff80084ff428>] component_master_add_with_match+0xb8/0x120
+
+[    2.376000] [<ffffff80084d2584>] nx_drm_probe+0xf4/0x160
+
+[    2.376000] [<ffffff8008506a58>] platform_drv_probe+0x58/0xc0
+
+[    2.376000] [<ffffff8008504ccc>] driver_probe_device+0x1ac/0x2d0
+
+[    2.376000] [<ffffff8008504e8c>] __driver_attach+0x9c/0xa0
+
+[    2.376000] [<ffffff8008502b88>] bus_for_each_dev+0x68/0xa4
+
+[    2.376000] [<ffffff80085045c0>] driver_attach+0x20/0x30
+
+[    2.376000] [<ffffff800850422c>] bus_add_driver+0x1ac/0x210
+
+[    2.376000] [<ffffff8008505918>] driver_register+0x74/0x10c
+
+[    2.376000] [<ffffff8008506964>] __platform_driver_register+0x44/0x50
+
+[    2.376000] [<ffffff8008e9e9d8>] nx_drm_init+0x74/0x84
+
+[    2.376000] [<ffffff8008081c44>] do_one_initcall+0xb4/0x1b0
+
+[    2.376000] [<ffffff8008e74a34>] do_initcall_level+0xa0/0xb4
+
+[    2.376000] [<ffffff8008e74c30>] do_initcalls_kth+0x38/0x4c
+
+[    2.376000] [<ffffff80080c1d50>] kthread+0xf0/0xf4
+
+[    2.376000] [<ffffff8008084f30>] ret_from_fork+0x10/0x20
+
+[    2.376000] CPU5: stopping
+
+[    2.376000] CPU: 5 PID: 0 Comm: swapper/5 Not tainted 4.4.172-s5p6818 #1
+
+[    2.376000] Hardware name: FriendlyElec NanoPC-T3 (DT)
+
+[    2.376000] Call trace:
+
+[    2.376000] [<ffffff8008089390>] dump_backtrace+0x0/0x1e4
+
+[    2.376000] [<ffffff8008089588>] show_stack+0x14/0x1c
+
+[    2.376000] [<ffffff80084009c0>] dump_stack+0x8c/0xac
+
+[    2.376000] [<ffffff800808e614>] handle_IPI+0x2e4/0x324
+
+[    2.376000] [<ffffff800808162c>] gic_handle_irq+0x9c/0xa0
+
+[    2.376000] Exception stack(0xffffffc06e163e00 to 0xffffffc06e163f30)
+
+[    2.376000] 3e00: 0000000000000005 ffffff8008b90518 0000000000000000 ffffff8008ff4008
+
+[    2.376000] 3e20: 002c588a00000000 0000000000000001 0000004074a58000 0000000000000000
+
+[    2.376000] 3e40: ffffffc06e163f30 0000000000000000 0000000000000a00 0000000000000000
+
+[    2.376000] 3e60: 0000000000000000 00000000000003ff 0000000000000001 000000003e1b155d
+
+[    2.376000] 3e80: 00000000a1c00bf6 00000000aace4451 00000000b327698a 0000000000000000
+
+[    2.376000] 3ea0: 0000000000000000 ffffffc06e145280 ffffff8008ff8ad0 ffffff8008ffd310
+
+[    2.376000] 3ec0: ffffff8008b74d60 ffffff800910b6fe ffffff80090216b8 ffffff800899eb48
+
+[    2.376000] 3ee0: ffffff80090216c4 ffffffc06e163f30 ffffff80080857e8 ffffffc06e163f30
+
+[    2.376000] 3f00: ffffff80080857ec 0000000000000045 ffffff8008ff8b60 00000000000000c0
+
+[    2.376000] 3f20: ffffffffffffffff ffffff80080857e0
+
+[    2.376000] [<ffffff80080847f4>] el1_irq+0xb4/0x128
+
+[    2.376000] [<ffffff80080857ec>] arch_cpu_idle+0x1c/0x184
+
+[    2.376000] [<ffffff80080ef53c>] cpu_startup_entry+0x27c/0x430
+
+[    2.376000] [<ffffff800808dfc4>] secondary_start_kernel+0x104/0x140
+
+[    2.376000] [<0000000040081b3c>] 0x40081b3c
+
+[    2.376000] CPU1: stopping
+
+[    2.376000] CPU: 1 PID: 0 Comm: swapper/1 Not tainted 4.4.172-s5p6818 #1
+
+[    2.376000] Hardware name: FriendlyElec NanoPC-T3 (DT)
+
+[    2.376000] Call trace:
+
+[    2.376000] [<ffffff8008089390>] dump_backtrace+0x0/0x1e4
+
+[    2.376000] [<ffffff8008089588>] show_stack+0x14/0x1c
+
+[    2.376000] [<ffffff80084009c0>] dump_stack+0x8c/0xac
+
+[    2.376000] [<ffffff800808e614>] handle_IPI+0x2e4/0x324
+
+[    2.376000] [<ffffff800808162c>] gic_handle_irq+0x9c/0xa0
+
+[    2.376000] Exception stack(0xffffffc06e153e00 to 0xffffffc06e153f30)
+
+[    2.376000] 3e00: 0000000000000001 ffffff8008b90518 0000000000000000 ffffff8008ff4008
+
+[    2.376000] 3e20: 002a704200000000 0000000000000001 0000004074a04000 0000000000000000
+
+[    2.376000] 3e40: ffffffc06e153f30 0000000000000000 0000000000000a00 ffffff8008ff4008
+
+[    2.376000] 3e60: 0000000000000004 00000000000007ce ffffffc06e00a000 0000000000000000
+
+[    2.376000] 3e80: 0000000000000001 0000000000000007 000000000000000e 0000000000000000
+
+[    2.376000] 3ea0: 0000000000000000 ffffffc06e141b80 ffffff8008ff8ad0 ffffff8008ffd310
+
+[    2.376000] 3ec0: ffffff8008b74d60 ffffff800910b6fe ffffff80090216b8 ffffff800899eb48
+
+[    2.376000] 3ee0: ffffff80090216c4 ffffffc06e153f30 ffffff80080857e8 ffffffc06e153f30
+
+[    2.376000] 3f00: ffffff80080857ec 0000000000000145 ffffff8008ff8b60 00000000000001c0
+
+[    2.376000] 3f20: ffffffffffffffff ffffff80080857e0
+
+[    2.376000] [<ffffff80080847f4>] el1_irq+0xb4/0x128
+
+[    2.376000] [<ffffff80080857ec>] arch_cpu_idle+0x1c/0x184
+
+[    2.376000] [<ffffff80080ef53c>] cpu_startup_entry+0x27c/0x430
+
+[    2.376000] [<ffffff800808dfc4>] secondary_start_kernel+0x104/0x140
+
+[    2.376000] [<0000000040081b3c>] 0x40081b3c
+
+[    2.376000] CPU3: stopping
+
+[    2.376000] CPU: 3 PID: 0 Comm: swapper/3 Not tainted 4.4.172-s5p6818 #1
+
+[    2.376000] Hardware name: FriendlyElec NanoPC-T3 (DT)
+
+[    2.376000] Call trace:
+
+[    2.376000] [<ffffff8008089390>] dump_backtrace+0x0/0x1e4
+
+[    2.376000] [<ffffff8008089588>] show_stack+0x14/0x1c
+
+[    2.376000] [<ffffff80084009c0>] dump_stack+0x8c/0xac
+
+[    2.376000] [<ffffff800808e614>] handle_IPI+0x2e4/0x324
+
+[    2.376000] [<ffffff800808162c>] gic_handle_irq+0x9c/0xa0
+
+[    2.376000] Exception stack(0xffffffc06e15be00 to 0xffffffc06e15bf30)
+
+[    2.376000] be00: 0000000000000003 ffffff8008b90518 0000000000000000 ffffff8008ff4008
+
+[    2.376000] be20: 0014fb1800000000 0000000000000001 0000004074a2e000 0000000000000000
+
+[    2.376000] be40: ffffffc06e15bf30 0000000000000000 0000000000000a00 ffffff8008ff4008
+
+[    2.376000] be60: 0000000000000006 00000000000007a1 ffffffc06e00a000 0000000000000000
+
+[    2.376000] be80: ffffff80080a5ff0 0000000000000000 0000000000680f10 0000000000000000
+
+[    2.376000] bea0: 0000000000000000 ffffffc06e143700 ffffff8008ff8ad0 ffffff8008ffd310
+
+[    2.376000] bec0: ffffff8008b74d60 ffffff800910b6fe ffffff80090216b8 ffffff800899eb48
+
+[    2.376000] bee0: ffffff80090216c4 ffffffc06e15bf30 ffffff80080857e8 ffffffc06e15bf30
+
+[    2.376000] bf00: ffffff80080857ec 0000000000000145 ffffff8008ff8b60 00000000000001c0
+
+[    2.376000] bf20: ffffffffffffffff ffffff80080857e0
+
+[    2.376000] [<ffffff80080847f4>] el1_irq+0xb4/0x128
+
+[    2.376000] [<ffffff80080857ec>] arch_cpu_idle+0x1c/0x184
+
+[    2.376000] [<ffffff80080ef53c>] cpu_startup_entry+0x27c/0x430
+
+[    2.376000] [<ffffff800808dfc4>] secondary_start_kernel+0x104/0x140
+
+[    2.376000] [<0000000040081b3c>] 0x40081b3c
+
+[    2.376000] CPU4: stopping
+
+[    2.376000] CPU: 4 PID: 0 Comm: swapper/4 Not tainted 4.4.172-s5p6818 #1
+
+[    2.376000] Hardware name: FriendlyElec NanoPC-T3 (DT)
+
+[    2.376000] Call trace:
+
+[    2.376000] [<ffffff8008089390>] dump_backtrace+0x0/0x1e4
+
+[    2.376000] [<ffffff8008089588>] show_stack+0x14/0x1c
+
+[    2.376000] [<ffffff80084009c0>] dump_stack+0x8c/0xac
+
+[    2.376000] [<ffffff800808e614>] handle_IPI+0x2e4/0x324
+
+[    2.376000] [<ffffff800808162c>] gic_handle_irq+0x9c/0xa0
+
+[    2.376000] Exception stack(0xffffffc06e15fe00 to 0xffffffc06e15ff30)
+
+[    2.376000] fe00: 0000000000000004 ffffff8008b90518 0000000000000000 ffffff8008ff4008
+
+[    2.376000] fe20: 002a704200000000 0000000000000001 0000004074a43000 0000000000000000
+
+[    2.376000] fe40: ffffffc06e15ff30 0000000000000000 0000000000000a00 0101010101010101
+
+[    2.376000] fe60: 0000000000000018 0000000000000018 0fffffffffffffff ffffff8009039740
+
+[    2.376000] fe80: 000000008fe45c83 00000000aace4451 0000000000020000 0000000000000000
+
+[    2.376000] fea0: 0000000000000000 ffffffc06e1444c0 ffffff8008ff8ad0 ffffff8008ffd310
+
+[    2.376000] fec0: ffffff8008b74d60 ffffff800910b6fe ffffff80090216b8 ffffff800899eb48
+
+[    2.376000] fee0: ffffff80090216c4 ffffffc06e15ff30 ffffff80080857e8 ffffffc06e15ff30
+
+[    2.376000] ff00: ffffff80080857ec 0000000000000045 ffffff8008ff8b60 00000000000000c0
+
+[    2.376000] ff20: ffffffffffffffff ffffff80080857e0
+
+[    2.376000] [<ffffff80080847f4>] el1_irq+0xb4/0x128
+
+[    2.376000] [<ffffff80080857ec>] arch_cpu_idle+0x1c/0x184
+
+[    2.376000] [<ffffff80080ef53c>] cpu_startup_entry+0x27c/0x430
+
+[    2.376000] [<ffffff800808dfc4>] secondary_start_kernel+0x104/0x140
+
+[    2.376000] [<0000000040081b3c>] 0x40081b3c
+
+[    2.376000] CPU6: stopping
+
+[    2.376000] CPU: 6 PID: 0 Comm: swapper/6 Not tainted 4.4.172-s5p6818 #1
+
+[    2.376000] Hardware name: FriendlyElec NanoPC-T3 (DT)
+
+[    2.376000] Call trace:
+
+[    2.376000] [<ffffff8008089390>] dump_backtrace+0x0/0x1e4
+
+[    2.376000] [<ffffff8008089588>] show_stack+0x14/0x1c
+
+[    2.376000] [<ffffff80084009c0>] dump_stack+0x8c/0xac
+
+[    2.376000] [<ffffff800808e614>] handle_IPI+0x2e4/0x324
+
+[    2.376000] [<ffffff800808162c>] gic_handle_irq+0x9c/0xa0
+
+[    2.376000] Exception stack(0xffffffc06e167e00 to 0xffffffc06e167f30)
+
+[    2.376000] 7e00: 0000000000000006 ffffff8008b90518 0000000000000000 ffffff8008ff4008
+
+[    2.376000] 7e20: 002c588a00000000 0000000000000001 0000004074a6d000 0000000000000000
+
+[    2.376000] 7e40: ffffffc06e167f30 0000000000000000 0000000000000a00 0000000000000001
+
+[    2.376000] 7e60: dead000000000100 0000000000000018 0000000000000000 0000000000000000
+
+[    2.376000] 7e80: ffffff80080a5ff0 0000000000000000 0000000000000000 0000000000000000
+
+[    2.376000] 7ea0: 0000000000000000 ffffffc06e146040 ffffff8008ff8ad0 ffffff8008ffd310
+
+[    2.376000] 7ec0: ffffff8008b74d60 ffffff800910b6fe ffffff80090216b8 ffffff800899eb48
+
+[    2.376000] 7ee0: ffffff80090216c4 ffffffc06e167f30 ffffff80080857e8 ffffffc06e167f30
+
+[    2.376000] 7f00: ffffff80080857ec 0000000000000145 ffffff8008ff8b60 00000000000001c0
+
+[    2.376000] 7f20: ffffffffffffffff ffffff80080857e0
+
+[    2.376000] [<ffffff80080847f4>] el1_irq+0xb4/0x128
+
+[    2.376000] [<ffffff80080857ec>] arch_cpu_idle+0x1c/0x184
+
+[    2.376000] [<ffffff80080ef53c>] cpu_startup_entry+0x27c/0x430
+
+[    2.376000] [<ffffff800808dfc4>] secondary_start_kernel+0x104/0x140
+
+[    2.376000] [<0000000040081b3c>] 0x40081b3c
+
+[    2.376000] CPU7: stopping
+
+[    2.376000] CPU: 7 PID: 0 Comm: swapper/7 Not tainted 4.4.172-s5p6818 #1
+
+[    2.376000] Hardware name: FriendlyElec NanoPC-T3 (DT)
+
+[    2.376000] Call trace:
+
+[    2.376000] [<ffffff8008089390>] dump_backtrace+0x0/0x1e4
+
+[    2.376000] [<ffffff8008089588>] show_stack+0x14/0x1c
+
+[    2.376000] [<ffffff80084009c0>] dump_stack+0x8c/0xac
+
+[    2.376000] [<ffffff800808e614>] handle_IPI+0x2e4/0x324
+
+[    2.376000] [<ffffff800808162c>] gic_handle_irq+0x9c/0xa0
+
+[    2.376000] Exception stack(0xffffffc06e173e00 to 0xffffffc06e173f30)
+
+[    2.376000] 3e00: 0000000000000007 ffffff8008b90518 0000000000000000 ffffff8008ff4008
+
+[    2.376000] 3e20: 0025317c00000000 0000000000000001 0000004074a82000 0000000000000000
+
+[    2.376000] 3e40: ffffffc06e173f30 0000000000000000 0000000000000a00 ffffff8008ff4008
+
+[    2.376000] 3e60: 0000000000000004 00000000000007f6 ffffffc06e00a000 0000000000000000
+
+[    2.376000] 3e80: ffffff80081faca0 0000000000401c40 0000000000000001 0000000000000000
+
+[    2.376000] 3ea0: 0000000000000000 ffffffc06e146e00 ffffff8008ff8ad0 ffffff8008ffd310
+
+[    2.376000] 3ec0: ffffff8008b74d60 ffffff800910b6fe ffffff80090216b8 ffffff800899eb48
+
+[    2.376000] 3ee0: ffffff80090216c4 ffffffc06e173f30 ffffff80080857e8 ffffffc06e173f30
+
+[    2.376000] 3f00: ffffff80080857ec 0000000000000145 ffffff8008ff8b60 00000000000001c0
+
+[    2.376000] 3f20: ffffffffffffffff ffffff80080857e0
+
+[    2.376000] [<ffffff80080847f4>] el1_irq+0xb4/0x128
+
+[    2.376000] [<ffffff80080857ec>] arch_cpu_idle+0x1c/0x184
+
+[    2.376000] [<ffffff80080ef53c>] cpu_startup_entry+0x27c/0x430
+
+[    2.376000] [<ffffff800808dfc4>] secondary_start_kernel+0x104/0x140
+
+[    2.376000] [<0000000040081b3c>] 0x40081b3c
+
+[    2.376000] Kernel Offset: disabled
+
+[    2.376000] Memory Limit: none
+
+[    2.376000] Rebooting in 5 seconds..
+

@@ -1871,10 +1871,8 @@
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_dp_rgb.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_soc_disptop.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_dp_dev.c
-/home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_soc_mipi.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_drm_dp.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_soc_disptop_clk.c
-/home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_dp_mipi.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_dp_lvds.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_soc_dpc.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_soc_lvds.c
@@ -1929,6 +1927,7 @@
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/drm_plane.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/drm_atomic.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/drm_vblank.c
+/home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/panel/panel-nanopi.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/drm_modeset_lock.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/drm_bridge.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/drm_panel.c
@@ -2112,6 +2111,7 @@
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/input/evdev.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/input/input-mt.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/input/touchscreen/of_touchscreen.c
+/home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/input/touchscreen/onewire.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/input/serio/ambakmi.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/input/serio/libps2.c
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/input/serio/serio.c
@@ -5841,7 +5841,6 @@
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_dp_dev.h
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/include/config/drm/nx/rgb.h
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/include/config/drm/nx/lvds.h
-/home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/include/config/drm/nx/mipi/dsi.h
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_soc_mlc.h
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_soc_disp.h
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/nexell/soc/s5pxx18_soc_dpc.h
@@ -5877,6 +5876,7 @@
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/include/drm/drm_self_refresh_helper.h
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/include/drm/drm_gem_shmem_helper.h
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/drm_trace.h
+/home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/include/soc/nexell/panel-nanopi.h
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/include/drm/drm_bridge_connector.h
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/include/drm/drm_format_helper.h
 /home/yulee/work/s5p6818/4kernel_linux/s5p6818_linux-5.10.252/drivers/gpu/drm/drm_dp_mst_topology_internal.h
