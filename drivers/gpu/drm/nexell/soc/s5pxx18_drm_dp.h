@@ -20,6 +20,13 @@
 
 #include <video/videomode.h>
 #include <soc/nexell/tieoff.h>
+#include <drm/drm_connector.h>
+#include <drm/drm_modes.h>
+#include <drm/drm_crtc.h>
+#include <drm/drm_plane.h>
+#include <drm/drm_framebuffer.h>
+#include <drm/drm_encoder.h>
+#include <linux/platform_device.h>
 
 #include "s5pxx18_dp_dev.h"
 

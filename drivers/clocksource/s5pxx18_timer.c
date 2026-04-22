@@ -391,11 +391,13 @@ static irqreturn_t timer_event_handler(int irq, void *dev_id)
 	return IRQ_HANDLED;
 }
 
+/*
 static struct irqaction timer_event_irqaction = {
 	.name = "Event Timer IRQ",
-	.flags = IRQF_TIMER, /* removed IRQF_DISABLED kernel 4.1.15 */
+	.flags = IRQF_TIMER,
 	.handler = timer_event_handler,
 };
+*/
 
 #ifdef CONFIG_ARM64
 /*

@@ -177,7 +177,9 @@ static const struct drm_display_mode mode_s430 = {
 	.vsync_end = 800 + 32 + 16,
 	.vtotal = 800 + 32 + 16 + 0,
 	//.vrefresh = 60,
-	.flags = DRM_MODE_FLAG_NCSYNC
+	//.flags = DRM_MODE_FLAG_NCSYNC
+	//.flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC |
+	.flags = DRM_MODE_FLAG_NCSYNC | DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC
 };
 
 static const struct drm_display_mode mode_h43 = {
@@ -388,8 +390,8 @@ static const struct nanopi_panel_desc nanopi_panels[] = {
 		.i2c_touch_drv = "hx8528-a",
 		.i2c_touch_reg = 0x48,
 		.bpc  = 8,
-		.p_width = 108,
-		.p_height = 64,
+		.p_width = 64,  // 108
+		.p_height = 108, // 64
 		.mode = &mode_s430,
 	},{
 		.name = "h43",

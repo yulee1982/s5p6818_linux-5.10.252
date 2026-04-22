@@ -212,7 +212,6 @@ static uint32_t nx_drm_mode_fb_format(uint32_t bpp, uint32_t depth, bool bgr)
 static int nx_drm_fb_helper_probe(struct drm_fb_helper *fb_helper,
 			struct drm_fb_helper_surface_size *sizes)
 {
-printk("fun:nx_drm_fb_helper_probe. we come here.\n");
 	struct nx_drm_fbdev *fbdev = to_nx_drm_fbdev(fb_helper);
 	struct drm_mode_fb_cmd2 mode_cmd = { 0 };
 	struct drm_device *drm = fb_helper->dev;

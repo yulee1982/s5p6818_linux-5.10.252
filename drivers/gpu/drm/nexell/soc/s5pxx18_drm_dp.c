@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <linux/platform_device.h>
+//#include <linux/platform_device.h>
 #include <drm/drm.h>
 #include <drm/drm_fourcc.h>
 #include <drm/drm_print.h>

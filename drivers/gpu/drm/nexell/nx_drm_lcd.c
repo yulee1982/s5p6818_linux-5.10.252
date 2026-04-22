@@ -461,8 +461,9 @@ static int panel_lcd_parse_dt(struct platform_device *pdev,
 	/*
 	 * get panel timing from local.
 	 */
-	//endpoint = of_graph_get_endpoint_by_regs(node, -1, -1);
-	endpoint = of_graph_get_next_endpoint(node, NULL);
+DRM_INFO("platform_device node (%s) !\n", node->full_name);
+	endpoint = of_graph_get_endpoint_by_regs(node, -1, -1);
+	//endpoint = of_graph_get_next_endpoint(node, NULL);
 	if (!endpoint) {
 		DRM_INFO("Missing endpoint in port of node (%s) !\n", node->full_name);
 		return -ENODEV;
@@ -470,6 +471,7 @@ static int panel_lcd_parse_dt(struct platform_device *pdev,
 
 	np = of_graph_get_remote_port_parent(endpoint);
 	//np = of_graph_get_remote_node(endpoint,x,x);
+DRM_INFO("remote_port_parent node (%s) !\n", np->full_name);
 	of_node_put(endpoint);
 	
 	if (!np) {
