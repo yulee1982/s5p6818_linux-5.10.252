@@ -242,8 +242,8 @@
 	};
 
 	panel_rgb: panel_rgb {
-		/*compatible = "lcds";*/
-		compatible = "nanopi,nano-panel";
+		compatible = "lcds";
+		/*compatible = "nanopi,nano-panel";*/
 		status = "okay";
 		lcd = "S430";
 		
@@ -759,16 +759,27 @@
 	};
 
 	dp_control {
-		dp_rgb_vclk = "gpioa-0";
-		dp_rgb_vsync = "gpioa-25";
-		dp_rgb_hsync = "gpioa-26";
-		dp_rgb_de = "gpioa-27";
-		dp_rgb_R = "gpioa-17", "gpioa-18", "gpioa-19", "gpioa-20", 
-				"gpioa-21", "gpioa-22", "gpioa-23", "gpioa-24";
-		dp_rgb_G = "gpioa-9", "gpioa-10", "gpioa-11", "gpioa-12", 
-				"gpioa-13", "gpioa-14", "gpioa-15", "gpioa-16";
-		dp_rgb_B = "gpioa-1", "gpioa-2", "gpioa-3", "gpioa-4", 
-				"gpioa-5", "gpioa-6", "gpioa-7", "gpioa-8";
+                clk_src_lv0 = <0>;
+                clk_div_lv0 = <16>;
+                clk_src_lv1 = <7>;
+                clk_div_lv1 = <1>;
+                out_format = <3>;
+                invert_field = <0>;
+                swap_rb = <0>;
+                yc_order = <0>;
+                delay_mask = < ((1<<0) | (1<<1) | (1<<2) | (1<<3)) >;
+                d_rgb_pvd = <0>;
+                d_hsync_cp1 = <0>;
+                d_vsync_fram = <0>;
+                d_de_cp2 = <7>;
+                /*
+                vs_start_offset = <863>;
+                ev_start_offset = <863>;
+                */
+                vs_start_offset = <0>;
+                ev_start_offset = <0>;
+                vs_end_offset = <0>;
+                ev_end_offset = <0>;
 	};
 
 };

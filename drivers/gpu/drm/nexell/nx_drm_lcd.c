@@ -75,13 +75,14 @@ static bool panel_lcd_is_connected(struct device *dev,
 	struct lcd_context *ctx = dev_get_drvdata(dev);
 	struct nx_drm_panel *panel = &ctx->display->panel;
 	struct device_node *panel_node = panel->panel_node;
-		enum dp_panel_type panel_type = dp_panel_get_type(ctx->display);
+	enum dp_panel_type panel_type = dp_panel_get_type(ctx->display);
 
 	DRM_DEBUG_KMS("%s panel node %s\n",
 		dp_panel_type_name(panel_type), panel_node ?
-		"exist" : "not exist");//DRM_DEBUG_KMS
+		"exist" : "not exist");
 
-	if (panel_node) { //panel_node.name = panel_rgb
+	//panel_node.name = panel_rgb
+	if (panel_node) {
 		struct drm_panel *drm_panel = of_drm_find_panel(panel_node);
 		if (drm_panel) {
 			int ret;
@@ -96,11 +97,9 @@ static bool panel_lcd_is_connected(struct device *dev,
 			ret = drm_panel_prepare(drm_panel);
 			if (!ret) {
 				drm_panel_unprepare(drm_panel);
-				nx_drm_dp_lcd_unprepare(ctx->display,
-						drm_panel);
+				nx_drm_dp_lcd_unprepare(ctx->display, drm_panel);
 				panel->is_connected = true;
 			} else {
-				//drm_panel_detach(drm_panel);
 				panel->is_connected = false;
 			}
 			panel->check_panel = true;
@@ -461,7 +460,6 @@ static int panel_lcd_parse_dt(struct platform_device *pdev,
 	/*
 	 * get panel timing from local.
 	 */
-DRM_INFO("platform_device node (%s) !\n", node->full_name);
 	endpoint = of_graph_get_endpoint_by_regs(node, -1, -1);
 	//endpoint = of_graph_get_next_endpoint(node, NULL);
 	if (!endpoint) {
@@ -471,7 +469,6 @@ DRM_INFO("platform_device node (%s) !\n", node->full_name);
 
 	np = of_graph_get_remote_port_parent(endpoint);
 	//np = of_graph_get_remote_node(endpoint,x,x);
-DRM_INFO("remote_port_parent node (%s) !\n", np->full_name);
 	of_node_put(endpoint);
 	
 	if (!np) {

@@ -122,7 +122,7 @@ static inline void clk_dev_enb(void *base, int on)
 }
 
 static inline long clk_dev_divide(long rate, long request, int align,
-				  int *divide)
+				  int *divide, int step)
 {
 	int div = (rate / request);
 	int max = MAX_DIVIDER & ~(align - 1);
@@ -140,7 +140,11 @@ static inline long clk_dev_divide(long rate, long request, int align,
 	if (div != adv && abs(request - rate / div) > abs(request - rate / adv))
 		div = adv;
 
-	div = (div > max ? max : div);
+	if (step == 2)
+		div = (div > max ? div/2 : div);
+	else
+		div = (div > max ? max : div);
+
 	if (divide)
 		*divide = div;
 
@@ -173,10 +177,11 @@ static long clk_dev_pll_rate(int no)
 	char name[16];
 	long rate = 0;
 
-	sprintf(name, "pll%d", no);
+	snprintf(name, sizeof(name), "pll%d", no);
 	clk = clk_get(NULL, name);
-	rate = clk_get_rate(clk);	
+	rate = clk_get_rate(clk);
 	clk_put(clk);
+
 	return rate;
 }
 
@@ -186,14 +191,16 @@ static long dev_round_rate(struct clk_hw *hw, unsigned long rate)
 	unsigned long request = rate, new_rate = 0;
 	unsigned long clock_hz, freq_hz = 0;
 	unsigned int mask;
-	int step, div[2] = {0,};
+	int step, div[2] = {
+		0,
+	};
 	int i, n, start_src = 0, max_src = 0, clk2 = 0;
 	short s1 = 0, s2 = 0, d1 = 0, d2 = 0;
 
 	step = peri->clk_step;
 	mask = peri->in_mask;
-
-	pr_debug("clk: %s request = %ld [input=0x%x]\n", peri->name, rate, mask);
+	pr_debug("clk: %s request = %ld [input=0x%x]\n", peri->name, rate,
+		 mask);
 
 	if (!(mask & I_CLOCK_MASK))
 		return clk_dev_bus_rate(peri);
@@ -223,12 +230,14 @@ next:
 
 		clock_hz = rate;
 		for (i = 0; step > i; i++)
-			rate = clk_dev_divide(rate, request, 2, &div[i]);
+			rate = clk_dev_divide(rate, request, 2, &div[i], step);
 
 		if (new_rate && (abs(rate - request) > abs(new_rate - request)))
 			continue;
 
-		pr_debug("clk: %s, pll.%d request[%ld] calc[%ld]\n", peri->name, n, request, rate);
+		pr_debug("clk: %s, pll.%d request[%ld] calc[%ld]\n", peri->name,
+			 n, request, rate);
+
 		if (clk2) {
 			s1 = -1, d1 = -1; /* not use */
 			s2 = n, d2 = div[0];
@@ -293,6 +302,13 @@ static int dev_set_rate(struct clk_hw *hw, unsigned long rate)
 	return rate;
 }
 
+static int clk_dev_is_enabled(struct clk_hw *hw)
+{
+	struct clk_dev_peri *peri = to_clk_dev(hw)->peri;
+
+	return peri->enable;
+}
+
 /*
  *	clock devices interface
  */
@@ -311,8 +327,10 @@ static int clk_dev_enable(struct clk_hw *hw)
 	if (peri->in_mask & I_GATE_PCLK)
 		clk_dev_pclk((void *)peri->base, 1);
 
-	if (!(peri->in_mask & I_CLOCK_MASK))
+	if (!(peri->in_mask & I_CLOCK_MASK)) {
+		peri->enable = true;
 		return 0;
+	}
 
 	for (i = 0, inv = peri->invert_0; peri->clk_step > i;
 		i++, inv = peri->invert_1)
@@ -355,8 +373,10 @@ static void clk_dev_disable(struct clk_hw *hw)
 	if (peri->in_mask & I_GATE_PCLK)
 		clk_dev_pclk((void *)peri->base, 0);
 
-	if (!(peri->in_mask & I_CLOCK_MASK))
+	if (!(peri->in_mask & I_CLOCK_MASK)) {
+		peri->enable = false;
 		return;
+	}
 
 	clk_dev_rate((void *)peri->base, 0, 7, 256); /* for power save */
 	clk_dev_enb((void *)peri->base, 0);
@@ -373,21 +393,25 @@ static unsigned long clk_dev_recalc_rate(struct clk_hw *hw, unsigned long rate)
 	return peri->rate;
 }
 
-static long clk_dev_round_rate(struct clk_hw *hw, unsigned long drate, unsigned long *prate)
+static long clk_dev_round_rate(struct clk_hw *hw, unsigned long drate,
+			       unsigned long *prate)
 {
 	struct clk_dev_peri *peri = to_clk_dev(hw)->peri;
 	long rate = dev_round_rate(hw, drate);
 
-	pr_debug("%s: name %s, (%lu, %lu)\n", __func__, peri->name, drate,rate);
+	pr_debug("%s: name %s, (%lu, %lu)\n", __func__, peri->name, drate,
+		 rate);
 	return rate;
 }
 
-static int clk_dev_set_rate(struct clk_hw *hw, unsigned long drate, unsigned long prate)
+static int clk_dev_set_rate(struct clk_hw *hw, unsigned long drate,
+			    unsigned long prate)
 {
 	struct clk_dev_peri *peri = to_clk_dev(hw)->peri;
 	int rate = dev_set_rate(hw, drate);
 
-	pr_debug("%s: name %s, rate %lu:%d\n", __func__, peri->name, drate, rate);
+	pr_debug("%s: name %s, rate %lu:%d\n", __func__, peri->name, drate,
+		 rate);
 	return rate;
 }
 
@@ -397,6 +421,7 @@ static const struct clk_ops clk_dev_ops = {
 	.set_rate = clk_dev_set_rate,
 	.enable = clk_dev_enable,
 	.disable = clk_dev_disable,
+	.is_enabled = clk_dev_is_enabled,
 };
 
 static const struct clk_ops clk_empty_ops = {};
@@ -418,7 +443,7 @@ static void __init clk_dev_parse_device_data(struct device_node *np,
 	u32 value;
 
 	if (of_property_read_string(np, "clock-output-names", &peri->name)) {
-		pr_err("clock node is missing 'clock-output-names'\n");
+		pr_info("clock node is missing 'clock-output-names'\n");
 		return;
 	}
 
@@ -426,23 +451,23 @@ static void __init clk_dev_parse_device_data(struct device_node *np,
 		return;
 
 	if (of_property_read_u32(np, "cell-id", &peri->id)) {
-		pr_err("clock node is missing 'cell-id'\n");
+		pr_info("clock node is missing 'cell-id'\n");
 		return;
 	}
 
 	if (of_property_read_u32(np, "clk-step", &peri->clk_step)) {
-		pr_err("clock node is missing 'clk-step'\n");
+		pr_info("clock node is missing 'clk-step'\n");
 		return;
 	}
 
 	if (of_property_read_u32(np, "clk-input", &peri->in_mask)) {
-		pr_err("clock node is missing 'clk-input'\n");
+		pr_info("clock node is missing 'clk-input'\n");
 		return;
 	}
 
 	if (2 == peri->clk_step &&
 	    of_property_read_u32(np, "clk-input1", &peri->in_mask1)) {
-		pr_err("clock node is missing 'clk-input1'\n");
+		pr_info("clock node is missing 'clk-input1'\n");
 		return;
 	}
 
@@ -486,12 +511,6 @@ struct clk *clk_dev_clock_register(const char *name, const char *parent_name,
 	hw->init = &init;
 	pr_debug("Register clk %8s: parent %s\n", name, parent_name);
 
-	//if(!strcmp(name, "uart0"))
-	//{
-	//	printk("use early printk, not register uart0.\n");
-	//	return NULL;
-	//}
-
 	clk = clk_register(NULL, hw);
 	if (IS_ERR(clk)) {
 		pr_err("%s: failed to register pll clock %s\n", __func__,
@@ -528,7 +547,7 @@ static void __init clk_dev_of_setup(struct device_node *node)
 #ifdef CONFIG_ARM_NEXELL_CPUFREQ
 	char pll[16];
 
-	sprintf(pll, "sys-pll%d", CONFIG_NEXELL_CPUFREQ_PLLDEV);
+	snprintf(pll, sizeof(pll), "sys-pll%d", CONFIG_NEXELL_CPUFREQ_PLLDEV);
 #endif
 
 	num_clks = of_get_child_count(node);
@@ -563,6 +582,7 @@ static void __init clk_dev_of_setup(struct device_node *node)
 				flags |= CLK_SET_RATE_PARENT;
 #endif
 		}
+
 		clk = clk_dev_clock_register(peri[i].name, peri[i].parent_name,
 					     &clk_data->hw, ops, flags);
 		if (NULL == clk)
@@ -570,7 +590,8 @@ static void __init clk_dev_of_setup(struct device_node *node)
 
 		clk_data->clk = clk;
 		if (clk_data->rate) {
-			pr_debug("[%s set boot rate %u]\n", node->name, clk_data->rate);
+			pr_debug("[%s set boot rate %u]\n", node->name,
+				 clk_data->rate);
 			clk_set_rate(clk, clk_data->rate);
 		}
 	}

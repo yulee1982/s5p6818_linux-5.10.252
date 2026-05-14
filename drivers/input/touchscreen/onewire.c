@@ -10,7 +10,6 @@
 #include <linux/backlight.h>
 #include <soc/nexell/panel-nanopi.h>
 
-
 enum {
 	REQ_KEY		= 0x30,
 	REQ_TS		= 0x40,

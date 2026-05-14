@@ -636,6 +636,7 @@ struct reset_control *__of_reset_control_get(struct device_node *node,
 
 	mutex_lock(&reset_list_mutex);
 	rcdev = NULL;
+
 	list_for_each_entry(r, &reset_controller_list, list) {
 		if (args.np == r->of_node) {
 			rcdev = r;

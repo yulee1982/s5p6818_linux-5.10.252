@@ -127,9 +127,9 @@ static struct drm_framebuffer *nx_drm_fb_create(struct drm_device *drm,
 	int ret;
 	int i;
 	const struct drm_format_info *info = drm_get_format_info(drm, mode_cmd);
+	unsigned int num_planes = info->num_planes;
 
-	//for (i = 0; i < drm_format_num_planes(mode_cmd->pixel_format); i++) {
-	for (i = 0; i < info->num_planes; i++) {
+	for (i = 0; i < num_planes; i++) {
 		unsigned int width = mode_cmd->width / (i ? info->hsub : 1);
 		unsigned int height = mode_cmd->height / (i ? info->vsub : 1);
 		unsigned int min_size;
@@ -227,7 +227,7 @@ static int nx_drm_fb_helper_probe(struct drm_fb_helper *fb_helper,
 	struct drm_client_dev *client = &fb_helper->client;
 	struct drm_mode_set *mode_set = client->modesets;
 
-	DRM_DEBUG_KMS("surface width(%d), height(%d) and bpp(%d) buffers(%d)\n",
+	DRM_INFO("surface width(%d), height(%d) and bpp(%d) buffers(%d)\n",
 			sizes->surface_width, sizes->surface_height,
 			sizes->surface_bpp, buffers);
 
@@ -289,8 +289,8 @@ static int nx_drm_fb_helper_probe(struct drm_fb_helper *fb_helper,
 	
 	if(client && client->modesets) {
 		struct videomode vm;
-		struct drm_display_mode *mode;
-		mode = mode_set->mode;
+		struct drm_display_mode *mode = mode_set->mode;
+		//mode = mode_set->mode;
 
 		drm_display_mode_to_videomode(mode, &vm);
 		info->var.left_margin = vm.hsync_len + vm.hback_porch;
@@ -346,13 +346,6 @@ static struct nx_drm_fbdev *nx_drm_fbdev_init(struct drm_device *drm,
 		dev_err(drm->dev, "Failed to initialize drm fb fb_helper.\n");
 		goto err_free;
 	}
-
-	/*ret = drm_fb_helper_single_add_all_connectors(fb_helper);
-	if (ret < 0) {
-		dev_err(drm->dev, "Failed to add connectors.\n");
-		goto err_drm_fb_helper_fini;
-
-	}*/
 
 	/* disable all the possible outputs/crtcs before entering KMS mode */
 	drm_helper_disable_unused_functions(drm);

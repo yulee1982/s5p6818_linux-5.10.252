@@ -32,8 +32,7 @@ static inline struct panel_nanopi *to_panel_nanopi(struct drm_panel *panel)
 static int panel_nanopi_get_modes(struct drm_panel *panel, struct drm_connector *connector)
 {
 	struct panel_nanopi *p = to_panel_nanopi(panel);
-	//struct drm_connector *connector = panel->connector;
-	struct drm_device *drm = connector->dev; //panel->drm
+	struct drm_device *drm = connector->dev;
 	struct drm_display_mode *mode;
 	const struct drm_display_mode *m = p->desc->mode;
 
@@ -45,13 +44,16 @@ static int panel_nanopi_get_modes(struct drm_panel *panel, struct drm_connector 
 			m->hdisplay, m->vdisplay, drm_mode_vrefresh(m));
 		return 0;
 	}
-	mode->type |= DRM_MODE_TYPE_DRIVER;
-	mode->type |= DRM_MODE_TYPE_PREFERRED;
-	drm_mode_set_name(mode);
-	drm_mode_probed_add(connector, mode);
+
+	mode->type |= DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
+	mode->width_mm = p->desc->p_width;
+	mode->height_mm = p->desc->p_height;
 	connector->display_info.bpc = p->desc->bpc;
 	connector->display_info.width_mm = p->desc->p_width;
 	connector->display_info.height_mm = p->desc->p_height;
+	
+	drm_mode_set_name(mode);
+	drm_mode_probed_add(connector, mode);
 	return 1;
 }
 
@@ -178,8 +180,7 @@ static const struct drm_display_mode mode_s430 = {
 	.vtotal = 800 + 32 + 16 + 0,
 	//.vrefresh = 60,
 	//.flags = DRM_MODE_FLAG_NCSYNC
-	//.flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC |
-	.flags = DRM_MODE_FLAG_NCSYNC | DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC
+	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC
 };
 
 static const struct drm_display_mode mode_h43 = {
@@ -533,16 +534,19 @@ bool nanopi_panelrgb_issensor_1wire(int onewireType)
 
 static int panel_nanopi_platform_probe(struct platform_device *pdev)
 {
-	//int err;
 	struct panel_nanopi *panel;
 	const struct nanopi_panel_desc *desc;
 	bool isLvds;
+	int connector_type;
 
 	isLvds = of_property_read_bool(pdev->dev.of_node, "lvds");  //check node: panel_rgb
-	if( isLvds )
+	if ( isLvds ) {
 		desc = connected_lvds[0] ? getPanelDescByName(connected_lvds) : NULL;
-	else
+		connector_type = DRM_MODE_CONNECTOR_LVDS;
+	} else {
 		desc = nanopi_panelrgb_get_connected();
+		connector_type = DRM_MODE_CONNECTOR_VGA;
+	}
 	
 	if( desc == NULL )
 		return -ENODEV;
@@ -551,15 +555,7 @@ static int panel_nanopi_platform_probe(struct platform_device *pdev)
 	if (!panel)
 		return -ENOMEM;
 	panel->desc = desc;
-	//drm_panel_init(&panel->base);
-	//panel->base.dev = &pdev->dev;
-	//panel->base.funcs = &panel_nanopi_funcs;
-	if( isLvds )
-		drm_panel_init(&panel->base, &pdev->dev, &panel_nanopi_funcs, 
-			DRM_MODE_CONNECTOR_LVDS);
-	else
-		drm_panel_init(&panel->base, &pdev->dev, &panel_nanopi_funcs, 
-			DRM_MODE_CONNECTOR_VGA);
+	drm_panel_init(&panel->base, &pdev->dev, &panel_nanopi_funcs, connector_type);
 
 	drm_panel_add(&panel->base);
 
@@ -580,7 +576,7 @@ static int panel_nanopi_platform_remove(struct platform_device *pdev)
 
 static const struct of_device_id platform_of_match[] = {
 	{
-		.compatible = "nanopi,nano-panel",
+		.compatible = "lcds", // "nanopi,nano-panel"
 	}, {
 		/* sentinel */
 	}
@@ -589,7 +585,7 @@ MODULE_DEVICE_TABLE(of, platform_of_match);
 
 static struct platform_driver panel_nanopi_platform_driver = {
 	.driver = {
-		.name = "panel-nanopi",
+		.name = "panel-lcd",
 		.of_match_table = platform_of_match,
 	},
 	.probe = panel_nanopi_platform_probe,

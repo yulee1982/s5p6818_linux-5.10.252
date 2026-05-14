@@ -5,40 +5,6 @@ Linux kernel: linux-5.10.252
 Compiler: gcc-linaro-12.1.1-2022.08-x86_64_aarch64-linux-gnu
 
 build: ./s5p6818.sh
-
-There are still many problems: 
-1.The power module is not working, and I haven't found its driver. It use a stm32 IC.
-2.The GPU driver has not been ported.
+Change to your compiler address.
 
 
-startup use initramfs
-
-[    2.211377] Run /init as init process
-
-hello, world!
-
-hello, Linux!
-
-here is initramfs!
-
-[    2.286564] EXT4-fs (mmcblk2p1): mounted filesystem with ordered data mode. Opts: (null)
-
-[    2.619440] systemd[1]: System time before build time, advancing clock.
-
-[    2.705972] random: systemd: uninitialized urandom read (16 bytes read)
-
-[    2.712867] random: systemd: uninitialized urandom read (16 bytes read)
-
-[    2.718490] systemd[1]: systemd 229 running in system mode. (+PAM +AUDIT +SELINUX +IMA +APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +GCRYPT +GNUTLS +ACL +XZ -LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD -IDN)
-
-[    2.732862] systemd[1]: Detected architecture arm64.
-
-
-
-Welcome to Ubuntu 16.04.6 LTS!
-
-
-
-[    2.758280] systemd[1]: Set hostname to <NanoPC-T3>.
-
-[    2.796552] random: systemd: uninitialized urandom read (16 bytes read)

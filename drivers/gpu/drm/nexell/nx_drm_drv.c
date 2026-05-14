@@ -27,6 +27,7 @@
 #include <drm/drm_device.h>
 #include <drm/drm_modes.h>
 #include <drm/drm_probe_helper.h>
+#include <drm/drm_atomic_helper.h>
 #include <linux/dma-mapping.h>
 
 #include <drm/drm_crtc_helper.h>
@@ -78,6 +79,9 @@ static void nx_drm_output_poll_changed(struct drm_device *drm)
 static struct drm_mode_config_funcs nx_mode_config_funcs = {
 	.fb_create = nx_drm_fb_mode_create,
 	.output_poll_changed = nx_drm_output_poll_changed,
+	//.atomic_check = drm_atomic_helper_check,
+	//.atomic_commit = nx_drm_atomic_commit,
+	//.atomic_commit = drm_atomic_helper_commit,
 };
 
 static void nx_drm_mode_config_init(struct drm_device *drm)

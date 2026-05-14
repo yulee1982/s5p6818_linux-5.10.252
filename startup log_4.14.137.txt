@@ -1,0 +1,854 @@
+Working to aarch64
+
+waiting for pll change..
+
+
+
+--------------------------------------------------------------------------------
+
+ Second Boot by Nexell Co. : Ver0.1.1 - Built on Nov 29 2025 11:47:02
+
+--------------------------------------------------------------------------------
+
+ NSIH : Ver0.3.xx
+
+
+
+DDR3 POR Init Start 0
+
+
+
+DDR3 POR Init Start
+
+PHY Version: 0x06000271
+
+phy init
+
+
+
+########## Gate Leveling - Start ##########
+
+
+
+########## Gate Leveling - End ##########
+
+Lock value  = 188
+
+g_GT_cycle  = 0x00000492
+
+g_GT_code   = 0x080B1511
+
+g_RD_vwmc   = 0x00000000
+
+g_WR_vwmc   = 0x00000000
+
+GATE CYC    = 0x00000492
+
+GATE CODE   = 0x00000000
+
+Read  DQ    = 0x08080808
+
+Write DQ    = 0x08080808
+
+
+
+
+
+DDR3 Init Done!
+
+CCI Init!
+
+Wakeup CPU Wakeup Sub CPU 1234567
+
+CPU Wakeup done! WFI is expected.
+
+CPU0 is Master!
+
+
+Loading from sdmmc...
+
+Launch to 0x43C00000
+
+
+
+
+
+U-Boot 2016.01-00712-g23ef2ccb7a-dirty (Dec 05 2025 - 08:51:06 +0800)
+
+
+
+Model: FriendlyElec boards based on Nexell s5p6818
+
+Board: NanoPC-T3
+
+DRAM:  2 GiB
+
+Panel: S430
+
+MMC:   NEXELL DWMMC: 0, NEXELL DWMMC: 1
+
+*** Warning - bad CRC, using default environment
+
+
+
+RGB:   dp.0
+
+LCD:   [LCD] dp.0.1 480x800 32bpp FB:0x46000000
+
+In:    serial
+
+Out:   serial
+
+Err:   serial
+
+MAC:  [80:1f:12:ce:50:99]
+
+
+
+Hit any key to stop autoboot:  0
+
+12163080 bytes read in 601 ms (19.3 MiB/s)
+
+48563 bytes read in 31 ms (1.5 MiB/s)
+
+## Flattened Device Tree blob at 4a000000
+
+   Booting using the fdt blob at 0x4a000000
+
+   Using Device Tree in place at 000000004a000000, end 000000004a00edb2
+
+
+
+Starting kernel ...
+
+
+
+[    0.000000] Booting Linux on physical CPU 0x0
+
+[    0.000000] Linux version 4.14.137 (yulee@yulee-linux) (gcc version 12.1.1 20220806 [releases/gcc-12 revision 4178af1a5f65a9baad5ecbb3f44824861259fba5] (GCC)) #1 SMP PREEMPT Thu May 14 13:37:34 CST 2026
+
+[    0.000000] Boot CPU: AArch64 Processor [410fd033]
+
+[    0.000000] Machine model: nexell soc
+
+[    0.000000] cma: Reserved 128 MiB at 0x00000000b5800000
+
+[    0.000000] psci: probing for conduit method from DT.
+
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+
+[    0.000000] psci: Trusted OS migration not required
+
+[    0.000000] psci: SMC Calling Convention v1.0
+
+[    0.000000] percpu: Embedded 22 pages/cpu s50472 r8192 d31448 u90112
+
+[    0.000000] Detected VIPT I-cache on CPU0
+
+[    0.000000] CPU features: enabling workaround for ARM erratum 845719
+
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 506772
+
+[    0.000000] Kernel command line: console=tty0 console=ttySAC0,115200n8
+
+[    0.000000] PID hash table entries: 4096 (order: 3, 32768 bytes)
+
+[    0.000000] Dentry cache hash table entries: 262144 (order: 9, 2097152 bytes)
+
+[    0.000000] Inode-cache hash table entries: 131072 (order: 8, 1048576 bytes)
+
+[    0.000000] Memory: 1870440K/2059264K available (6654K kernel code, 870K rwdata, 2628K rodata, 1664K init, 668K bss, 57752K reserved, 131072K cma-reserved)
+
+[    0.000000] Virtual kernel memory layout:
+
+[    0.000000]     modules : 0xffffff8000000000 - 0xffffff8008000000   (   128 MB)
+
+[    0.000000]     vmalloc : 0xffffff8008000000 - 0xffffffbebfff0000   (   250 GB)
+
+[    0.000000]       .text : 0xffffff8008080000 - 0xffffff8008700000   (  6656 KB)
+
+[    0.000000]     .rodata : 0xffffff8008700000 - 0xffffff80089a0000   (  2688 KB)
+
+[    0.000000]       .init : 0xffffff80089a0000 - 0xffffff8008b40000   (  1664 KB)
+
+[    0.000000]       .data : 0xffffff8008b40000 - 0xffffff8008c19808   (   871 KB)
+
+[    0.000000]        .bss : 0xffffff8008c19808 - 0xffffff8008cc09a8   (   669 KB)
+
+[    0.000000]     fixed   : 0xffffffbefe7fb000 - 0xffffffbefec00000   (  4116 KB)
+
+[    0.000000]     PCI I/O : 0xffffffbefee00000 - 0xffffffbeffe00000   (    16 MB)
+
+[    0.000000]     vmemmap : 0xffffffbf00000000 - 0xffffffc000000000   (     4 GB maximum)
+
+[    0.000000]               0xffffffbf00000000 - 0xffffffbf01f6c000   (    31 MB actual)
+
+[    0.000000]     memory  : 0xffffffc000000000 - 0xffffffc07db00000   (  2011 MB)
+
+[    0.000000] Preemptible hierarchical RCU implementation.
+
+[    0.000000]  Tasks RCU enabled.
+
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+
+[    0.000000] CPU features: GIC system register CPU interface present but disabled by higher exception level
+
+[    0.000000] PLL : [0] =  800000000, [1] =  800000000, [2] =  614394000, [3] =  800000000
+
+[    0.000000] (0) PLL1: CPU  FCLK =  800000000, HCLK = 200000000 (G0)
+
+[    0.000000] (7) PLL1: CPU  FCLK =  800000000, HCLK = 200000000 (G1)
+
+[    0.000000] (2) PLL3: MEM  FCLK =  800000000, DCLK = 800000000, BCLK = 400000000,
+
+[    0.000000] PCLK = 200000000
+
+[    0.000000] (1) PLL0: BUS  BCLK =  400000000, PCLK = 200000000
+
+[    0.000000] (8) PLL0: CCI4 BCLK =  400000000, PCLK = 200000000
+
+[    0.000000] (3) PLL0: G3D  BCLK =  400000000
+
+[    0.000000] (4) PLL0: VPU  BCLK =  400000000, PCLK = 200000000
+
+[    0.000000] (5) PLL0: DISP BCLK =  400000000, PCLK = 200000000
+
+[    0.000000] CPU REF HZ: 24000000 hz (0xc0010000:0xffffff8008015000)
+
+[    0.000000] clocksource: source timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 191126044627 ns
+
+[    0.000000] sched_clock: 64 bits at 250 Hz, resolution 4000000ns, wraps every 9007199254000000ns
+
+[    0.000000] Console: colour dummy device 80x25
+
+[    0.000000] console [tty0] enabled
+
+[    0.040000] Calibrating delay loop... 19.84 BogoMIPS (lpj=39680)
+
+[    0.044000] pid_max: default: 32768 minimum: 301
+
+[    0.044000] Security Framework initialized
+
+[    0.044000] Mount-cache hash table entries: 4096 (order: 3, 32768 bytes)
+
+[    0.044000] Mountpoint-cache hash table entries: 4096 (order: 3, 32768 bytes)
+
+[    0.060000] ASID allocator initialised with 128 entries
+
+[    0.068000] Hierarchical SRCU implementation.
+
+[    0.084000] smp: Bringing up secondary CPUs ...
+
+[    0.112000] Detected VIPT I-cache on CPU1
+
+[    0.112000] CPU1: Booted secondary processor [410fd033]
+
+[    0.140000] Detected VIPT I-cache on CPU2
+
+[    0.140000] CPU2: Booted secondary processor [410fd033]
+
+[    0.168000] Detected VIPT I-cache on CPU3
+
+[    0.168000] CPU3: Booted secondary processor [410fd033]
+
+[    0.196000] Detected VIPT I-cache on CPU4
+
+[    0.196000] CPU4: Booted secondary processor [410fd033]
+
+[    0.224000] Detected VIPT I-cache on CPU5
+
+[    0.224000] CPU5: Booted secondary processor [410fd033]
+
+[    0.252000] Detected VIPT I-cache on CPU6
+
+[    0.252000] CPU6: Booted secondary processor [410fd033]
+
+[    0.280000] Detected VIPT I-cache on CPU7
+
+[    0.280000] CPU7: Booted secondary processor [410fd033]
+
+[    0.280000] smp: Brought up 1 node, 8 CPUs
+
+[    0.280000] SMP: Total of 8 processors activated.
+
+[    0.280000] CPU features: detected feature: 32-bit EL0 Support
+
+[    0.280000] CPU features: detected feature: Kernel page table isolation (KPTI)
+
+[    0.284000] CPU: All CPU(s) started at EL2
+
+[    0.284000] alternatives: patching kernel code
+
+[    0.284000] devtmpfs: initialized
+
+[    0.300000] random: get_random_u32 called from bucket_table_alloc+0x1bc/0x224 with crng_init=0
+
+[    0.300000] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+
+[    0.300000] futex hash table entries: 2048 (order: 6, 262144 bytes)
+
+[    0.304000] pinctrl core: initialized pinctrl subsystem
+
+[    0.304000] ECID: ceaec33a:362800d5:00000000:04e81234
+
+[    0.304000] LOT ID : NGACU
+
+[    0.304000] NET: Registered protocol family 16
+
+[    0.308000] cpuidle: using governor menu
+
+[    0.308000] vdso: 2 pages (1 code @ ffffff8008706000, 1 data @ ffffff8008b44000)
+
+[    0.308000] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+
+[    0.312000] DMA: preallocated 256 KiB pool for atomic allocations
+
+[    0.320000] nexell-reset c0012000.reset: nexell reset: nr_resets [96], base [ffffff8008d0d000]
+
+[    0.336000] HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+
+[    0.336000] pl08xdmac c0000000.pl08xdma: initialized 8 virtual memcpy channels
+
+[    0.336000] pl08xdmac c0000000.pl08xdma: initialized 16 virtual slave channels
+
+[    0.340000] pl08xdmac c0000000.pl08xdma: DMA: PL080 rev0 at 0xc0000000 irq 16
+
+[    0.340000] pl08xdmac c0001000.pl08xdma: initialized 8 virtual memcpy channels
+
+[    0.340000] pl08xdmac c0001000.pl08xdma: initialized 16 virtual slave channels
+
+[    0.340000] pl08xdmac c0001000.pl08xdma: DMA: PL080 rev0 at 0xc0001000 irq 17
+
+[    0.340000] SCSI subsystem initialized
+
+[    0.344000] usbcore: registered new interface driver usbfs
+
+[    0.344000] usbcore: registered new interface driver hub
+
+[    0.344000] usbcore: registered new device driver usb
+
+[    0.344000] onewire c0017000.nanopi-onewire: probe success
+
+[    0.348000] onewire c0017000.nanopi-onewire: lcd type: 31, year: 15, week: 50
+
+[    0.376000] axp_mfd 3-0034: failed reading at 0x03
+
+[    0.376000] [AXP22-MFD] try to read chip id failed!
+
+[    0.376000] axp_mfd 3-0034: axp_mfd_probe() Error: init_chip()
+
+[    0.376000] i2c-gpio c0000000.soc:i2c@0: using pins 159 (SDA) and 158 (SCL)
+
+[    0.380000] s3c-i2c c00a4000.i2c: slave address 0x66
+
+[    0.380000] s3c-i2c c00a4000.i2c: bus frequency set to 97 KHz
+
+[    0.380000] s3c-i2c c00a4000.i2c: i2c-0: S3C I2C adapter
+
+[    0.380000] s3c-i2c c00a5000.i2c: slave address 0x66
+
+[    0.380000] s3c-i2c c00a5000.i2c: bus frequency set to 97 KHz
+
+[    0.380000] s3c-i2c c00a5000.i2c: i2c-1: S3C I2C adapter
+
+[    0.384000] s3c-i2c c00a6000.i2c: slave address 0x66
+
+[    0.384000] s3c-i2c c00a6000.i2c: bus frequency set to 97 KHz
+
+[    0.384000] s3c-i2c c00a6000.i2c: i2c-2: S3C I2C adapter
+
+[    0.384000] media: Linux media interface: v0.10
+
+[    0.384000] Linux video capture interface: v2.00
+
+[    0.384000] pps_core: LinuxPPS API ver. 1 registered
+
+[    0.384000] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+
+[    0.384000] Advanced Linux Sound Architecture Driver Initialized.
+
+[    0.384000] NetLabel: Initializing
+
+[    0.384000] NetLabel:  domain hash size = 128
+
+[    0.384000] NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+
+[    0.384000] NetLabel:  unlabeled traffic allowed by default
+
+[    0.384000] clocksource: Switched to clocksource source timer
+
+[    0.388000] Clockevents: could not switch to one-shot mode:
+
+[    0.388000] Clockevents: could not switch to one-shot mode:
+
+[    0.388000] Clockevents: could not switch to one-shot mode:
+
+[    0.388000] Clockevents: could not switch to one-shot mode:
+
+[    0.388000] Clockevents: could not switch to one-shot mode:
+
+[    0.388000] Clockevents: could not switch to one-shot mode:
+
+[    0.388000] Clockevents: could not switch to one-shot mode:
+
+[    0.388000] Clockevents: could not switch to one-shot mode:
+
+[    0.388000]  dummy_timer is not functional.
+
+[    0.388000]  dummy_timer is not functional.
+
+[    0.388000]  dummy_timer is not functional.
+
+[    0.388000]  dummy_timer is not functional.
+
+[    0.388000]  dummy_timer is not functional.
+
+[    0.388000]  dummy_timer is not functional.
+
+[    0.388000]  dummy_timer is not functional.
+
+[    0.388000] Could not switch to high resolution mode on CPU 3
+
+[    0.388000] Could not switch to high resolution mode on CPU 5
+
+[    0.388000] Could not switch to high resolution mode on CPU 7
+
+[    0.388000] Could not switch to high resolution mode on CPU 2
+
+[    0.388000] Could not switch to high resolution mode on CPU 1
+
+[    0.388000] Could not switch to high resolution mode on CPU 6
+
+[    0.388000]  dummy_timer is not functional.
+
+[    0.388000] Could not switch to high resolution mode on CPU 0
+
+[    0.388000] Could not switch to high resolution mode on CPU 4
+
+[    0.392000] onewire c0017000.nanopi-onewire: backlight data: 0,32,0
+
+[    0.392000] onewire c0017000.nanopi-onewire: added backlight device
+
+[    0.464000] NET: Registered protocol family 2
+
+[    0.468000] TCP established hash table entries: 16384 (order: 5, 131072 bytes)
+
+[    0.468000] TCP bind hash table entries: 16384 (order: 7, 524288 bytes)
+
+[    0.468000] TCP: Hash tables configured (established 16384 bind 16384)
+
+[    0.468000] UDP hash table entries: 1024 (order: 4, 98304 bytes)
+
+[    0.468000] UDP-Lite hash table entries: 1024 (order: 4, 98304 bytes)
+
+[    0.468000] NET: Registered protocol family 1
+
+[    0.560000] hw perfevents: enabled with armv8_pmuv3 PMU driver, 7 counters available
+
+[    0.560000] audit: initializing netlink subsys (disabled)
+
+[    0.560000] audit: type=2000 audit(0.556:1): state=initialized audit_enabled=0 res=1
+
+[    0.560000] workingset: timestamp_bits=46 max_order=19 bucket_order=0
+
+[    0.560000] fuse init (API version 7.26)
+
+[    0.568000] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 247)
+
+[    0.568000] io scheduler noop registered
+
+[    0.568000] io scheduler cfq registered (default)
+
+[    0.568000] io scheduler mq-deadline registered
+
+[    0.568000] io scheduler kyber registered
+
+[    0.568000] c00a1000.serial: ttySAC0 at MMIO 0xc00a1000 (irq = 18, base_baud = 0) is a S3C6400/10
+
+[    0.592000] random: fast init done
+
+[    0.592000] console [ttySAC0] enabled
+
+[    1.560000] c00a0000.serial: ttySAC1 at MMIO 0xc00a0000 (irq = 19, base_baud = 0) is a S3C6400/10
+
+[    1.568000] panel-nanopi panel_rgb: added rgb panel for s430
+
+[    1.572000] [drm] Load RGB panel
+
+[    1.576000] [drm] Load LVDS panel
+
+[    1.576000] [drm] Load HDMI panel
+
+[    1.580000] [drm] irq 35 install for hdp
+
+[    1.584000] [drm] num of crtcs 2, FB 1 align, FB vblank Pass
+
+[    1.592000] [drm] irq 33 install for crtc.0
+
+[    1.596000] [drm] crtc[0]: pipe.0 (irq.33)
+
+[    1.600000] [drm] irq 34 install for crtc.1
+
+[    1.604000] [drm] crtc[1]: pipe.1 (irq.34)
+
+[    1.608000] [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
+
+[    1.612000] [drm] No driver support for vblank timestamp query.
+
+[    1.620000] [drm] Bind RGB panel
+
+[    1.624000] [drm] RGB: check panel connected
+
+[    1.628000] nexell,display_drm c0102800.display_drm: bound c0101000.display_drm_rgb (ops panel_comp_ops)
+
+[    1.636000] [drm] Bind LVDS panel
+
+[    1.640000] nexell,display_drm c0102800.display_drm: bound c0101000.display_drm_lvds (ops panel_comp_ops)
+
+[    1.648000] nexell,display_drm c0102800.display_drm: bound c0101000.display_drm_hdmi (ops panel_comp_ops)
+
+[    1.660000] [drm] Initialized nexell 2.0.0 20160219 for c0102800.display_drm on minor 0
+
+[    1.668000] [drm] HDMI: disconnect
+
+[    1.668000] [drm] FB counts = 1
+
+[    1.672000] [drm] HDMI: disconnect
+
+[    1.680000] [drm] RGB: lv0 divisor set to 28
+
+[    1.740000] Console: switching to colour frame buffer device 60x50
+
+[    1.752000] nexell,display_drm c0102800.display_drm: fb0:  frame buffer device
+
+[    1.760000] cacheinfo: Unable to detect cache hierarchy for CPU 0
+
+[    1.772000] brd: module loaded
+
+[    1.784000] loop: module loaded
+
+[    1.784000] libphy: Fixed MDIO Bus: probed
+
+[    1.784000] nexell-dwmac c0060000.ethernet: snps,phy-addr property is deprecated
+
+[    1.792000] nexell-dwmac c0060000.ethernet: PTP uses main clock
+
+[    1.796000] stmmac - user ID: 0x37, Synopsys ID: 0x37
+
+[    1.804000] nexell-dwmac c0060000.ethernet: Ring mode enabled
+
+[    1.808000] nexell-dwmac c0060000.ethernet: DMA HW capability register supported
+
+[    1.816000] nexell-dwmac c0060000.ethernet: Enhanced/Alternate descriptors
+
+[    1.828000] nexell-dwmac c0060000.ethernet: Enabled extended descriptors
+
+[    1.840000] nexell-dwmac c0060000.ethernet: RX Checksum Offload Engine supported
+
+[    1.852000] nexell-dwmac c0060000.ethernet: COE Type 2
+
+[    1.856000] nexell-dwmac c0060000.ethernet: TX Checksum insertion supported
+
+[    1.868000] nexell-dwmac c0060000.ethernet: Wake-Up On Lan supported
+
+[    1.876000] nexell-dwmac c0060000.ethernet: Enable RX Mitigation via HW Watchdog Timer
+
+[    2.208000] libphy: stmmac: probed
+
+[    2.212000] RTL8211E Gigabit Ethernet stmmac-0:00: attached PHY driver [RTL8211E Gigabit Ethernet] (mii_bus:phy_addr=stmmac-0:00, irq=POLL)
+
+[    2.232000] RTL8211E Gigabit Ethernet stmmac-0:07: attached PHY driver [RTL8211E Gigabit Ethernet] (mii_bus:phy_addr=stmmac-0:07, irq=POLL)
+
+[    2.256000] usbcore: registered new interface driver cdc_ether
+
+[    2.268000] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+
+[    2.280000] ehci-exynos: EHCI EXYNOS driver
+
+[    2.284000] exynos-ehci c0030000.ehci: EHCI Host Controller
+
+[    2.296000] exynos-ehci c0030000.ehci: new USB bus registered, assigned bus number 1
+
+[    2.312000] exynos-ehci c0030000.ehci: irq 26, io mem 0xc0030000
+
+[    2.336000] exynos-ehci c0030000.ehci: USB 2.0 started, EHCI 1.00
+
+[    2.344000] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+
+[    2.356000] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+
+[    2.372000] usb usb1: Product: EHCI Host Controller
+
+[    2.376000] usb usb1: Manufacturer: Linux 4.14.137 ehci_hcd
+
+[    2.388000] usb usb1: SerialNumber: c0030000.ehci
+
+[    2.396000] hub 1-0:1.0: USB hub found
+
+[    2.400000] hub 1-0:1.0: 3 ports detected
+
+[    2.408000] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+
+[    2.416000] ohci-exynos: OHCI EXYNOS driver
+
+[    2.424000] exynos-ohci c0020000.ohci: USB Host Controller
+
+[    2.436000] exynos-ohci c0020000.ohci: new USB bus registered, assigned bus number 2
+
+[    2.448000] exynos-ohci c0020000.ohci: irq 26, io mem 0xc0020000
+
+[    2.524000] usb usb2: New USB device found, idVendor=1d6b, idProduct=0001
+
+[    2.536000] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+
+[    2.548000] usb usb2: Product: USB Host Controller
+
+[    2.552000] usb usb2: Manufacturer: Linux 4.14.137 ohci_hcd
+
+[    2.564000] usb usb2: SerialNumber: c0020000.ohci
+
+[    2.568000] hub 2-0:1.0: USB hub found
+
+[    2.576000] hub 2-0:1.0: 3 ports detected
+
+[    2.580000] usbcore: registered new interface driver usb-storage
+
+[    2.592000] mousedev: PS/2 mouse device common for all mice
+
+[    2.604000] nx-rtc c0010c00.rtc: [RTC] day=2009.09.01 time=00:00:00
+
+[    2.616000] nx-rtc c0010c00.rtc: rtc core: registered nx as rtc0
+
+[    2.628000] i2c /dev entries driver
+
+[    2.632000] exynos-tmu c0096000.tmuctrl: Regulator node (vtmu) not found
+
+[    2.644000] thermal thermal_zone0: failed to read out thermal zone (-22)
+
+[    2.656000] (NULL device *): hwmon_device_register() is deprecated. Please convert the driver to use hwmon_device_register_with_info().
+
+[    2.680000] device-mapper: uevent: version 1.0.3
+
+[    2.684000] device-mapper: ioctl: 4.37.0-ioctl (2017-09-20) initialised: dm-devel@redhat.com
+
+[    2.700000] DVFS: ASV[2] IDS 20mA, Ro 108 -> Table [IDS 15mA, Ro 130]
+
+[    2.712000] ASV  0 =  1400000khz,  1275000 uV
+
+[    2.716000] ASV  1 =  1300000khz,  1225000 uV
+
+[    2.720000] ASV  2 =  1200000khz,  1175000 uV
+
+[    2.728000] ASV  3 =  1100000khz,  1125000 uV
+
+[    2.732000] ASV  4 =  1000000khz,  1100000 uV
+
+[    2.736000] ASV  5 =   900000khz,  1075000 uV
+
+[    2.740000] ASV  6 =   800000khz,  1050000 uV
+
+[    2.748000] usb 1-1: new high-speed USB device number 2 using exynos-ehci
+
+[    2.752000] ASV  7 =   700000khz,  1025000 uV
+
+[    2.760000] ASV  8 =   600000khz,  1000000 uV
+
+[    2.768000] ASV  9 =   500000khz,  1000000 uV
+
+[    2.772000] ASV 10 =   400000khz,  1000000 uV
+
+[    2.776000] DVFS: cpu DFS with PLL.1 [tables=11]
+
+[    2.780000] running cpufreq without cooling device: -38
+
+[    2.788000] Synopsys Designware Multimedia Card Interface Driver
+
+[    2.804000] dwmmc_nexell c0069000.dw_mmc: fifo-depth property not found, using value of FIFOTH register as default
+
+[    2.816000] dwmmc_nexell c0069000.dw_mmc: IDMAC supports 32-bit address mode.
+
+[    2.824000] dwmmc_nexell c0069000.dw_mmc: Using internal DMA controller.
+
+[    2.836000] dwmmc_nexell c0069000.dw_mmc: Version ID is 250a
+
+[    2.848000] dwmmc_nexell c0069000.dw_mmc: DW MMC controller at irq 23,32 bit host data width,32 deep fifo
+
+[    2.860000] mmc_host mmc0: card is non-removable.
+
+[    2.888000] mmc_host mmc0: Bus speed (slot 0) = 100000000Hz (slot req 400000Hz, actual 400000HZ div = 125)
+
+[    2.928000] dwmmc_nexell c0068000.dw_mmc: fifo-depth property not found, using value of FIFOTH register as default
+
+[    2.952000] usb 1-1: New USB device found, idVendor=05e3, idProduct=0610
+
+[    2.968000] dwmmc_nexell c0068000.dw_mmc: IDMAC supports 32-bit address mode.
+
+[    2.968000] usb 1-1: New USB device strings: Mfr=0, Product=1, SerialNumber=0
+
+[    2.996000] usb 1-1: Product: USB2.0 Hub
+
+[    3.000000] dwmmc_nexell c0068000.dw_mmc: Using internal DMA controller.
+
+[    3.000000] hub 1-1:1.0: USB hub found
+
+[    3.008000] dwmmc_nexell c0068000.dw_mmc: Version ID is 250a
+
+[    3.012000] hub 1-1:1.0: 4 ports detected
+
+[    3.016000] dwmmc_nexell c0068000.dw_mmc: DW MMC controller at irq 24,32 bit host data width,32 deep fifo
+
+[    3.032000] dwmmc_nexell c0068000.dw_mmc: allocated mmc-pwrseq
+
+[    3.040000] mmc_host mmc1: card is non-removable.
+
+[    3.120000] mmc_host mmc0: Bus speed (slot 0) = 100000000Hz (slot req 52000000Hz, actual 50000000HZ div = 1)
+
+[    3.128000] mmc_host mmc1: Bus speed (slot 0) = 50000000Hz (slot req 400000Hz, actual 396825HZ div = 63)
+
+[    3.148000] mmc0: new high speed MMC card at address 0001
+
+[    3.164000] mmcblk0: mmc0:0001 AJTD4R 14.6 GiB
+
+[    3.168000] mmcblk0boot0: mmc0:0001 AJTD4R partition 1 4.00 MiB
+
+[    3.180000] dwmmc_nexell c0062000.dw_mmc: 'num-slots' was deprecated.
+
+[    3.180000] mmcblk0boot1: mmc0:0001 AJTD4R partition 2 4.00 MiB
+
+[    3.192000] dwmmc_nexell c0062000.dw_mmc: fifo-depth property not found, using value of FIFOTH register as default
+
+[    3.208000] mmcblk0rpmb: mmc0:0001 AJTD4R partition 3 4.00 MiB
+
+[    3.232000] dwmmc_nexell c0062000.dw_mmc: IDMAC supports 32-bit address mode.
+
+[    3.236000]  mmcblk0: p1 p2 p3 p4 < p5 p6 p7 >
+
+[    3.236000] mmc1: queuing unknown CIS tuple 0x80 (2 bytes)
+
+[    3.236000] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+
+[    3.240000] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+
+[    3.244000] mmc1: queuing unknown CIS tuple 0x80 (7 bytes)
+
+[    3.244000] mmc1: queuing unknown CIS tuple 0x81 (9 bytes)
+
+[    3.316000] dwmmc_nexell c0062000.dw_mmc: Using internal DMA controller.
+
+[    3.328000] mmc_host mmc1: Bus speed (slot 0) = 50000000Hz (slot req 50000000Hz, actual 50000000HZ div = 0)
+
+[    3.328000] dwmmc_nexell c0062000.dw_mmc: Version ID is 250a
+
+[    3.344000] mmc1: new high speed SDIO card at address 0001
+
+[    3.356000] dwmmc_nexell c0062000.dw_mmc: DW MMC controller at irq 25,32 bit host data width,16 deep fifo
+
+[    3.388000] dwmmc_nexell c0062000.dw_mmc: Got CD GPIO
+
+[    3.416000] mmc_host mmc2: Bus speed (slot 0) = 50000000Hz (slot req 400000Hz, actual 396825HZ div = 63)
+
+[    3.460000] usbcore: registered new interface driver usbhid
+
+[    3.484000] usbhid: USB HID core driver
+
+[    3.496000] ashmem: initialized
+
+[    3.504000] nexell-adc c0053000.adc: CHs 8, 200000(1000000 ~ 130208) sample rate, scale=166(bit 6)
+
+[    3.532000] nexell-pcm nexell-pcm: snd pcm: register sound platform 'nexell-pcm'
+
+[    3.544000] nexell-i2s c0055000.i2s: snd i2s: ch 0, master, iis mode, 48000(47999)hz, 32 FBITs,
+
+[    3.560000] nexell-i2s c0055000.i2s: MCLK=12287880hz, RFS=256
+
+[    3.572000] u32 classifier
+
+[    3.580000]     Actions configured
+
+[    3.588000] Netfilter messages via NETLINK v0.30.
+
+[    3.592000] nf_conntrack version 0.5.0 (16384 buckets, 65536 max)
+
+[    3.604000] ctnetlink v0.93: registering with nfnetlink.
+
+[    3.608000] nf_tables: (c) 2007-2009 Patrick McHardy <kaber@trash.net>
+
+[    3.616000] nf_tables_compat: (c) 2012 Pablo Neira Ayuso <pablo@netfilter.org>
+
+[    3.632000] xt_time: kernel timezone is -0000
+
+[    3.636000] arp_tables: arp_tables: (C) 2002 David S. Miller
+
+[    3.644000] Initializing XFRM netlink socket
+
+[    3.648000] mmc_host mmc2: Bus speed (slot 0) = 50000000Hz (slot req 50000000Hz, actual 50000000HZ div = 0)
+
+[    3.652000] NET: Registered protocol family 10
+
+[    3.660000] mmc2: new high speed SDHC card at address 0001
+
+[    3.668000] Segment Routing with IPv6
+
+[    3.676000] mmcblk2: mmc2:0001 SD8GB 7.44 GiB
+
+[    3.680000] mip6: Mobile IPv6
+
+[    3.688000]  mmcblk2: p1
+
+[    3.688000] ip6_tables: (C) 2000-2006 Netfilter Core Team
+
+[    3.696000] NET: Registered protocol family 17
+
+[    3.700000] NET: Registered protocol family 15
+
+[    3.704000] 9pnet: Installing 9P2000 support
+
+[    3.708000] Key type dns_resolver registered
+
+[    3.768000] asoc-simple-card jack_sound: ES8316 HiFi <-> c0055000.i2s mapping ok
+
+[    3.796000] nexell-spdif-tx c0059000.spdiftx: spdif-tx: 48000(47999)Hz, MCLK=12287880hz
+
+[    3.812000] asoc-simple-card hdmi_sound: dit-hifi <-> c0059000.spdiftx mapping ok
+
+[    3.828000] nx-rtc c0010c00.rtc: setting system clock to 2009-09-01 00:00:01 UTC (1251763201)
+
+[    3.848000] ALSA device list:
+
+[    3.852000]   #0: Jack
+
+[    3.856000]   #1: HDMI
+
+[    3.864000] Freeing unused kernel memory: 1664K
+
+hello, world!
+
+hello, Linux!
+
+here is initramfs!
+
+[    3.980000] EXT4-fs (mmcblk2p1): mounted filesystem with ordered data mode. Opts: (null)
+
+[    4.340000] systemd[1]: System time before build time, advancing clock.
+
+[    4.444000] random: systemd: uninitialized urandom read (16 bytes read)
+
+[    4.476000] systemd[1]: systemd 229 running in system mode. (+PAM +AUDIT +SELINUX +IMA +APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +GCRYPT +GNUTLS +ACL +XZ -LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD -IDN)
+
+[    4.532000] systemd[1]: Detected architecture arm64.
+
+
+
+Welcome to Ubuntu 16.04.6 LTS!
+
+
+
+[    4.556000] systemd[1]: Set hostname to <NanoPC-T3>.
+
+[    4.592000] random: systemd: uninitialized urandom read (16 bytes read)
+
+[    4.604000] random: systemd-gpt-aut: uninitialized urandom read (16 bytes read)
+
+[    5.064000] systemd[1]: Started Forward Password Requests to Wall Directory Watch.
