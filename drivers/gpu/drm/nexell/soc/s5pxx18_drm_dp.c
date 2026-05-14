@@ -526,20 +526,18 @@ int nx_drm_dp_panel_ctrl_parse(struct device_node *np,
 	sprintf(pll, "sys-pll%d", ctl->clk_src_lv0);
 	
 	clk = clk_get(NULL, pll);
-	printk("clk_get :%d\n", clk);
 	if (!IS_ERR(clk)) {
 		long rate, pixclock;
 		
 		rate = clk_get_rate(clk);
-		printk("clk_get_rate :%d\n", rate);
 		pixclock = (rate / ctl->clk_div_lv0) / ctl->clk_div_lv1;
 		dpc->sync.pixel_clock_hz = pixclock;
 		display->panel.vm.pixelclock = pixclock;
 		clk_put(clk);
 		
-		printk("SYNC -> PLL.%d, pixelclock %ld (%d, %d)\n",
+		DRM_DEBUG_KMS("SYNC -> PLL.%d, pixelclock %ld (%d, %d)\n",
 			ctl->clk_src_lv0, pixclock,
-			ctl->clk_div_lv0, ctl->clk_div_lv1); //DRM_DEBUG_KMS
+			ctl->clk_div_lv0, ctl->clk_div_lv1);
 	}
 
 	return 0;
@@ -551,30 +549,30 @@ void nx_drm_dp_panel_ctrl_dump(struct nx_drm_device *display)
 	struct dp_control_dev *dpc = display_to_dpc(display);
 	struct dp_ctrl_info *ctrl = &dpc->ctrl;
 
-	printk("SYNC -> LCD %d x %d mm\n",
-		panel->width_mm, panel->height_mm);//DRM_DEBUG_KMS
-	printk("ha:%d, hs:%d, hb:%d, hf:%d\n",
+	DRM_DEBUG_KMS("SYNC -> LCD %d x %d mm\n",
+		panel->width_mm, panel->height_mm);
+	DRM_DEBUG_KMS("ha:%d, hs:%d, hb:%d, hf:%d\n",
 	    panel->vm.hactive, panel->vm.hsync_len,
 	    panel->vm.hback_porch, panel->vm.hfront_porch);
-	printk("va:%d, vs:%d, vb:%d, vf:%d\n",
+	DRM_DEBUG_KMS("va:%d, vs:%d, vb:%d, vf:%d\n",
 		panel->vm.vactive, panel->vm.vsync_len,
 	    panel->vm.vback_porch, panel->vm.vfront_porch);
-	printk("flags:0x%x\n", panel->vm.flags);
+	DRM_DEBUG_KMS("flags:0x%x\n", panel->vm.flags);
 
-	printk("CTRL (%s)\n", dp_panel_type_name(dpc->panel_type));
-	printk("cs0:%d, cd0:%d, cs1:%d, cd1:%d\n",
+	DRM_DEBUG_KMS("CTRL (%s)\n", dp_panel_type_name(dpc->panel_type));
+	DRM_DEBUG_KMS("cs0:%d, cd0:%d, cs1:%d, cd1:%d\n",
 	    ctrl->clk_src_lv0, ctrl->clk_div_lv0,
 	    ctrl->clk_src_lv1, ctrl->clk_div_lv1);
-	printk("fmt:0x%x, inv:%d, swap:%d, yb:0x%x\n",
+	DRM_DEBUG_KMS("fmt:0x%x, inv:%d, swap:%d, yb:0x%x\n",
 	    ctrl->out_format, ctrl->invert_field,
 	    ctrl->swap_rb, ctrl->yc_order);
-	printk("dm:0x%x, drp:%d, dhs:%d, dvs:%d, dde:0x%x\n",
+	DRM_DEBUG_KMS("dm:0x%x, drp:%d, dhs:%d, dvs:%d, dde:0x%x\n",
 	    ctrl->delay_mask, ctrl->d_rgb_pvd,
 	    ctrl->d_hsync_cp1, ctrl->d_vsync_fram, ctrl->d_de_cp2);
-	printk("vss:%d, vse:%d, evs:%d, eve:%d\n",
+	DRM_DEBUG_KMS("vss:%d, vse:%d, evs:%d, eve:%d\n",
 	    ctrl->vs_start_offset, ctrl->vs_end_offset,
 	    ctrl->ev_start_offset, ctrl->ev_end_offset);
-	printk("sel:%d, i0:%d, d0:%d, i1:%d, d1:%d, s1:%d\n",
+	DRM_DEBUG_KMS("sel:%d, i0:%d, d0:%d, i1:%d, d1:%d, s1:%d\n",
 	    ctrl->vck_select, ctrl->clk_inv_lv0, ctrl->clk_delay_lv0,
 	    ctrl->clk_inv_lv1, ctrl->clk_delay_lv1, ctrl->clk_sel_div1);
 }

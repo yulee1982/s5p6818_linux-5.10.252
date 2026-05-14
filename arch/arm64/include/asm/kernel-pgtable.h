@@ -122,6 +122,7 @@
  * (64k granule), or a multiple that can be mapped using contiguous bits
  * in the page tables: 32 * PMD_SIZE (16k granule)
  */
+/*
 #if defined(CONFIG_ARM64_4K_PAGES)
 #define ARM64_MEMSTART_SHIFT		PUD_SHIFT
 #elif defined(CONFIG_ARM64_16K_PAGES)
@@ -129,17 +130,18 @@
 #else
 #define ARM64_MEMSTART_SHIFT		PMD_SHIFT
 #endif
-
+*/
 /*
  * sparsemem vmemmap imposes an additional requirement on the alignment of
  * memstart_addr, due to the fact that the base of the vmemmap region
  * has a direct correspondence, and needs to appear sufficiently aligned
  * in the virtual address space.
  */
+/*
 #if defined(CONFIG_SPARSEMEM_VMEMMAP) && ARM64_MEMSTART_SHIFT < SECTION_SIZE_BITS
 #define ARM64_MEMSTART_ALIGN	(1UL << SECTION_SIZE_BITS)
 #else
 #define ARM64_MEMSTART_ALIGN	(1UL << ARM64_MEMSTART_SHIFT)
 #endif
-
+*/
 #endif	/* __ASM_KERNEL_PGTABLE_H */

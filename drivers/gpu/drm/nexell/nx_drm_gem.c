@@ -1640,8 +1640,8 @@ int nx_drm_gem_wait_fence(struct drm_gem_object *obj)
 {
 #ifdef CONFIG_MALI_DMA_BUF_FENCE
 	struct dma_buf *dmabuf;
-	struct reservation_object_list *fobj;
-	struct reservation_object *resv;
+	struct dma_resv_list *fobj; // struct reservation_object_list *fobj
+	struct dma_resv *resv; // struct reservation_object *resv
 	struct dma_fence *fence;
 	struct nx_gem_object *nx_obj;
 	long timeout = 100 * HZ;
@@ -1654,8 +1654,8 @@ int nx_drm_gem_wait_fence(struct drm_gem_object *obj)
 	nx_obj = to_nx_gem_obj(obj);
 	dmabuf = obj->dma_buf;
 	resv = dmabuf->resv;
-	fobj = reservation_object_get_list(resv);
-	fence = reservation_object_get_excl(resv);
+	fobj = dma_resv_get_list(resv); // reservation_object_get_list(resv)
+	fence = dma_resv_get_excl(resv); // reservation_object_get_excl(resv)
 
 	if (fence) {
 		if (!dma_fence_is_signaled(fence))
@@ -1680,7 +1680,8 @@ int nx_drm_gem_wait_fence(struct drm_gem_object *obj)
 	if (timeout == 0)
 		return -EBUSY;
 
-	reservation_object_add_excl_fence(resv, NULL);
+	//reservation_object_add_excl_fence(resv, NULL);
+	dma_resv_add_excl_fence(resv, NULL);
 #endif
 	return 0;
 }
