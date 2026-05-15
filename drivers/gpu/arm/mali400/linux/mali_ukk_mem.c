@@ -8,7 +8,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include <linux/fs.h>       /* file system operations */
-#include <asm/uaccess.h>    /* user space access */
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,12,0)
+#include <linux/uaccess.h>
+#else
+#include <asm/uaccess.h>
+#endif
 
 #include "mali_ukk.h"
 #include "mali_osk.h"
@@ -202,8 +207,8 @@ int mem_write_safe_wrapper(struct mali_session_data *session_data, _mali_uk_mem_
 	kargs.ctx = (uintptr_t)session_data;
 
 	/* Check if we can access the buffers */
-	if (!access_ok(VERIFY_WRITE, kargs.dest, kargs.size)
-	    || !access_ok(VERIFY_READ, kargs.src, kargs.size)) {
+	if (!access_ok((const char __user *)kargs.dest, kargs.size)
+	    || !access_ok((const char __user *)kargs.src, kargs.size)) {
 		return -EINVAL;
 	}
 
@@ -261,7 +266,7 @@ int mem_dump_mmu_page_table_wrapper(struct mali_session_data *session_data, _mal
 		goto err_exit;
 
 	user_buffer = (void __user *)(uintptr_t)kargs.buffer;
-	if (!access_ok(VERIFY_WRITE, user_buffer, kargs.size))
+	if (!access_ok(user_buffer, kargs.size))
 		goto err_exit;
 
 	/* allocate temporary buffer (kernel side) to store mmu page table info */

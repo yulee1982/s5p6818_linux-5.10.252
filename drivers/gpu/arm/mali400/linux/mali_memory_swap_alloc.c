@@ -23,6 +23,7 @@
 #include <linux/file.h>
 #include <linux/swap.h>
 #include <linux/pagemap.h>
+#include <linux/vmstat.h>
 #include "mali_osk.h"
 #include "mali_osk_mali.h"
 #include "mali_memory.h"
@@ -248,7 +249,7 @@ static void mali_mem_swap_swapped_bkend_pool_shrink(_mali_mem_swap_pool_shrink_t
 	}
 
 	/* Get system free pages number. */
-	system_free_size = global_page_state(NR_FREE_PAGES) * PAGE_SIZE;
+	system_free_size = global_node_page_state(NR_FREE_PAGES) * PAGE_SIZE;
 	last_gpu_utilization = _mali_ukk_utilization_gp_pp();
 
 	if ((last_gpu_utilization < gpu_utilization_threshold_value)
@@ -576,7 +577,7 @@ int mali_mem_swap_alloc_pages(mali_mem_swap *swap_mem, u32 size, u32 *bkend_idx)
 		list_add_tail(&m_page->list, &swap_mem->pages);
 	}
 
-	system_free_size = global_page_state(NR_FREE_PAGES) * PAGE_SIZE;
+	system_free_size = global_node_page_state(NR_FREE_PAGES) * PAGE_SIZE;
 
 	if ((system_free_size < mali_mem_swap_out_threshold_value)
 	    && (mem_backend_swapped_pool_size > (mali_mem_swap_out_threshold_value >> 2))

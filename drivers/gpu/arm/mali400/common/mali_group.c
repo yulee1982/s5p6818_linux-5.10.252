@@ -22,6 +22,7 @@
 #include "mali_pm_domain.h"
 #include "mali_pm.h"
 #include "mali_executor.h"
+#include "linux/timer.h"
 
 #if defined(CONFIG_GPU_TRACEPOINTS) && defined(CONFIG_TRACEPOINTS)
 #include <linux/sched.h>
@@ -44,7 +45,7 @@ int mali_max_job_runtime = MALI_MAX_JOB_RUNTIME_DEFAULT;
 static void mali_group_bottom_half_mmu(void *data);
 static void mali_group_bottom_half_gp(void *data);
 static void mali_group_bottom_half_pp(void *data);
-static void mali_group_timeout(void *data);
+static void mali_group_timeout(struct timer_list *t);
 static void mali_group_reset_pp(struct mali_group *group);
 static void mali_group_reset_mmu(struct mali_group *group);
 
@@ -65,10 +66,10 @@ struct mali_group *mali_group_create(struct mali_l2_cache_core *core,
 
 	group = _mali_osk_calloc(1, sizeof(struct mali_group));
 	if (NULL != group) {
-		group->timeout_timer = _mali_osk_timer_init();
-		if (NULL != group->timeout_timer) {
-			_mali_osk_timer_setcallback(group->timeout_timer, mali_group_timeout, (void *)group);
-
+		//group->timeout_timer = _mali_osk_timer_init();
+		/*if (NULL != group->timeout_timer)*/ {
+			//_mali_osk_timer_setcallback(group->timeout_timer, mali_group_timeout, 0);
+			timer_setup(&group->timeout_timer, mali_group_timeout, 0);
 			group->l2_cache_core[0] = core;
 			_mali_osk_list_init(&group->group_list);
 			_mali_osk_list_init(&group->executor_list);
@@ -147,10 +148,11 @@ void mali_group_delete(struct mali_group *group)
 		}
 	}
 
-	if (NULL != group->timeout_timer) {
-		_mali_osk_timer_del(group->timeout_timer);
-		_mali_osk_timer_term(group->timeout_timer);
-	}
+	//if (NULL != group->timeout_timer) {
+	//	_mali_osk_timer_del(group->timeout_timer);
+	del_timer_sync(&group->timeout_timer);
+	//	_mali_osk_timer_term(group->timeout_timer);
+	//}
 
 	if (NULL != group->bottom_half_work_mmu) {
 		_mali_osk_wq_delete_work(group->bottom_half_work_mmu);
@@ -875,7 +877,8 @@ void mali_group_start_gp_job(struct mali_group *group, struct mali_gp_job *job, 
 
 	/* Setup SW timer and record start time */
 	group->start_time = _mali_osk_time_tickcount();
-	_mali_osk_timer_mod(group->timeout_timer, _mali_osk_time_mstoticks(mali_max_job_runtime));
+	//_mali_osk_timer_mod(group->timeout_timer, _mali_osk_time_mstoticks(mali_max_job_runtime));
+	mod_timer(&group->timeout_timer, jiffies + _mali_osk_time_mstoticks(mali_max_job_runtime));
 
 	MALI_DEBUG_PRINT(4, ("Group: Started GP job 0x%08X on group %s at %u\n",
 			     job,
@@ -1028,7 +1031,8 @@ void mali_group_start_pp_job(struct mali_group *group, struct mali_pp_job *job, 
 
 	/* Setup SW timer and record start time */
 	group->start_time = _mali_osk_time_tickcount();
-	_mali_osk_timer_mod(group->timeout_timer, _mali_osk_time_mstoticks(mali_max_job_runtime));
+	//_mali_osk_timer_mod(group->timeout_timer, _mali_osk_time_mstoticks(mali_max_job_runtime));
+	mod_timer(&group->timeout_timer, jiffies + _mali_osk_time_mstoticks(mali_max_job_runtime));
 
 	MALI_DEBUG_PRINT(4, ("Group: Started PP job 0x%08X part %u/%u on group %s at %u\n",
 			     job, sub_job + 1,
@@ -1118,7 +1122,8 @@ struct mali_pp_job *mali_group_complete_pp(struct mali_group *group, mali_bool s
 	MALI_DEBUG_ASSERT(MALI_TRUE == group->is_working);
 
 	/* Stop/clear the timeout timer. */
-	_mali_osk_timer_del_async(group->timeout_timer);
+	//_mali_osk_timer_del_async(group->timeout_timer);
+	del_timer(&group->timeout_timer);
 
 	if (NULL != group->pp_running_job) {
 
@@ -1229,7 +1234,8 @@ struct mali_gp_job *mali_group_complete_gp(struct mali_group *group, mali_bool s
 	MALI_DEBUG_ASSERT(MALI_TRUE == group->is_working);
 
 	/* Stop/clear the timeout timer. */
-	_mali_osk_timer_del_async(group->timeout_timer);
+	//_mali_osk_timer_del_async(group->timeout_timer);
+	del_timer(&group->timeout_timer);
 
 	if (NULL != group->gp_running_job) {
 		mali_gp_update_performance_counters(group->gp_core, group->gp_running_job);
@@ -1373,8 +1379,6 @@ u32 mali_group_dump_state(struct mali_group *group, char *buf, u32 size)
 {
 	int n = 0;
 	int i;
-	struct mali_group *child;
-	struct mali_group *temp;
 
 	if (mali_group_is_virtual(group)) {
 		n += _mali_osk_snprintf(buf + n, size - n,
@@ -1439,11 +1443,6 @@ u32 mali_group_dump_state(struct mali_group *group, char *buf, u32 size)
 					"\tPP running job: %p, subjob %d \n",
 					group->pp_running_job,
 					group->pp_running_sub_job);
-	}
-
-	_MALI_OSK_LIST_FOREACHENTRY(child, temp, &group->group_list,
-				    struct mali_group, group_list) {
-		n += mali_group_dump_state(child, buf + n, size - n);
 	}
 
 	return n;
@@ -1524,7 +1523,7 @@ _mali_osk_errcode_t mali_group_upper_half_mmu(void *data)
 					      MALI_PROFILING_EVENT_REASON_START_STOP_SW_UPPER_HALF,
 					      0, 0, /* No pid and tid for interrupt handler */
 					      MALI_PROFILING_MAKE_EVENT_DATA_CORE_GP_MMU(0),
-					      mali_mmu_get_rawstat(group->mmu), 0);
+					      0xFFFFFFFF, 0);
 	} else {
 		_mali_osk_profiling_add_event(MALI_PROFILING_EVENT_TYPE_STOP |
 					      MALI_PROFILING_EVENT_CHANNEL_SOFTWARE |
@@ -1532,7 +1531,7 @@ _mali_osk_errcode_t mali_group_upper_half_mmu(void *data)
 					      0, 0, /* No pid and tid for interrupt handler */
 					      MALI_PROFILING_MAKE_EVENT_DATA_CORE_PP_MMU(
 						      mali_pp_core_get_id(group->pp_core)),
-					      mali_mmu_get_rawstat(group->mmu), 0);
+					      0xFFFFFFFF, 0);
 	}
 #if defined(CONFIG_MALI_SHARED_INTERRUPTS)
 	mali_executor_unlock();
@@ -1555,7 +1554,7 @@ static void mali_group_bottom_half_mmu(void *data)
 					      MALI_PROFILING_EVENT_REASON_START_STOP_SW_BOTTOM_HALF,
 					      0, _mali_osk_get_tid(), /* pid and tid */
 					      MALI_PROFILING_MAKE_EVENT_DATA_CORE_GP_MMU(0),
-					      mali_mmu_get_rawstat(group->mmu), 0);
+					      0xFFFFFFFF, 0);
 	} else {
 		MALI_DEBUG_ASSERT_POINTER(group->pp_core);
 		_mali_osk_profiling_add_event(MALI_PROFILING_EVENT_TYPE_START |
@@ -1564,7 +1563,7 @@ static void mali_group_bottom_half_mmu(void *data)
 					      0, _mali_osk_get_tid(), /* pid and tid */
 					      MALI_PROFILING_MAKE_EVENT_DATA_CORE_PP_MMU(
 						      mali_pp_core_get_id(group->pp_core)),
-					      mali_mmu_get_rawstat(group->mmu), 0);
+					      0xFFFFFFFF, 0);
 	}
 
 	mali_executor_interrupt_mmu(group, MALI_FALSE);
@@ -1575,7 +1574,7 @@ static void mali_group_bottom_half_mmu(void *data)
 					      MALI_PROFILING_EVENT_REASON_START_STOP_SW_BOTTOM_HALF,
 					      0, _mali_osk_get_tid(), /* pid and tid */
 					      MALI_PROFILING_MAKE_EVENT_DATA_CORE_GP_MMU(0),
-					      mali_mmu_get_rawstat(group->mmu), 0);
+					      0xFFFFFFFF, 0);
 	} else {
 		_mali_osk_profiling_add_event(MALI_PROFILING_EVENT_TYPE_STOP |
 					      MALI_PROFILING_EVENT_CHANNEL_SOFTWARE |
@@ -1583,7 +1582,7 @@ static void mali_group_bottom_half_mmu(void *data)
 					      0, _mali_osk_get_tid(), /* pid and tid */
 					      MALI_PROFILING_MAKE_EVENT_DATA_CORE_PP_MMU(
 						      mali_pp_core_get_id(group->pp_core)),
-					      mali_mmu_get_rawstat(group->mmu), 0);
+					      0xFFFFFFFF, 0);
 	}
 }
 
@@ -1641,7 +1640,7 @@ _mali_osk_errcode_t mali_group_upper_half_gp(void *data)
 				      MALI_PROFILING_EVENT_REASON_START_STOP_SW_UPPER_HALF,
 				      0, 0, /* No pid and tid for interrupt handler */
 				      MALI_PROFILING_MAKE_EVENT_DATA_CORE_GP(0),
-				      mali_gp_get_rawstat(group->gp_core), 0);
+				      0xFFFFFFFF, 0);
 #if defined(CONFIG_MALI_SHARED_INTERRUPTS)
 	mali_executor_unlock();
 #endif
@@ -1662,7 +1661,7 @@ static void mali_group_bottom_half_gp(void *data)
 				      MALI_PROFILING_EVENT_REASON_START_STOP_SW_BOTTOM_HALF,
 				      0, _mali_osk_get_tid(), /* pid and tid */
 				      MALI_PROFILING_MAKE_EVENT_DATA_CORE_GP(0),
-				      mali_gp_get_rawstat(group->gp_core), 0);
+				      0xFFFFFFFF, 0);
 
 	mali_executor_interrupt_gp(group, MALI_FALSE);
 
@@ -1671,7 +1670,7 @@ static void mali_group_bottom_half_gp(void *data)
 				      MALI_PROFILING_EVENT_REASON_START_STOP_SW_BOTTOM_HALF,
 				      0, _mali_osk_get_tid(), /* pid and tid */
 				      MALI_PROFILING_MAKE_EVENT_DATA_CORE_GP(0),
-				      mali_gp_get_rawstat(group->gp_core), 0);
+				      0xFFFFFFFF, 0);
 }
 
 _mali_osk_errcode_t mali_group_upper_half_pp(void *data)
@@ -1733,7 +1732,7 @@ _mali_osk_errcode_t mali_group_upper_half_pp(void *data)
 				      0, 0, /* No pid and tid for interrupt handler */
 				      MALI_PROFILING_MAKE_EVENT_DATA_CORE_PP(
 					      mali_pp_core_get_id(group->pp_core)),
-				      mali_pp_get_rawstat(group->pp_core), 0);
+				      0xFFFFFFFF, 0);
 #if defined(CONFIG_MALI_SHARED_INTERRUPTS)
 	mali_executor_unlock();
 #endif
@@ -1755,7 +1754,7 @@ static void mali_group_bottom_half_pp(void *data)
 				      0, _mali_osk_get_tid(), /* pid and tid */
 				      MALI_PROFILING_MAKE_EVENT_DATA_CORE_PP(
 					      mali_pp_core_get_id(group->pp_core)),
-				      mali_pp_get_rawstat(group->pp_core), 0);
+				      0xFFFFFFFF, 0);
 
 	mali_executor_interrupt_pp(group, MALI_FALSE);
 
@@ -1765,12 +1764,16 @@ static void mali_group_bottom_half_pp(void *data)
 				      0, _mali_osk_get_tid(), /* pid and tid */
 				      MALI_PROFILING_MAKE_EVENT_DATA_CORE_PP(
 					      mali_pp_core_get_id(group->pp_core)),
-				      mali_pp_get_rawstat(group->pp_core), 0);
+				      0xFFFFFFFF, 0);
 }
 
-static void mali_group_timeout(void *data)
+static void mali_group_timeout(struct timer_list *t)
 {
-	struct mali_group *group = (struct mali_group *)data;
+	//struct mali_group *group = (struct mali_group *)data;
+	//_mali_osk_timer_t *tim = from_timer(tim, t, timer);
+	//struct mali_group *group = container_of(&tim, struct mali_group, timeout_timer);
+	struct mali_group *group = from_timer(group, t, timeout_timer);
+
 	MALI_DEBUG_ASSERT_POINTER(group);
 
 	MALI_DEBUG_PRINT(2, ("Group: timeout handler for %s at %u\n",

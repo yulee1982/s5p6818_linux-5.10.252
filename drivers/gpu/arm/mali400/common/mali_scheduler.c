@@ -20,6 +20,7 @@
 #include "mali_group.h"
 #include <linux/wait.h>
 #include <linux/sched.h>
+//#include <linux/dma-resv.h>
 #include "mali_pm_metrics.h"
 
 #if defined(CONFIG_DMA_SHARED_BUFFER)
@@ -713,7 +714,7 @@ void mali_scheduler_abort_session(struct mali_session_data *session)
 		mali_gp_job_signal_pp_tracker(gp_job, MALI_FALSE);
 		_mali_osk_list_delinit(&gp_job->list);
 		mali_scheduler_complete_gp_job(gp_job,
-					       MALI_FALSE, MALI_FALSE, MALI_TRUE);
+					       MALI_FALSE, MALI_TRUE, MALI_TRUE);
 	}
 
 	/* Release and complete non-running PP jobs */
@@ -722,7 +723,7 @@ void mali_scheduler_abort_session(struct mali_session_data *session)
 		mali_timeline_tracker_release(mali_pp_job_get_tracker(pp_job));
 		_mali_osk_list_delinit(&pp_job->list);
 		mali_scheduler_complete_pp_job(pp_job, 0,
-					       MALI_FALSE, MALI_TRUE);
+					       MALI_TRUE, MALI_TRUE);
 	}
 }
 
@@ -981,7 +982,7 @@ static _mali_osk_errcode_t mali_scheduler_submit_pp_job(
 	struct ww_acquire_ctx ww_actx;
 	u32 i;
 	u32 num_memory_cookies = 0;
-	struct reservation_object **reservation_object_list = NULL;
+	struct dma_resv **reservation_object_list = NULL;
 	unsigned int num_reservation_object = 0;
 #endif
 
@@ -1001,7 +1002,7 @@ static _mali_osk_errcode_t mali_scheduler_submit_pp_job(
 	/* Allocate the reservation_object_list to list the dma reservation object of dependent dma buffer */
 	num_memory_cookies = mali_pp_job_num_memory_cookies(job);
 	if (0 < num_memory_cookies) {
-		reservation_object_list = kzalloc(sizeof(struct reservation_object *) * num_memory_cookies, GFP_KERNEL);
+		reservation_object_list = kzalloc(sizeof(struct dma_resv *) * num_memory_cookies, GFP_KERNEL);
 		if (NULL == reservation_object_list) {
 			MALI_PRINT_ERROR(("Failed to alloc the reservation object list.\n"));
 			ret = _MALI_OSK_ERR_NOMEM;
@@ -1012,7 +1013,7 @@ static _mali_osk_errcode_t mali_scheduler_submit_pp_job(
 	/* Add the dma reservation object into reservation_object_list*/
 	for (i = 0; i < num_memory_cookies; i++) {
 		mali_mem_backend *mem_backend = NULL;
-		struct reservation_object *tmp_reservation_object = NULL;
+		struct dma_resv *tmp_reservation_object = NULL;
 		u32 mali_addr  = mali_pp_job_get_memory_cookie(job, i);
 
 		mem_backend = mali_mem_backend_struct_search(session, mali_addr);
@@ -1077,7 +1078,7 @@ static _mali_osk_errcode_t mali_scheduler_submit_pp_job(
 		}
 
 		for (i = 0; i < num_reservation_object; i++) {
-			reservation_object_add_excl_fence(reservation_object_list[i], job->rendered_dma_fence);
+			dma_resv_add_excl_fence(reservation_object_list[i], job->rendered_dma_fence);
 		}
 
 		num_dma_fence_waiter = job->dma_fence_context.num_dma_fence_waiter;

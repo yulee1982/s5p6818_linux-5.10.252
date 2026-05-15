@@ -20,6 +20,7 @@
 extern "C" {
 #endif
 
+#include <linux/timer.h>
 /**
  * @addtogroup uddapi Unified Device Driver (UDD) APIs
  *
@@ -395,9 +396,12 @@ typedef struct _mali_osk_notification_t_struct {
  * by any callers of _mali_osk_timer_del(). Otherwise, a deadlock may occur.
  *
  * @param arg Function-specific data */
-typedef void (*_mali_osk_timer_callback_t)(void *arg);
+typedef void (*_mali_osk_timer_callback_t)(struct timer_list *arg);
 
 /** @brief Private type for Timer Callback Objects */
+struct _mali_osk_timer_t_struct {
+	struct timer_list timer;
+};
 typedef struct _mali_osk_timer_t_struct _mali_osk_timer_t;
 /** @} */ /* end group _mali_osk_timer */
 

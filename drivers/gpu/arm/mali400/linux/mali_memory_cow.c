@@ -569,7 +569,7 @@ _mali_osk_errcode_t mali_mem_cow_cpu_map_pages_locked(mali_mem_backend *mem_bken
 
 	list_for_each_entry(m_page, &cow->pages, list) {
 		if ((count >= offset) && (count < offset + num)) {
-			ret = vm_insert_pfn(vma, vaddr, _mali_page_node_get_pfn(m_page));
+			ret = vmf_insert_pfn(vma, vaddr, _mali_page_node_get_pfn(m_page));
 
 			if (unlikely(0 != ret)) {
 				if (count == offset) {
@@ -683,13 +683,13 @@ void _mali_mem_cow_copy_page(mali_page_node *src_node, mali_page_node *dst_node)
 		/*
 		* use ioremap to map src for BLOCK memory
 		*/
-		src = ioremap_nocache(_mali_page_node_get_dma_addr(src_node), _MALI_OSK_MALI_PAGE_SIZE);
+		src = ioremap_cache(_mali_page_node_get_dma_addr(src_node), _MALI_OSK_MALI_PAGE_SIZE);
 		memcpy(dst, src , _MALI_OSK_MALI_PAGE_SIZE);
 		iounmap(src);
 	}
 	kunmap_atomic(dst);
 	dma_addr = dma_map_page(&mali_platform_device->dev, dst_page,
-				0, _MALI_OSK_MALI_PAGE_SIZE, DMA_TO_DEVICE);
+				0, _MALI_OSK_MALI_PAGE_SIZE, DMA_BIDIRECTIONAL);
 
 	if (dst_node->type == MALI_PAGE_NODE_SWAP) {
 		dst_node->swap_it->dma_addr = dma_addr;

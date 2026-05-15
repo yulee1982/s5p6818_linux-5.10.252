@@ -21,6 +21,24 @@
 #include "mali_osk_specific.h"           /* include any per-os specifics */
 #include "mali_osk_locks.h"
 
+
+/*----------------------------------------*/
+#if 0
+#define NEXELL_FEATURE_IOCTL_PERFORMANCE
+#ifdef NEXELL_FEATURE_IOCTL_PERFORMANCE
+void TestIntTimeEn(int enable);
+unsigned int TestGetTimeTotalValGP(void);
+void TestIntTimeStartGP(void);
+void TestIntStateUpadteGP(void);
+void TestClearTimeTotalValGP(void);
+unsigned int TestGetTimeTotalValPP(void);
+void TestIntTimeStartPP(void);
+void TestIntStateUpadtePP(void);
+void TestClearTimeTotalValPP(void);
+#endif
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -991,7 +1009,7 @@ void _mali_osk_timer_add(_mali_osk_timer_t *tim, unsigned long ticks_to_expire);
  * should trigger.
  *
  */
-void _mali_osk_timer_mod(_mali_osk_timer_t *tim, unsigned long ticks_to_expire);
+//void _mali_osk_timer_mod(_mali_osk_timer_t *tim, unsigned long ticks_to_expire);
 
 /** @brief Stop a timer, and block on its completion.
  *
@@ -1012,7 +1030,7 @@ void _mali_osk_timer_mod(_mali_osk_timer_t *tim, unsigned long ticks_to_expire);
  * @param tim the timer to stop.
  *
  */
-void _mali_osk_timer_del(_mali_osk_timer_t *tim);
+//void _mali_osk_timer_del(_mali_osk_timer_t *tim);
 
 /** @brief Stop a timer.
  *
@@ -1023,7 +1041,7 @@ void _mali_osk_timer_del(_mali_osk_timer_t *tim);
  *
  * @param tim the timer to stop.
  */
-void _mali_osk_timer_del_async(_mali_osk_timer_t *tim);
+//void _mali_osk_timer_del_async(_mali_osk_timer_t *tim);
 
 /** @brief Check if timer is pending.
  *

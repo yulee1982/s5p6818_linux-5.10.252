@@ -15,10 +15,13 @@
 #include "mali_session.h"
 #include "mali_dvfs_policy.h"
 #include "mali_control_timer.h"
+#include "mali_osk_types.h"
 
 static u64 period_start_time = 0;
 
 static _mali_osk_timer_t *mali_control_timer = NULL;
+//static struct _mali_osk_timer_t_struct *mali_control_timer = NULL;
+
 static mali_bool timer_running = MALI_FALSE;
 
 static u32 mali_control_timeout = 1000;
@@ -28,7 +31,7 @@ void mali_control_timer_add(u32 timeout)
 	_mali_osk_timer_add(mali_control_timer, _mali_osk_time_mstoticks(timeout));
 }
 
-static void mali_control_timer_callback(void *arg)
+static void mali_control_timer_callback(struct timer_list *timer)
 {
 	if (mali_utilization_enabled()) {
 		struct mali_gpu_utilization_data *util_data = NULL;
@@ -66,10 +69,12 @@ _mali_osk_errcode_t mali_control_timer_init(void)
 	}
 
 	mali_control_timer = _mali_osk_timer_init();
+	//mali_control_timer = (_mali_osk_timer_t *)kmalloc(sizeof(_mali_osk_timer_t), GFP_KERNEL);
 	if (NULL == mali_control_timer) {
 		return _MALI_OSK_ERR_FAULT;
 	}
-	_mali_osk_timer_setcallback(mali_control_timer, mali_control_timer_callback, NULL);
+	//_mali_osk_timer_setcallback(mali_control_timer, mali_control_timer_callback, NULL);
+	timer_setup(&(mali_control_timer->timer), mali_control_timer_callback, 0);
 
 	return _MALI_OSK_ERR_OK;
 }
@@ -77,7 +82,8 @@ _mali_osk_errcode_t mali_control_timer_init(void)
 void mali_control_timer_term(void)
 {
 	if (NULL != mali_control_timer) {
-		_mali_osk_timer_del(mali_control_timer);
+		//_mali_osk_timer_del(mali_control_timer);
+		del_timer_sync(&(mali_control_timer->timer));
 		timer_running = MALI_FALSE;
 		_mali_osk_timer_term(mali_control_timer);
 		mali_control_timer = NULL;
@@ -119,7 +125,8 @@ void mali_control_timer_suspend(mali_bool suspend)
 		mali_utilization_data_unlock();
 
 		if (suspend == MALI_TRUE) {
-			_mali_osk_timer_del(mali_control_timer);
+			//_mali_osk_timer_del(mali_control_timer);
+			del_timer_sync(&(mali_control_timer->timer));
 			mali_utilization_reset();
 		}
 	} else {
