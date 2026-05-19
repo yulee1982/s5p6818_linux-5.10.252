@@ -1029,7 +1029,8 @@
 		};
 
 		gpu@c0070000 {
-			compatible = "arm,mali-400", "arm,mali-utgard";
+			/*compatible = "arm,mali-400", "arm,mali-utgard";*/
+			compatible = "arm,mali400", "arm,mali-utgard";
 			reg = <PHYS_BASE_VR 0x10000>;
 			interrupts = <0 IRQ_VR 0>, <0 IRQ_VR 0>, <0 IRQ_VR 0>,
 				<0 IRQ_VR 0>, <0 IRQ_VR 0>, <0 IRQ_VR 0>,
