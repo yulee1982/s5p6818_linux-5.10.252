@@ -122,6 +122,22 @@ static void dwc2_set_amlogic_params(struct dwc2_hsotg *hsotg)
 	p->power_down = DWC2_POWER_DOWN_PARAM_NONE;
 }
 
+#if defined (CONFIG_ARCH_S5P6818)
+static void dwc2_set_nexell_params(struct dwc2_hsotg *hsotg)
+{
+	struct dwc2_core_params *p = &hsotg->params;
+
+	p->host_rx_fifo_size		= 1024;	/* 1024 DWORDs */
+	p->host_nperio_tx_fifo_size	= 256;	/* 256 DWORDs */
+	p->host_perio_tx_fifo_size	= 512;	/* 512 DWORDs */
+	p->max_transfer_size		= 65535;
+	p->max_packet_count		= 511;
+	p->host_channels		= 8;
+	p->reload_ctl			= false;
+	p->uframe_sched			= false;
+}
+#endif
+
 static void dwc2_set_amlogic_g12a_params(struct dwc2_hsotg *hsotg)
 {
 	struct dwc2_core_params *p = &hsotg->params;
@@ -199,27 +215,21 @@ const struct of_device_id dwc2_of_match_table[] = {
 	{ .compatible = "lantiq,arx100-usb", .data = dwc2_set_ltq_params },
 	{ .compatible = "lantiq,xrx200-usb", .data = dwc2_set_ltq_params },
 	{ .compatible = "snps,dwc2" },
-	{ .compatible = "samsung,s3c6400-hsotg",
-	  .data = dwc2_set_s3c6400_params },
-	{ .compatible = "amlogic,meson8-usb",
-	  .data = dwc2_set_amlogic_params },
-	{ .compatible = "amlogic,meson8b-usb",
-	  .data = dwc2_set_amlogic_params },
-	{ .compatible = "amlogic,meson-gxbb-usb",
-	  .data = dwc2_set_amlogic_params },
-	{ .compatible = "amlogic,meson-g12a-usb",
-	  .data = dwc2_set_amlogic_g12a_params },
+	{ .compatible = "samsung,s3c6400-hsotg", .data = dwc2_set_s3c6400_params },
+#if defined (CONFIG_ARCH_S5P6818)
+	{ .compatible = "nexell,nexell-dwc2otg", .data = dwc2_set_nexell_params },
+#endif
+	{ .compatible = "amlogic,meson8-usb", .data = dwc2_set_amlogic_params },
+	{ .compatible = "amlogic,meson8b-usb", .data = dwc2_set_amlogic_params },
+	{ .compatible = "amlogic,meson-gxbb-usb", .data = dwc2_set_amlogic_params },
+	{ .compatible = "amlogic,meson-g12a-usb", .data = dwc2_set_amlogic_g12a_params },
 	{ .compatible = "amcc,dwc-otg", .data = dwc2_set_amcc_params },
 	{ .compatible = "apm,apm82181-dwc-otg", .data = dwc2_set_amcc_params },
-	{ .compatible = "st,stm32f4x9-fsotg",
-	  .data = dwc2_set_stm32f4x9_fsotg_params },
+	{ .compatible = "st,stm32f4x9-fsotg", .data = dwc2_set_stm32f4x9_fsotg_params },
 	{ .compatible = "st,stm32f4x9-hsotg" },
-	{ .compatible = "st,stm32f7-hsotg",
-	  .data = dwc2_set_stm32f7_hsotg_params },
-	{ .compatible = "st,stm32mp15-fsotg",
-	  .data = dwc2_set_stm32mp15_fsotg_params },
-	{ .compatible = "st,stm32mp15-hsotg",
-	  .data = dwc2_set_stm32mp15_hsotg_params },
+	{ .compatible = "st,stm32f7-hsotg", .data = dwc2_set_stm32f7_hsotg_params },
+	{ .compatible = "st,stm32mp15-fsotg", .data = dwc2_set_stm32mp15_fsotg_params },
+	{ .compatible = "st,stm32mp15-hsotg", .data = dwc2_set_stm32mp15_hsotg_params },
 	{},
 };
 MODULE_DEVICE_TABLE(of, dwc2_of_match_table);

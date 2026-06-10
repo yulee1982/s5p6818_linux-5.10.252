@@ -1194,6 +1194,10 @@ struct dwc2_hsotg {
 
 #endif /* CONFIG_USB_DWC2_HOST || CONFIG_USB_DWC2_DUAL_ROLE */
 
+#if defined (CONFIG_ARCH_S5P6818)
+	u32 ext_vbus_io;
+#endif
+
 #if IS_ENABLED(CONFIG_USB_DWC2_PERIPHERAL) || \
 	IS_ENABLED(CONFIG_USB_DWC2_DUAL_ROLE)
 	/* Gadget structures */

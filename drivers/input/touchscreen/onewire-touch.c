@@ -41,7 +41,7 @@ static int onewire_touch_probe(struct platform_device *pdev)
 		dev_err(&pdev->dev, "i2c-bus for touch sensor not found\n");
 		return -EPROBE_DEFER;
 	}
-	touchsensor = i2c_new_device(adap, &bdi);
+	touchsensor = i2c_new_client_device(adap, &bdi);
 	put_device(&adap->dev);
 	if( touchsensor == NULL ) {
 		dev_err(&pdev->dev, "touch sensor registration error\n");
