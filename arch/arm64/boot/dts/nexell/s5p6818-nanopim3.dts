@@ -558,6 +558,9 @@
 	nexell,sample_shift = <0x02>;	// DW_MMC_SAMPLE_PHASE(2)
 	status = "okay";
 };
+&watchdog {
+	status = "okay";
+};
 &nexell_usbphy {
 	status = "okay";
 };
@@ -572,6 +575,9 @@
 	port@0 {
 		status = "okay";
 	};
+};
+&dwc2otg {
+	status = "okay";
 };
 &i2c_0 {
 	#address-cells = <1>;

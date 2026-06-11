@@ -27,6 +27,9 @@
 #include <linux/mfd/syscon.h>
 #include <linux/regmap.h>
 #include <linux/delay.h>
+#ifdef CONFIG_RESET_CONTROLLER
+#include <linux/reset.h>
+#endif
 
 #define S3C2410_WTCON		0x00
 #define S3C2410_WTDAT		0x04
@@ -50,8 +53,17 @@
 #define S3C2410_WTCON_PRESCALE_MASK	(0xff << 8)
 #define S3C2410_WTCON_PRESCALE_MAX	0xff
 
+#if defined(CONFIG_S5P6818_WATCHDOG_ATBOOT)
+#define CONFIG_S3C2410_WATCHDOG_ATBOOT		(1)
+#else
 #define S3C2410_WATCHDOG_ATBOOT		(0)
+#endif
+
+#if defined(CONFIG_ARCH_S5P4418) || defined(CONFIG_ARCH_S5P6818)
+#define CONFIG_S3C2410_WATCHDOG_DEFAULT_TIME	(10)
+#else
 #define S3C2410_WATCHDOG_DEFAULT_TIME	(15)
+#endif
 
 #define EXYNOS5_RST_STAT_REG_OFFSET		0x0404
 #define EXYNOS5_WDT_DISABLE_REG_OFFSET		0x0408
@@ -68,6 +80,9 @@ static bool nowayout	= WATCHDOG_NOWAYOUT;
 static int tmr_margin;
 static int tmr_atboot	= S3C2410_WATCHDOG_ATBOOT;
 static int soft_noboot;
+#if defined(CONFIG_S5P6818_WATCHDOG_ATBOOT)
+static struct timer_list watchdog_timer;
+#endif
 
 module_param(tmr_margin,  int, 0);
 module_param(tmr_atboot,  int, 0);
@@ -160,6 +175,10 @@ static const struct s3c2410_wdt_variant drv_data_exynos7 = {
 		  | QUIRK_HAS_WTCLRINT_REG,
 };
 
+static const struct s3c2410_wdt_variant drv_data_nx = {
+	.quirks = 0
+};
+
 static const struct of_device_id s3c2410_wdt_match[] = {
 	{ .compatible = "samsung,s3c2410-wdt",
 	  .data = &drv_data_s3c2410 },
@@ -171,6 +190,8 @@ static const struct of_device_id s3c2410_wdt_match[] = {
 	  .data = &drv_data_exynos5420 },
 	{ .compatible = "samsung,exynos7-wdt",
 	  .data = &drv_data_exynos7 },
+	{ .compatible = "nexell,nexell-wdt",
+	  .data = &drv_data_nx },
 	{},
 };
 MODULE_DEVICE_TABLE(of, s3c2410_wdt_match);
@@ -234,6 +255,8 @@ static int s3c2410wdt_keepalive(struct watchdog_device *wdd)
 	struct s3c2410_wdt *wdt = watchdog_get_drvdata(wdd);
 
 	spin_lock(&wdt->lock);
+	if (of_device_is_compatible(wdt->dev->of_node, "nexell,nexell-wdt"))
+		writel(0, wdt->reg_base + S3C2410_WTCLRINT);
 	writel(wdt->count, wdt->reg_base + S3C2410_WTCNT);
 	spin_unlock(&wdt->lock);
 
@@ -247,6 +270,8 @@ static void __s3c2410wdt_stop(struct s3c2410_wdt *wdt)
 	wtcon = readl(wdt->reg_base + S3C2410_WTCON);
 	wtcon &= ~(S3C2410_WTCON_ENABLE | S3C2410_WTCON_RSTEN);
 	writel(wtcon, wdt->reg_base + S3C2410_WTCON);
+	if (of_device_is_compatible(wdt->dev->of_node, "nexell,nexell-wdt"))
+		writel(0, wdt->reg_base + S3C2410_WTCLRINT);
 }
 
 static int s3c2410wdt_stop(struct watchdog_device *wdd)
@@ -276,7 +301,11 @@ static int s3c2410wdt_start(struct watchdog_device *wdd)
 		wtcon |= S3C2410_WTCON_INTEN;
 		wtcon &= ~S3C2410_WTCON_RSTEN;
 	} else {
-		wtcon &= ~S3C2410_WTCON_INTEN;
+		if (of_device_is_compatible(wdt->dev->of_node,
+					    "nexell,nexell-wdt"))
+			wtcon |= S3C2410_WTCON_INTEN;
+		else
+			wtcon &= ~S3C2410_WTCON_INTEN;
 		wtcon |= S3C2410_WTCON_RSTEN;
 	}
 
@@ -409,6 +438,17 @@ static irqreturn_t s3c2410wdt_irq(int irqno, void *param)
 
 	return IRQ_HANDLED;
 }
+
+#if defined(CONFIG_S5P6818_WATCHDOG_ATBOOT)
+static void watchdog_timer_handler(unsigned long data)
+{
+	struct s3c2410_wdt *wdt = (struct s3c2410_wdt*)data;
+
+	s3c2410wdt_keepalive(&wdt->wdt_device);
+
+	mod_timer(&watchdog_timer, (jiffies + 5*HZ));
+}
+#endif
 
 #ifdef CONFIG_ARM_S3C24XX_CPUFREQ
 
@@ -563,6 +603,23 @@ static int s3c2410wdt_probe(struct platform_device *pdev)
 		return ret;
 	}
 
+	if (of_device_is_compatible(dev->of_node, "nexell,nexell-wdt")) {
+#ifdef CONFIG_RESET_CONTROLLER
+		struct reset_control *rst;
+
+		rst = devm_reset_control_get(dev, "wdt-reset");
+		if (!IS_ERR(rst)) {
+			if (reset_control_status(rst))
+				reset_control_reset(rst);
+		}
+		rst = devm_reset_control_get(dev, "wdt-por-reset");
+		if (!IS_ERR(rst)) {
+			if (reset_control_status(rst))
+				reset_control_reset(rst);
+		}
+#endif
+	}
+
 	wdt->wdt_device.min_timeout = 1;
 	wdt->wdt_device.max_timeout = s3c2410wdt_max_timeout(wdt->clock);
 
@@ -635,6 +692,13 @@ static int s3c2410wdt_probe(struct platform_device *pdev)
 		 (wtcon & S3C2410_WTCON_RSTEN) ? "en" : "dis",
 		 (wtcon & S3C2410_WTCON_INTEN) ? "en" : "dis");
 
+#if defined(CONFIG_S5P6818_WATCHDOG_ATBOOT)
+	if (tmr_atboot && started == 0) {
+		setup_timer(&watchdog_timer, watchdog_timer_handler, (unsigned long)wdt);
+		mod_timer(&watchdog_timer, (jiffies + 5*HZ));
+	}
+#endif
+
 	return 0;
 
  err_unregister:
@@ -703,6 +767,25 @@ static int s3c2410wdt_resume(struct device *dev)
 	int ret;
 	struct s3c2410_wdt *wdt = dev_get_drvdata(dev);
 
+	if (of_device_is_compatible(dev->of_node, "nexell,nexell-wdt")) {
+#ifdef CONFIG_RESET_CONTROLLER
+		struct reset_control *rst;
+
+		rst = reset_control_get(dev, "wdt-reset");
+		if (!IS_ERR(rst)) {
+			if (reset_control_status(rst))
+				reset_control_reset(rst);
+			reset_control_put(rst);
+		}
+		rst = reset_control_get(dev, "wdt-por-reset");
+		if (!IS_ERR(rst)) {
+			if (reset_control_status(rst))
+				reset_control_reset(rst);
+			reset_control_put(rst);
+		}
+#endif
+	}
+
 	/* Restore watchdog state. */
 	writel(wdt->wtdat_save, wdt->reg_base + S3C2410_WTDAT);
 	writel(wdt->wtdat_save, wdt->reg_base + S3C2410_WTCNT);/* Reset count */
@@ -734,7 +817,20 @@ static struct platform_driver s3c2410wdt_driver = {
 	},
 };
 
+#if defined(CONFIG_S5P6818_WATCHDOG_ATBOOT)
+static int __init s3c2410wdt_init(void)
+{
+	return platform_driver_register(&s3c2410wdt_driver);
+}
+
+static void __exit s3c2410wdt_exit(void)
+{
+	platform_driver_unregister(&s3c2410wdt_driver);
+}
+arch_initcall(s3c2410wdt_init);
+#else
 module_platform_driver(s3c2410wdt_driver);
+#endif
 
 MODULE_AUTHOR("Ben Dooks <ben@simtec.co.uk>, Dimitry Andric <dimitry.andric@tomtom.com>");
 MODULE_DESCRIPTION("S3C2410 Watchdog Device Driver");

@@ -616,7 +616,7 @@
 			};
 		};
 
-		dwc2otg@c0040000 {
+		dwc2otg:dwc2otg@c0040000 {
 			compatible = "nexell,nexell-dwc2otg";
 			reg = <PHYS_BASE_HSOTG 0x11000>;
 			interrupts = <0 IRQ_USB20OTG 0>;
@@ -725,7 +725,7 @@
 			status ="disable";
 		};
 
-		watchdog@c0019000 {
+		watchdog:watchdog@c0019000 {
 			compatible = "nexell,nexell-wdt";
 			reg = <PHYS_BASE_WDT 0x1000>;
 			interrupts = <0 IRQ_WDT 0>;
@@ -737,7 +737,7 @@
 			status = "disabled";
 		};
 
-		spdif_tx: spdiftx@c0059000 {
+		spdif_tx:spdiftx@c0059000 {
 			compatible = "nexell,nexell-spdif-tx";
 			reg = <PHYS_BASE_SPDIF_TX 0x1000>;
 			interrupts = <0 IRQ_SPDIFTX 0>;
@@ -752,7 +752,7 @@
 			status = "disabled";
 		};
 
-		tmuctrl_0: tmuctrl@c0096000 {
+		tmuctrl_0:tmuctrl@c0096000 {
 			compatible = "nexell,s5p6818-tmu";
 			reg = <PHYS_BASE_TMU0 0x100>;
 			interrupts = <0 IRQ_TMU0 0>;
@@ -763,7 +763,7 @@
 			status = "disabled";
 		};
 
-		tmuctrl_1: tmuctrl@c0097000 {
+		tmuctrl_1:tmuctrl@c0097000 {
 			compatible = "nexell,s5p6818-tmu";
 			reg = <PHYS_BASE_TMU1 0x100>;
 			interrupts = <0 IRQ_TMU1 0>;
