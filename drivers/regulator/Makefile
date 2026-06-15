@@ -158,5 +158,7 @@ obj-$(CONFIG_REGULATOR_WM8350) += wm8350-regulator.o
 obj-$(CONFIG_REGULATOR_WM8400) += wm8400-regulator.o
 obj-$(CONFIG_REGULATOR_WM8994) += wm8994-regulator.o
 obj-$(CONFIG_REGULATOR_AXP228)	+= axp228-regu.o
+obj-$(CONFIG_REGULATOR_NXE2000) += nxe2000-regulator.o
+obj-$(CONFIG_REGULATOR_SPU1705) += spu1705.o
 
 ccflags-$(CONFIG_REGULATOR_DEBUG) += -DDEBUG
